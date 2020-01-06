@@ -1,0 +1,191 @@
+include "Script/Classes/UnderlyingTypes_h";
+//#include "Model.h"
+//#include "User.h"
+
+typedef enum EClassIdCConversationState;
+EClassIdCConversationState e_classIdCConversationState = 0;
+const int e_classIdCConversationStateCount = 1;
+
+typedef enum EConversationStateFlag;
+EConversationStateFlag e_conversationStateFlagAllowConditions = 0;
+EConversationStateFlag e_conversationStateFlagAllowActions = 1;
+EConversationStateFlag e_conversationStateFlagSorted = 2;
+const int e_conversationStateFlagCount = 3;
+
+typedef enum EConversationStateObject;
+EConversationStateObject e_conversationStateObjectSpeaker = 0;
+EConversationStateObject e_conversationStateObjectListener = 1;
+EConversationStateObject e_conversationStateObjectCamera = 2;
+const int e_conversationStateObjectCount = 3;
+
+typedef enum EConversationStateInfo;
+EConversationStateInfo e_conversationStateInfoText = 0;
+EConversationStateInfo e_conversationStateInfoValue = 1;
+EConversationStateInfo e_conversationStateInfoModel = 2;
+EConversationStateInfo e_conversationStateInfoUpgrade = 3;
+EConversationStateInfo e_conversationStateInfoAbilCmd = 4;
+const int e_conversationStateInfoCount = 5;
+
+typedef enum EConversationConditionOp;
+EConversationConditionOp e_conversationConditionOpEqual = 0;
+EConversationConditionOp e_conversationConditionOpNotEqual = 1;
+EConversationConditionOp e_conversationConditionOpLess = 2;
+EConversationConditionOp e_conversationConditionOpLessEqual = 3;
+EConversationConditionOp e_conversationConditionOpGreater = 4;
+EConversationConditionOp e_conversationConditionOpGreaterEqual = 5;
+const int e_conversationConditionOpCount = 6;
+
+typedef enum EConversationActionOp;
+EConversationActionOp e_conversationActionOpSet = 0;
+EConversationActionOp e_conversationActionOpAdd = 1;
+EConversationActionOp e_conversationActionOpSubtract = 2;
+const int e_conversationActionOpCount = 3;
+
+struct SConversationStateInfoIds{
+	TConversationStateInfoIdArray Id;
+};
+typedef structref<SConversationStateInfoIds> SConversationStateInfoIdsRef;
+const int SConversationStateInfoIdsArraySize = ARRAYSIZE;
+typedef SConversationStateInfoIds[SConversationStateInfoIdsArraySize] SConversationStateInfoIdsArray;
+
+struct SConversationStateInfoText{
+	string Id;
+	text Text;
+};
+
+typedef structref<SConversationStateInfoText> SConversationStateInfoTextRef;
+const int SConversationStateInfoTextArraySize = ARRAYSIZE;
+typedef SConversationStateInfoText[SConversationStateInfoTextArraySize] SConversationStateInfoTextArray;
+
+struct SConversationStateInfoValue{
+	string Id;
+	fixed Value;
+};
+typedef structref<SConversationStateInfoValue> SConversationStateInfoValueRef;
+const int SConversationStateInfoValueArraySize = ARRAYSIZE;
+typedef SConversationStateInfoValue[SConversationStateInfoValueArraySize] SConversationStateInfoValueArray;
+
+
+struct SConversationStateInfoModel{
+	string Id;
+	Link Model;
+};
+typedef structref<SConversationStateInfoModel> SConversationStateInfoModelRef;
+const int SConversationStateInfoModelArraySize = ARRAYSIZE;
+typedef SConversationStateInfoModel[SConversationStateInfoModelArraySize] SConversationStateInfoModelArray;
+
+struct SConversationStateInfoUpgrade {
+	string Id;
+	Link Upgrade;
+};
+typedef structref<SConversationStateInfoUpgrade> SConversationStateInfoUpgradeRef;
+const int SConversationStateInfoUpgradeArraySize = ARRAYSIZE;
+typedef SConversationStateInfoUpgrade[SConversationStateInfoUpgradeArraySize] SConversationStateInfoUpgradeArray;
+
+struct SConversationStateInfoAbilCmd {
+	string Id;
+	Link Abil;
+	abilcmd Cmd;
+};
+typedef structref<SConversationStateInfoAbilCmd> SConversationStateInfoAbilCmdRef;
+const int SConversationStateInfoAbilCmdArraySize = ARRAYSIZE;
+typedef SConversationStateInfoAbilCmd[SConversationStateInfoAbilCmdArraySize] SConversationStateInfoAbilCmdArray;
+
+struct SConversationStateVariation {
+	TConversationStateVariation Value;
+	string DefaultCategories;//std::vector<CString80> 
+};
+typedef structref<SConversationStateVariation> SConversationStateVariationRef;
+const int SConversationStateVariationArraySize = ARRAYSIZE;
+typedef SConversationStateVariation[SConversationStateVariationArraySize] SConversationStateVariationArray;
+
+struct SConversationStateIndex
+{
+	string Id;
+	text Name;
+	text EditorPrefix;
+	text EditorSuffix;
+	color MyColor;//CColor 
+	string ImagePath;
+	//ETextTagEdge ImageEdge;
+	//EAttachmentID ImageAttach;
+	string MoviePath;
+	SConversationStateInfoUpgradeArray InfoText; //std::vector<SConversationStateInfoUpgrade>
+	SConversationStateInfoValueArray InfoValue; //std::vector<SConversationStateInfoValue>
+	SConversationStateInfoModelArray InfoModel; //std::vector<SConversationStateInfoModel>
+	SConversationStateInfoUpgradeArray InfoUpgrade; //std::vector<SConversationStateInfoUpgrade>
+	SConversationStateInfoAbilCmdArray InfoAbilCmd; //std::vector<SConversationStateInfoAbilCmd>
+	SConversationStateVariationArray Variations; //std::vector<SConversationStateVariation>
+};
+typedef structref<SConversationStateIndex> SConversationStateIndexRef;
+const int SConversationStateIndexArraySize = ARRAYSIZE;
+typedef SConversationStateIndex[SConversationStateIndexArraySize] SConversationStateIndexArray;
+
+
+struct SConversationUserValue
+{
+	string Type;
+	string Field;
+	int Index;
+	string Instance;
+};
+typedef structref<SConversationUserValue> SConversationUserValueRef;
+const int SConversationUserValueArraySize = ARRAYSIZE;
+typedef SConversationUserValue[SConversationUserValueArraySize] SConversationUserValueArray;
+
+struct SConversationCondition {
+	TConversationStateOpId FixedId;
+	Link State; //CConversationStateLink 	
+	TConversationStateIndexId Index;
+	SConversationUserValue User;
+	EConversationConditionOp Operation;	
+	int Value;
+};
+typedef structref<SConversationCondition> SConversationConditionRef;
+const int SConversationConditionArraySize = ARRAYSIZE;
+typedef SConversationCondition[SConversationConditionArraySize] SConversationConditionArray;
+
+struct SConversationConditionSet {
+	SConversationConditionArray Conditions; //std::vector<SConversationCondition>
+	text Text;
+};
+typedef structref<SConversationConditionSet> SConversationConditionSetRef;
+const int SConversationConditionSetArraySize = ARRAYSIZE;
+typedef SConversationConditionSet[SConversationConditionSetArraySize] SConversationConditionSetArray;
+
+
+struct SConversationAction {
+	TConversationStateOpId FixedId;
+	Link State;//CConversationStateLink
+	TConversationStateIndexId Index;
+	SConversationUserValue User;
+	EConversationActionOp Operation;
+	int Value;
+};
+typedef structref<SConversationAction> SConversationActionRef;
+const int SConversationActionArraySize = ARRAYSIZE;
+typedef SConversationAction[SConversationActionArraySize] SConversationActionArray;
+
+
+struct SConversationActionSet{
+	SConversationActionArray Actions; //std::vector<SConversationAction>
+	text Text;
+};
+
+
+typedef structref<SConversationActionSet> SConversationActionSetRef;
+const int SConversationActionSetArraySize = ARRAYSIZE;
+typedef SConversationActionSet[SConversationActionSetArraySize] SConversationActionSetArray;
+
+struct CConversationState {
+	//CFlagArray<e_conversationStateFlagCount> Flags;
+	SConversationStateIndex Indices;//std::vector<SConversationStateIndex>
+	//CiRange ValueRange;
+	//std::vector<CColor> CustomColors;
+	SConversationStateInfoIds InfoIds;//std::vector<SConversationStateInfoIds>
+};
+
+typedef structref<CConversationState> CConversationStateRef;
+const int CConversationStateArraySize = 100; 
+typedef CConversationState[CConversationStateArraySize] CConversationStateArray;
+

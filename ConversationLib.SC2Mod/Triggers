@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TriggerData>
+    <Library Id="Conv">
+        <Root>
+            <Item Type="CustomScript" Library="Conv" Id="0FCB9EF3"/>
+            <Item Type="Trigger" Library="Conv" Id="116E5694"/>
+        </Root>
+        <Element Type="CustomScript" Id="0FCB9EF3">
+            <ScriptCode>
+                include &quot;Script/ConvUI_Init&quot;;
+                void ConvUI_main(){
+                 ConvUI_Init();
+                }
+            </ScriptCode>
+            <InitFunc>ConvUI_main</InitFunc>
+        </Element>
+        <Element Type="Trigger" Id="116E5694">
+            <Variable Type="Variable" Library="Conv" Id="B9A049E6"/>
+            <Variable Type="Variable" Library="Conv" Id="6F9F787E"/>
+            <Variable Type="Variable" Library="Conv" Id="C0B9C94C"/>
+            <Variable Type="Variable" Library="Conv" Id="0BFC5C73"/>
+            <Variable Type="Variable" Library="Conv" Id="54E134E4"/>
+            <Variable Type="Variable" Library="Conv" Id="FD38377B"/>
+            <Variable Type="Variable" Library="Conv" Id="63E69E41"/>
+            <Variable Type="Variable" Library="Conv" Id="5537966D"/>
+            <Variable Type="Variable" Library="Conv" Id="1A146E30"/>
+            <Variable Type="Variable" Library="Conv" Id="499F5DDB"/>
+            <Variable Type="Variable" Library="Conv" Id="E386B065"/>
+            <Variable Type="Variable" Library="Conv" Id="89522EBF"/>
+            <Variable Type="Variable" Library="Conv" Id="67E71D5C"/>
+        </Element>
+        <Element Type="Variable" Id="B9A049E6">
+            <VariableType>
+                <Type Value="convcharacter"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="1BD547C7"/>
+        </Element>
+        <Element Type="Param" Id="1BD547C7">
+            <Value>&quot;char_Artanis&quot;</Value>
+            <ValueType Type="convcharacter"/>
+        </Element>
+        <Element Type="Variable" Id="6F9F787E">
+            <VariableType>
+                <Type Value="convcharacter"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="85BA3953"/>
+        </Element>
+        <Element Type="Param" Id="85BA3953">
+            <Value>&quot;char_Alarak&quot;</Value>
+            <ValueType Type="convcharacter"/>
+        </Element>
+        <Element Type="Variable" Id="C0B9C94C">
+            <VariableType>
+                <Type Value="string"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="333ED6C5"/>
+        </Element>
+        <Element Type="Param" Id="333ED6C5">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="2E661FB1"/>
+        </Element>
+        <Element Type="FunctionCall" Id="2E661FB1">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000383"/>
+            <Parameter Type="Param" Library="Conv" Id="BFB4B3C7"/>
+            <Parameter Type="Param" Library="Conv" Id="5D30AB39"/>
+            <Parameter Type="Param" Library="Conv" Id="17D7BDA7"/>
+            <Parameter Type="Param" Library="Conv" Id="04858C84"/>
+        </Element>
+        <Element Type="Param" Id="BFB4B3C7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000750"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="5D30AB39">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000747"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="50486258"/>
+        </Element>
+        <Element Type="Param" Id="17D7BDA7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000748"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="04858C84">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000749"/>
+            <Value>Lines[0].Text</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CConversation"/>
+            <ValueParam Type="Param" Library="Conv" Id="5F4E4DD9"/>
+        </Element>
+        <Element Type="Param" Id="5F4E4DD9">
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Variable" Id="0BFC5C73">
+            <VariableType>
+                <Type Value="string"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="6FE291E8"/>
+        </Element>
+        <Element Type="Param" Id="6FE291E8">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="F7B3E6D6"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F7B3E6D6">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000383"/>
+            <Parameter Type="Param" Library="Conv" Id="202ADCF4"/>
+            <Parameter Type="Param" Library="Conv" Id="A8728D34"/>
+            <Parameter Type="Param" Library="Conv" Id="66D4DCD8"/>
+            <Parameter Type="Param" Library="Conv" Id="2B02DA06"/>
+        </Element>
+        <Element Type="Param" Id="202ADCF4">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000750"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="A8728D34">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000747"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="50486258"/>
+        </Element>
+        <Element Type="Param" Id="66D4DCD8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000748"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="2B02DA06">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000749"/>
+            <Value>Lines</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CConversation"/>
+        </Element>
+        <Element Type="Variable" Id="54E134E4">
+            <VariableType>
+                <Type Value="string"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="105678EA"/>
+        </Element>
+        <Element Type="Param" Id="105678EA">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="383FB36B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="383FB36B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000383"/>
+            <Parameter Type="Param" Library="Conv" Id="FCEE134C"/>
+            <Parameter Type="Param" Library="Conv" Id="431155DF"/>
+            <Parameter Type="Param" Library="Conv" Id="23BAB449"/>
+            <Parameter Type="Param" Library="Conv" Id="86ABAB0B"/>
+        </Element>
+        <Element Type="Param" Id="FCEE134C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000750"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="431155DF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000747"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="A8095E09"/>
+        </Element>
+        <Element Type="Param" Id="23BAB449">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000748"/>
+            <Value>Artanis</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="86ABAB0B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000749"/>
+            <Value>Image</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CCharacter"/>
+        </Element>
+        <Element Type="Variable" Id="FD38377B">
+            <VariableType>
+                <Type Value="convline"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="A1A0C55D"/>
+        </Element>
+        <Element Type="Param" Id="A1A0C55D">
+            <Value>TestConversation|Line00002</Value>
+            <ValueType Type="convline"/>
+        </Element>
+        <Element Type="Variable" Id="63E69E41">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="BDAB5D5E"/>
+        </Element>
+        <Element Type="Param" Id="BDAB5D5E">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="059DDA93"/>
+        </Element>
+        <Element Type="FunctionCall" Id="059DDA93">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0261D6DB"/>
+            <Parameter Type="Param" Library="Conv" Id="D2B3EF0D"/>
+        </Element>
+        <Element Type="Param" Id="D2B3EF0D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2E7D5D9A"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Conversation"/>
+        </Element>
+        <Element Type="Variable" Id="5537966D">
+            <VariableType>
+                <Type Value="string"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="60688C26"/>
+        </Element>
+        <Element Type="Param" Id="60688C26">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="E19D8523"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E19D8523">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0F7F949A"/>
+            <Parameter Type="Param" Library="Conv" Id="954F7939"/>
+            <Parameter Type="Param" Library="Conv" Id="7FEC0F7E"/>
+        </Element>
+        <Element Type="Param" Id="954F7939">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1495F32C"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="7FEC0F7E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D9C1BC5F"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Conversation"/>
+        </Element>
+        <Element Type="Variable" Id="1A146E30">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="D4F1DB3E"/>
+        </Element>
+        <Element Type="Param" Id="D4F1DB3E">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="4A199480"/>
+        </Element>
+        <Element Type="FunctionCall" Id="4A199480">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="4E004004"/>
+            <Parameter Type="Param" Library="Conv" Id="06F525CD"/>
+            <Parameter Type="Param" Library="Conv" Id="B36D3EB6"/>
+            <Parameter Type="Param" Library="Conv" Id="A3AC831B"/>
+            <Parameter Type="Param" Library="Conv" Id="202FF81A"/>
+        </Element>
+        <Element Type="Param" Id="06F525CD">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="893D368F"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="B36D3EB6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0031ED18"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="50486258"/>
+        </Element>
+        <Element Type="Param" Id="A3AC831B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="99B05266"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="202FF81A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="FC11E017"/>
+            <Value>Lines</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CConversation"/>
+        </Element>
+        <Element Type="Variable" Id="499F5DDB">
+            <VariableType>
+                <Type Value="string"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="F92ED767"/>
+        </Element>
+        <Element Type="Param" Id="F92ED767">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="4273F48F"/>
+        </Element>
+        <Element Type="FunctionCall" Id="4273F48F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000383"/>
+            <Parameter Type="Param" Library="Conv" Id="1DF36018"/>
+            <Parameter Type="Param" Library="Conv" Id="9D5F28C8"/>
+            <Parameter Type="Param" Library="Conv" Id="78E4E546"/>
+            <Parameter Type="Param" Library="Conv" Id="25653F1C"/>
+        </Element>
+        <Element Type="Param" Id="1DF36018">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000750"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="9D5F28C8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000747"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="50486258"/>
+        </Element>
+        <Element Type="Param" Id="78E4E546">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000748"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="25653F1C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000749"/>
+            <Value>Groups[0].Children[1]</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CConversation"/>
+            <ValueParam Type="Param" Library="Conv" Id="6E521D97"/>
+            <ValueParam Type="Param" Library="Conv" Id="9B981170"/>
+        </Element>
+        <Element Type="Param" Id="6E521D97">
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="9B981170">
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Variable" Id="E386B065">
+            <VariableType>
+                <Type Value="catalogfieldpath"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="E73A5E48"/>
+        </Element>
+        <Element Type="Param" Id="E73A5E48">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="C4C62B1C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C4C62B1C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="4D4B1A99"/>
+            <Parameter Type="Param" Library="Conv" Id="6C3F9D58"/>
+            <Parameter Type="Param" Library="Conv" Id="7E73BA60"/>
+        </Element>
+        <Element Type="Param" Id="6C3F9D58">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2D6BC73E"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="7E73BA60">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="A3154568"/>
+            <Value>Conversation,TestConversation,Groups[0].Children[0]</Value>
+            <ValueType Type="reference"/>
+        </Element>
+        <Element Type="Variable" Id="89522EBF">
+            <VariableType>
+                <Type Value="catalogfieldpath"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="B52F1FC4"/>
+        </Element>
+        <Element Type="Param" Id="B52F1FC4">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="FAEFA5A7"/>
+        </Element>
+        <Element Type="FunctionCall" Id="FAEFA5A7">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="28E8B577"/>
+            <Parameter Type="Param" Library="Conv" Id="D949894E"/>
+            <Parameter Type="Param" Library="Conv" Id="16A8D3D7"/>
+        </Element>
+        <Element Type="Param" Id="D949894E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="010BFC05"/>
+            <Value>CConversation</Value>
+            <ValueType Type="catalogscope"/>
+        </Element>
+        <Element Type="Param" Id="16A8D3D7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="31698231"/>
+            <Value>Groups</Value>
+            <ValueType Type="catalogfieldname"/>
+        </Element>
+        <Element Type="Variable" Id="67E71D5C">
+            <VariableType>
+                <Type Value="string"/>
+            </VariableType>
+            <Value Type="Param" Library="Conv" Id="1E71FD0E"/>
+        </Element>
+        <Element Type="Param" Id="1E71FD0E">
+            <FunctionCall Type="FunctionCall" Library="Conv" Id="40FF2143"/>
+        </Element>
+        <Element Type="FunctionCall" Id="40FF2143">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="F32154E6"/>
+            <Parameter Type="Param" Library="Conv" Id="DF49D66E"/>
+        </Element>
+        <Element Type="Param" Id="DF49D66E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="48FDDA84"/>
+            <Value>test</Value>
+            <ValueType Type="conversationtag"/>
+        </Element>
+    </Library>
+</TriggerData>

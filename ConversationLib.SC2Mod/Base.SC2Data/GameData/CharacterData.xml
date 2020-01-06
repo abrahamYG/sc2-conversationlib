@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CCharacter id="FuckingMentalJimRaynor">
+        <Age value="50"/>
+        <Race value="Terran"/>
+        <Image value="Assets\Textures\rayor_amon_mutator_portrait_static.dds"/>
+        <Voice value="ATT Mike"/>
+        <Color value="255,0,0,160"/>
+        <Variations Model="RaynorCommanderPortrait"/>
+        <Variations Model="Battlecruiser_Umojan_Portrait"/>
+    </CCharacter>
+</Catalog>

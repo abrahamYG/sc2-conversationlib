@@ -1,0 +1,90 @@
+include "TriggerLibs/NativeLib"
+
+include "LibConv_h"
+
+//--------------------------------------------------------------------------------------------------
+// Library: Conversation
+//--------------------------------------------------------------------------------------------------
+// External Library Initialization
+void libConv_InitLibraries () {
+    libNtve_InitVariables();
+}
+
+// Custom Script
+//--------------------------------------------------------------------------------------------------
+// Custom Script: Init
+//--------------------------------------------------------------------------------------------------
+include "Script/ConvUI_Init";
+void ConvUI_main(){
+ ConvUI_Init();
+}
+
+void libConv_InitCustomScript () {
+    ConvUI_main();
+}
+
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Test
+//--------------------------------------------------------------------------------------------------
+bool libConv_gt_Test_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    string lv_char1;
+    string lv_char2;
+    string lv_char3;
+    string lv_char4;
+    string lv_characterImage;
+    string lv_line;
+    int lv_linuNumber;
+    string lv_lineName;
+    int lv_lineCount;
+    string lv_group;
+    string lv_untitledVariable001;
+    string lv_untitledVariable002;
+    string lv_untitledVariable003;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_char1 = "char_Artanis";
+    lv_char2 = "char_Alarak";
+    lv_char3 = CatalogFieldValueGet(c_gameCatalogConversation, "TestConversation", "Lines[" + IntToString(0) + "].Text", c_playerAny);
+    lv_char4 = CatalogFieldValueGet(c_gameCatalogConversation, "TestConversation", "Lines", c_playerAny);
+    lv_characterImage = CatalogFieldValueGet(c_gameCatalogCharacter, "Artanis", "Image", c_playerAny);
+    lv_line = "TestConversation|Line00002";
+    lv_linuNumber = ConversationDataLineCount("TestConversation");
+    lv_lineName = ConversationDataLineId("TestConversation", 1);
+    lv_lineCount = CatalogFieldValueCount(c_gameCatalogConversation, "TestConversation", "Lines", c_playerAny);
+    lv_group = CatalogFieldValueGet(c_gameCatalogConversation, "TestConversation", "Groups[" + IntToString(0) + "].Children[" + IntToString(0) + "]", c_playerAny);
+    lv_untitledVariable001 = CatalogReferenceGet("Conversation,TestConversation,Groups[0].Children[0]", c_playerAny);
+    lv_untitledVariable002 = CatalogFieldType("CConversation", "Groups");
+    lv_untitledVariable003 = ("test");
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libConv_gt_Test_Init () {
+    libConv_gt_Test = TriggerCreate("libConv_gt_Test_Func");
+}
+
+void libConv_InitTriggers () {
+    libConv_gt_Test_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+bool libConv_InitLib_completed = false;
+
+void libConv_InitLib () {
+    if (libConv_InitLib_completed) {
+        return;
+    }
+
+    libConv_InitLib_completed = true;
+
+    libConv_InitLibraries();
+    libConv_InitCustomScript();
+    libConv_InitTriggers();
+}
+

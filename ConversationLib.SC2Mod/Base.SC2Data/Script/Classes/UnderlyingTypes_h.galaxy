@@ -1,0 +1,84 @@
+//#ifndef UNDERLYINGTYPES_H
+//#define UNDERLYINGTYPES_H
+
+// #include <QtCore/qglobal.h>
+// #include <vector>
+const int ARRAYSIZE = 10;
+ 
+typedef int enum;
+typedef int uint8;
+typedef int uint16;
+typedef int uint32;
+typedef int uint64;
+typedef int int8;
+typedef int int16;
+typedef int int32;
+typedef int int64;
+typedef fixed real32;
+typedef uint8 flag8;
+typedef bool flag;
+typedef color CColor;
+
+//typedef CFixed TUnitRadius;
+//template <int32 total_bits_>
+//class CFlagArray
+//{
+//public:
+//    CFlagArray() : total_bits(total_bits_) {}
+//private:
+//    int32 total_bits;
+//};
+
+typedef real32 THostedPropPriority;
+// class CCardId
+// {
+// };
+// class CFourCC
+// {
+// };
+//typedef CFourCC TLocaleId;
+typedef uint32 TAbilCmdIndex;
+typedef uint32 TAttackTargetPriority;
+typedef uint32 TCargoCapacity;
+typedef uint32 TCliffLevel;
+typedef uint32 TPowerLevel;
+typedef int32 TAttachPropIndex;
+typedef int32 TDifficultyLevel;
+typedef int32 TMarkerCount;
+typedef int32 TSoundBalance;
+typedef int32 TSoundWeight;
+
+typedef string TCatalogFieldPath;
+typedef string TCatalogFieldValue;
+typedef string TChargeLink;
+typedef string TConversationItemId;
+const int TConversationItemIdArraySize = 200;
+typedef TConversationItemId[TConversationItemIdArraySize] TConversationItemIdArray;
+typedef string TConversationStateIndexId;
+typedef TConversationStateIndexId[ARRAYSIZE] TConversationStateIndexIdArray;
+typedef string TConversationStateInfoId;
+typedef TConversationStateInfoId[ARRAYSIZE] TConversationStateInfoIdArray;
+typedef string TConversationStateOpId;
+typedef TConversationStateOpId[ARRAYSIZE] TConversationStateOpIdArray;
+typedef string TConversationStateVariation;
+typedef TConversationStateVariation[ARRAYSIZE] TConversationStateVariationArray;
+typedef string TCooldownLink;
+typedef string TEditorCategories;
+typedef string TGalaxyFunction;
+typedef string TMarkerLink;
+typedef string TPowerLink;
+typedef string TTechAlias;
+typedef string TTriggerLibId;
+typedef string TUpgradeEffectValue;
+typedef string TUserFieldId;
+typedef string TUserInstanceId;
+typedef string Link;
+typedef Link[ARRAYSIZE] LinkArray;
+//struct CUnknown
+//{
+//};
+// typedef CUnknown TCargoSize;
+//typedef CUnknown TCmdResult;
+//typedef CUnknown TFootprintBorders;
+//typedef CUnknown TFootprintMask;
+//typedef CUnknown TFootprintOffsets;

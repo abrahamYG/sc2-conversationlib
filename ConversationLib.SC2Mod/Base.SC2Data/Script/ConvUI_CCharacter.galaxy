@@ -1,0 +1,60 @@
+include "Script/Headers/ConvUI_CCharacter_h";
+
+int ConvUI_CCharacterGetbyID(arrayref<CCharacterArray> Characters, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<CCharacterArraySize;i+=1){
+		if(Characters[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+void ConvUI_SCharacterVariationCreateFromData(SCharacterVariationRef Variation, string charId, int index){
+    string Field = "Variations[" + IntToString(index) + "]";
+    
+    Variation.Name = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, Field+".Name", c_playerAny));
+	Variation.Model = CatalogFieldValueGet(c_gameCatalogCharacter, charId, Field+".Model", c_playerAny);
+	Variation.Actor = CatalogFieldValueGet(c_gameCatalogCharacter, charId, Field+".Actor", c_playerAny);
+	
+}
+
+string ConvUI_CCharacterCreateFromData(CCharacterRef Character,string charId){
+	int i;
+	int VariationCount = MinI(CatalogFieldValueCount(c_gameCatalogCharacter, charId, "Variations", c_playerAny),SCharacterVariationArraySize);
+	
+	Character.Id = charId;
+	Character.Name = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Name", c_playerAny));
+	Character.Age = CatalogFieldValueGetAsInt(c_gameCatalogCharacter, charId, "Age", c_playerAny);
+	//Character.//ECharacterGender Gender;
+	//Character.//ECharacterRace Race;
+	Character.Attitude = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Attitude", c_playerAny));
+	Character.Timbre = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Timbre", c_playerAny));
+	Character.Dialect = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Dialect", c_playerAny));
+	Character.VoiceRef = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, "VoiceRef", c_playerAny));
+	Character.Description = StringExternal(CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Description", c_playerAny));
+	Character.Image = CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Image", c_playerAny);
+	//Character.//ECharacterRelevance Relevance;
+	Character.Voice = CatalogFieldValueGet(c_gameCatalogCharacter, charId, "Voice", c_playerAny);
+	Character.Pitch = CatalogFieldValueGetAsInt(c_gameCatalogCharacter, charId, "Pitch", c_playerAny);
+	//CColor Color;
+	for(i=0;i<VariationCount;i+=1){
+        ConvUI_SCharacterVariationCreateFromData(Character.Variations[i],charId,i);
+	}
+	return Character.Id;
+}
+
+
+void ConvUI_CCharacterCreateFromCatalog(arrayref<CCharacterArray> Characters){
+	int count = MinI(CatalogEntryCount(c_gameCatalogCharacter),CCharacterArraySize);
+	int i = 0;
+	string Entry;
+	CCharacterRef Character;
+	for(i=0;i<count;i+=1){
+		Character = Characters[i];
+		Entry = CatalogEntryGet(c_gameCatalogCharacter,i+1);
+		ConvUI_CCharacterCreateFromData(Character,Entry);
+	}
+}

@@ -1,0 +1,35 @@
+include "Script/Headers/ConvUI_UI_h";
+
+
+int ConvUI_DialogMainHookup = -1;
+
+int ConvUI_DialogMainHookupGet(){
+    if(ConvUI_DialogMainHookup<0){
+        ConvUI_DialogMainHookup = DialogControlHookupStandard(c_triggerControlTypePanel,"UIContainer/FullscreenUpperContainer");
+    }
+    return ConvUI_DialogMainHookup;
+}
+
+int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,string template){
+    string Portrait = Character.Image;
+    text Speaker = Character.Name;
+    text Text = Line.Text;
+    string finalTemplate = template;
+    playergroup pg = PlayerGroupActive();
+    int parent = ConvUI_DialogMainHookupGet();
+    int dlg;
+    int dlgPortrait;
+    int dlgSPeaker;
+    int dlgText;
+    if(finalTemplate == ""){
+        finalTemplate = CONVUI_LINEDLG_TEMPLATELEFT;
+    }
+    dlg = DialogControlCreateInPanelFromTemplate(parent,c_triggerControlTypePanel,finalTemplate);
+    dlgPortrait = DialogControlHookup(dlg,c_triggerControlTypeImage,"PortraitImage");
+    dlgSPeaker = DialogControlHookup(dlg,c_triggerControlTypeLabel,"BodyFrame/SpeakerLabel");
+    dlgText = DialogControlHookup(dlg,c_triggerControlTypeLabel,"BodyFrame/TextLabel");
+    DialogControlSetPropertyAsString(dlgPortrait,c_triggerControlPropertyImage,pg,Portrait);
+    DialogControlSetPropertyAsText(dlgSPeaker,c_triggerControlPropertyText,pg,Speaker);
+    DialogControlSetPropertyAsText(dlgText,c_triggerControlPropertyText,pg,Text);
+    return dlg;
+}

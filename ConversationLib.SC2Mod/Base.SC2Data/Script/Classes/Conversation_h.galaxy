@@ -1,0 +1,183 @@
+include "Script/Classes/UnderlyingTypes_h";
+include "Script/Classes/ConversationState_h";
+
+typedef enum EClassIdCConversation;
+EClassIdCConversation e_classIdCConversation = 0;
+const int e_classIdCConversationCount = 1;
+
+typedef enum EConversationSelectionMethod;
+EConversationSelectionMethod e_conversationSelectionMethodAll = 0;
+EConversationSelectionMethod e_conversationSelectionMethodMultiple = 1;
+EConversationSelectionMethod e_conversationSelectionMethodSequence = 2;
+EConversationSelectionMethod e_conversationSelectionMethodRandom = 3;
+const int e_conversationSelectionMethodCount = 4; 
+
+typedef enum EConversationProductionLevel;
+EConversationProductionLevel e_conversationProductionLevel0 = 0;
+EConversationProductionLevel e_conversationProductionLevel1 = 1;
+EConversationProductionLevel e_conversationProductionLevel2 = 2;
+EConversationProductionLevel e_conversationProductionLevel3 = 3;
+EConversationProductionLevel e_conversationProductionLevel4 = 4;
+const int e_conversationProductionLevelCount = 5;
+
+typedef enum EConversationProductionLevelFlag;
+EConversationProductionLevelFlag e_conversationProductionLevelFlagLocked = 0;
+const int e_conversationProductionLevelFlagCount = 1;
+
+typedef enum EConversationConditionCheck;
+EConversationConditionCheck e_conversationConditionCheckAll = 0;
+EConversationConditionCheck e_conversationConditionCheckAny = 1;
+const int e_conversationConditionCheckCount = 2;
+
+struct SConversationProductionLevel{
+     string SubtitlePrefix;
+    int Flags;//CFlagArray<e_conversationProductionLevelFlagCount> Flags;
+ };
+ 
+struct SConversationFacialAnim{    
+	string Id;
+	text Text;
+	string SpeechTag;
+	string SpeechAtts;
+	string AnimTag;
+	string AnimAtts;
+};
+typedef structref<SConversationFacialAnim> SConversationFacialAnimRef;
+const int SConversationFacialAnimArraySize = ARRAYSIZE;
+typedef SConversationFacialAnim[SConversationFacialAnimArraySize] SConversationFacialAnimArray;
+
+
+struct SConversationLine {
+	string Id;
+	text Text;
+	string Comment;
+	string FacialAnim;
+	int FacialBlend;
+	bool FacialAsVoiceDir;
+	string Sound;
+	int SoundIndex;
+	int FixedDuration;
+	bool NoWait;
+	int OverlapPrevious;
+	//CAnimProps AnimProps;
+	int AnimBlendIn;
+	int AnimBlendOut;
+	string LookAtType;
+	//CAttachMethods LookAtAttach;
+	TConversationStateIndexIdArray Objects;//std::vector<TConversationStateIndexId>
+	TConversationStateVariationArray Variations;//std::vector<TConversationStateVariation>
+	text CustomSpeaker;
+	string SpeakerCharacter;
+	string SpeakerVariation;
+	string ListenerCharacter;
+	bool AltLine;
+	bool AltLineMatchText;
+	EConversationConditionCheck ConditionCheck;
+	SConversationConditionArray Conditions;//std::vector<SConversationCondition> 
+	SConversationActionArray Actions;//std::vector<SConversationAction>
+	string CutsceneFile;
+	point CutscenePosition;//CGamePoint3D CutscenePosition;
+};
+typedef structref<SConversationLine> SConversationLineRef;
+const int SConversationLineArraySize = ARRAYSIZE;
+typedef SConversationLine[SConversationLineArraySize] SConversationLineArray;
+ 
+
+struct SConversationRunActions {
+	string Id;
+	EConversationConditionCheck ConditionCheck;
+	SConversationConditionArray Conditions;//std::vector<SConversationCondition> Conditions;
+	SConversationActionArray Actions;//std::vector<SConversationAction> Actions;
+};
+typedef structref<SConversationRunActions> SConversationRunActionsRef;
+const int SConversationRunActionsArraySize = ARRAYSIZE;
+typedef SConversationRunActions[SConversationRunActionsArraySize] SConversationRunActionsArray;
+
+struct SConversationWait {
+	string Id;
+	int Duration;
+	SConversationConditionArray Conditions;//std::vector<SConversationCondition> 
+	EConversationConditionCheck ConditionCheck;
+};
+typedef structref<SConversationWait> SConversationWaitRef;
+const int SConversationWaitArraySize = ARRAYSIZE;
+typedef SConversationWait[SConversationWaitArraySize] SConversationWaitArray;
+ 
+struct SConversationJump {
+	string Id;
+	TConversationItemId Location;
+	EConversationConditionCheck ConditionCheck;
+	SConversationConditionArray Conditions;//std::vector<SConversationCondition> Conditions;
+};
+typedef structref<SConversationJump> SConversationJumpRef;
+const int SConversationJumpArraySize = ARRAYSIZE;
+typedef SConversationJump[SConversationJumpArraySize] SConversationJumpArray;
+
+struct SConversationChoice {
+	string Id;
+	text Text;
+	string Comment;
+	bool RequiresPrevious;
+	bool Permanent;
+	EConversationConditionCheck ConditionCheck;
+	SConversationConditionArray Conditions;//std::vector<SConversationCondition> Conditions;
+	SConversationActionArray Actions;//std::vector<SConversationAction> Actions;
+	TConversationItemIdArray Children;//std::vector<TConversationItemId> Children;
+};
+typedef structref<SConversationChoice> SConversationChoiceRef;
+const int SConversationChoiceArraySize = ARRAYSIZE;
+typedef SConversationChoice[SConversationChoiceArraySize] SConversationChoiceArray;
+ 
+struct SConversationGroup {
+	string Id;
+	text Name;
+	string Comment;
+	EConversationSelectionMethod ChoiceSelection;
+	int MaxChoices;
+	EConversationSelectionMethod LineSelection;
+	int MaxLines;
+	bool PlayOnceOnly;
+	TConversationStateIndexId ChoiceCamera;
+	EConversationConditionCheck ConditionCheck;
+	SConversationConditionArray Conditions;//std::vector<SConversationCondition> Conditions;
+	TConversationItemIdArray Children;//std::vector<TConversationItemId> Children;
+	string CutsceneFile;
+	point CutscenePosition;//CGamePoint3D 
+	bool ApplyCutsceneToChildren;
+};
+
+typedef structref<SConversationGroup> SConversationGroupRef;
+const int SConversationGroupArraySize = ARRAYSIZE;
+typedef SConversationGroup[SConversationGroupArraySize] SConversationGroupArray;
+ 
+struct SConversationComment {
+	string Id;
+	text Text;
+};
+typedef structref<SConversationComment> SConversationCommentRef;
+const int SConversationCommentArraySize = ARRAYSIZE;
+typedef SConversationComment[SConversationCommentArraySize] SConversationCommentArray;
+
+struct CConversation {
+	string Id;
+	int AnimBlendDefault;
+	int AnimBlendOut;
+	LinkArray ObjectStates;//std::vector<CConversationStateLink> 
+	Link DefaultSpeaker1;//CCharacterLink 
+	Link DefaultSpeaker2;//CCharacterLink 
+	SConversationConditionSetArray FixedConditions;//std::vector<SConversationConditionSet> 
+	SConversationActionSetArray FixedActions;//std::vector<SConversationActionSet> 
+	SConversationFacialAnimArray FacialAnims;//std::vector<SConversationFacialAnim> 
+	SConversationLineArray Lines;//std::vector<SConversationLine> 
+	SConversationRunActionsArray RunActions;//std::vector<SConversationRunActions> 
+	SConversationWaitArray Waits;//std::vector<SConversationWait> 
+	SConversationJumpArray Jumps;//std::vector<SConversationJump> 
+	SConversationChoiceArray Choices;//std::vector<SConversationChoice> 
+	SConversationGroupArray Groups;//std::vector<SConversationGroup> 
+	SConversationCommentArray Comments;//std::vector<SConversationComment> 
+	TConversationItemIdArray RootItems;//std::vector<TConversationItemId> 
+};
+typedef structref<CConversation> CConversationRef;
+const int CConversationArraySize = 10; 
+typedef CConversation[CConversationArraySize] CConversationArray;
+

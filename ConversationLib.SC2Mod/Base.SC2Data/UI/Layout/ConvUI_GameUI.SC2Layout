@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	
+	<Frame file="GameUI" name="GameUI/UIContainer/FullscreenUpperContainer" type="Frame">
+		<!--
+			<Frame type="Frame" name="ConversationLine01" template="ConvUI_LineTemplate/ConversationLineTemplateLeft">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="100"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="100"/>
+		</Frame>
+		<Frame type="Frame" name="ConversationLine02" template="ConvUI_LineTemplate/ConversationLineTemplateRight">
+			<Anchor side="Top" relative="$parent/ConversationLine01" pos="Max" offset="10"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="100"/>
+		</Frame>
+		-->
+	</Frame>
+</Desc>

@@ -1,0 +1,55 @@
+include "Script/Classes/UnderlyingTypes_h";
+
+typedef enum EClassIdCCharacter;
+EClassIdCCharacter e_classIdCCharacter = 0;
+const int e_classIdCCharacterCount = 1;
+
+typedef enum ECharacterGender; //Gender Enum
+ECharacterGender e_characterGenderFemale=0; //Gender Male
+ECharacterGender e_characterGenderMale=1; //Gender Female
+const int e_characterGenderCount = 2;
+
+typedef enum ECharacterRace;
+ECharacterRace e_characterRaceProtoss = 0;
+ECharacterRace e_characterRaceTerran = 1;
+ECharacterRace e_characterRaceZerg = 2;
+ECharacterRace e_characterRaceXelNaga = 3;
+const int e_characterRaceCount = 4;
+
+typedef enum ECharacterRelevance;
+ECharacterRelevance e_characterRelevanceMajor = 0;
+ECharacterRelevance e_characterRelevanceMedium = 1;
+ECharacterRelevance e_characterRelevanceMinor = 2;
+const int e_characterRelevanceCount = 3;
+
+struct SCharacterVariation {
+	text Name;
+	string Model;
+	string Actor;
+};
+
+typedef structref<SCharacterVariation> SCharacterVariationRef;
+const int SCharacterVariationArraySize = 4; 
+typedef SCharacterVariation[SCharacterVariationArraySize] SCharacterVariationArray;
+
+struct CCharacter {
+	string Id;
+	text Name;
+	int Age;
+	ECharacterGender Gender;
+	ECharacterRace Race;
+	text Attitude;
+	text Timbre;
+	text Dialect;
+	text VoiceRef;
+	text Description;
+	string Image;
+	ECharacterRelevance Relevance;
+	string Voice;
+	int Pitch;
+	color MyColor;
+	SCharacterVariationArray Variations;//std::vector<SCharacterVariation> 
+};
+typedef structref<CCharacter> CCharacterRef;
+const int CCharacterArraySize = 100; 
+typedef CCharacter[CCharacterArraySize] CCharacterArray;

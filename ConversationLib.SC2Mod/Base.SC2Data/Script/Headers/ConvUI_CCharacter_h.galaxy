@@ -1,0 +1,8 @@
+include "Script/Classes/Character_h";
+
+CCharacterArray ConvUI_CCharacters;
+CCharacter ConvUI_EmptyCharacter;
+int ConvUI_CCharacterGetbyID(arrayref<CCharacterArray> Characters, string id);
+void ConvUI_SCharacterVariationCreateFromData(SCharacterVariationRef Variation, string charId, int index);
+string ConvUI_CCharacterCreateFromData(CCharacterRef Character,string charId);
+void ConvUI_CCharacterCreateFromCatalog(arrayref<CCharacterArray> Characters);

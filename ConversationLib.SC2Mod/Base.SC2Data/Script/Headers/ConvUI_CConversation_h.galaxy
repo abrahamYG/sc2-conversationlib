@@ -1,0 +1,15 @@
+include "Script/Classes/Conversation_h";
+include "Script/Classes/Character_h";
+
+CConversationArray ConvUI_CConversations;
+static void SConversationLineCallbackFunc(SConversationLineRef Line, CCharacterRef Character, int index);
+typedef funcref<SConversationLineCallbackFunc> SConversationLineCallback;
+
+struct ConversationCallback{
+	SConversationLineCallback LineCallback;
+};
+
+string ConvUI_SConversationGroupCreateFromData(SConversationGroupRef Group, string convId, int index);
+string ConvUI_SConversationLineCreateFromData(SConversationLineRef Line, string convId, int index);
+string ConvUI_CConversationCreateFromData(CConversationRef Conversation,string convId);
+void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters,SConversationLineCallback Callback);

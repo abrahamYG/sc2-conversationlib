@@ -1,0 +1,16 @@
+﻿CustomScript/Name/lib_Conv_0FCB9EF3=Init
+Library/Name/Conv=Conversation
+Trigger/Name/lib_Conv_116E5694=Test
+Variable/Name/lib_Conv_0BFC5C73=Char4
+Variable/Name/lib_Conv_1A146E30=LineCount
+Variable/Name/lib_Conv_499F5DDB=Group
+Variable/Name/lib_Conv_54E134E4=CharacterImage
+Variable/Name/lib_Conv_5537966D=LineName
+Variable/Name/lib_Conv_63E69E41=LinuNumber
+Variable/Name/lib_Conv_67E71D5C=Untitled Variable 003
+Variable/Name/lib_Conv_6F9F787E=Char2
+Variable/Name/lib_Conv_89522EBF=Untitled Variable 002
+Variable/Name/lib_Conv_B9A049E6=Char1
+Variable/Name/lib_Conv_C0B9C94C=Char3
+Variable/Name/lib_Conv_E386B065=Untitled Variable 001
+Variable/Name/lib_Conv_FD38377B=Line

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	<Frame type="Frame" name="ConversationLineTemplate">
+		<Width val="640"/>
+		<Height val="240"/>
+		<Frame type="Image" name="BackgroundImage">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Texture val="@@UI/VictoryPanelSummaryBorder"/>
+			<TextureType val="HorizontalBorder"/>
+			<Tiled val="true"/>
+		</Frame>
+		<Frame type="Image" name="BlackoutImage">
+			<Anchor relative="$parent" offset="-16"/>
+			<Color val="0,0,0"/>
+			<Alpha val="128"/>
+			<AcceptsMouse val="true"/>
+		</Frame>
+		<Frame type="Image" name="PortraitImage">
+			<Texture val="Assets\Textures\artanisportrait_static.dds"/>
+			<TextureType val="Normal"/>
+			<Width val="114"/>
+			<Height val="174"/>
+		</Frame>
+		<Frame type="Frame" name="BodyFrame">
+			<Frame type="Label" name="SpeakerLabel">
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Style val="Campaign_FloatingTitle"/>
+				<Text val="Artanis"/>
+			</Frame>
+			<Frame type="Label" name="TextLabel">
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Top" relative="$parent/SpeakerLabel" pos="Max" offset="8"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Style val="Cantina_Text"/>
+				<Text val="@Conversation/CINEMATIC_BETTERMARINE/Line00014"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="ConversationLineTemplateLeft" template="ConvUI_LineTemplate/ConversationLineTemplate">
+		<Frame type="Image" name="PortraitImage">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="32"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="32"/>
+		</Frame>
+		<Frame type="Frame" name="BodyFrame">
+			<Anchor side="Left" relative="$parent/PortraitImage" pos="Max" offset="8"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-32"/>
+
+			<Anchor side="Top" relative="$parent/PortraitImage" pos="Min" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="-32"/>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="ConversationLineTemplateRight" template="ConvUI_LineTemplate/ConversationLineTemplate">
+		<Frame type="Image" name="PortraitImage">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="32"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-32"/>
+		</Frame>
+		<Frame type="Frame" name="BodyFrame">
+			<Anchor side="Left" relative="$parent" pos="Min" offset="32"/>
+			<Anchor side="Right" relative="$parent/PortraitImage" pos="Min" offset="-8"/>
+
+			<Anchor side="Top" relative="$parent/PortraitImage" pos="Min" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="-32"/>
+		</Frame>
+	</Frame>
+</Desc>
