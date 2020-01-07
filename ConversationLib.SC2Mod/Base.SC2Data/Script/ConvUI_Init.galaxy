@@ -1,6 +1,7 @@
 include "Script/ConvUI_CCharacter";
 include "Script/ConvUI_CConversation";
 include "Script/ConvUI_UI";
+include "Script/ConvUI_BriefingUI";
 include "Script/ConvUI_Debug";
 
 ConversationCallback ConvUI_Callbacks;
@@ -23,5 +24,6 @@ bool DummyTrigger(bool a, bool b){
 void ConvUI_Init(){
 	//trigger t = TriggerCreate("DummyTrigger");
 	//TriggerExecute(t,false,false);
+	ConvUI_BriefingUIInit();
 	ConvUI_DebugInit();
 }

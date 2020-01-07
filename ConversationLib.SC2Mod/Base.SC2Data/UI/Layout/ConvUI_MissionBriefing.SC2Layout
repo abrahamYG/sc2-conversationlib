@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	
+    <Frame name="BriefingFrame" type="Frame">
+        <Frame type="Portrait" name="Portrait01">
+            <Anchor side="Right" relative="$parent/Portrait02" pos="Min" offset="-80"/>
+            <Anchor side="Top" relative="$parent/Portrait02" pos="Mid" offset="0"/>
+            <Width val="228"/>
+            <Height val="348"/>
+        </Frame>
+        <Frame type="Portrait" name="Portrait02">
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="-40"/>
+            <Anchor side="Top" relative="$parent" pos="Min" offset="20"/>
+            <Width val="228"/>
+			<Height val="348"/>
+        </Frame>
+        <Frame type="Portrait" name="Portrait03">
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="40"/>
+            <Anchor side="Top" relative="$parent" pos="Min" offset="20"/>
+            <Width val="228"/>
+			<Height val="348"/>
+        </Frame>
+        <Frame type="Portrait" name="Portrait04">
+            <Anchor side="Left" relative="$parent/Portrait03" pos="Max" offset="80"/>
+            <Anchor side="Top" relative="$parent/Portrait03" pos="Mid" offset="0"/>
+            <Width val="228"/>
+			<Height val="348"/>
+		</Frame>
+		<Frame type="Frame" name="TextFrame">
+            <Anchor side="Left" relative="$parent/Portrait02" pos="Min" offset="0"/>
+            <Anchor side="Right" relative="$parent/Portrait03" pos="Max" offset="0"/>
+            <Anchor side="Top" relative="$parent/Portrait02" pos="Max" offset="40"/>
+            <Height val="400"/>
+            <Frame type="Image" name="BackgroundImage">
+                <Anchor relative="$parent" offset="0"/>
+                <Texture val="@@UI/VictoryPanelSummaryBorder"/>
+                <TextureType val="HorizontalBorder"/>
+                <Tiled val="true"/>
+            </Frame>
+            <Frame type="Image" name="BlackoutImage">
+                <Anchor relative="$parent" offset="-16"/>
+                <Color val="0,0,0"/>
+                <Alpha val="128"/>
+                <AcceptsMouse val="true"/>
+            </Frame>
+            <Frame type="Label" name="SpeakerLabel">
+				<Anchor side="Left" relative="$parent" pos="Min" offset="32"/>
+				<Anchor side="Top" relative="$parent" pos="Min" offset="32"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-32"/>
+				<Style val="Campaign_FloatingTitle"/>
+				<Text val="Artanis"/>
+			</Frame>
+            <Frame type="Label" name="Label">
+				<Anchor side="Left" relative="$parent/SpeakerLabel" pos="Min" offset="0"/>
+				<Anchor side="Top" relative="$parent/SpeakerLabel" pos="Max" offset="8"/>
+				<Anchor side="Right" relative="$parent/SpeakerLabel" pos="Max" offset="0"/>
+				<Style val="Cantina_Text"/>
+				<Text val="@Conversation/CINEMATIC_BETTERMARINE/Line00014"/>
+			</Frame>
+        </Frame>
+		
+		
+	</Frame>
+</Desc>

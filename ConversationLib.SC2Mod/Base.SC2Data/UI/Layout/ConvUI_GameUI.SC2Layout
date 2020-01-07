@@ -2,6 +2,28 @@
 <Desc>
 	
 	<Frame file="GameUI" name="GameUI/UIContainer/FullscreenUpperContainer" type="Frame">
+		<Frame type="Frame" name="BriefingFrame" template="ConvUI_MissionBriefing/BriefingFrame">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="20"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="-20"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+			<Visible val="False"/>
+		</Frame>
+		<Frame type="Button" name="ConvoButton01" template="StandardBattlenetTemplates/BattlenetVerticalTabButtonTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="80"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
+			<Text val="Run Transmission"/>
+		</Frame>
+		<Frame type="Button" name="ConvoButton02" template="StandardBattlenetTemplates/BattlenetVerticalTabButtonTemplate">
+			<Anchor side="Top" relative="$parent/ConvoButton01" pos="Max" offset="10"/>
+			<Anchor side="Right" relative="$parent/ConvoButton01" pos="Max" offset="0"/>
+			<Text val="Run Briefing"/>
+		</Frame>
+		<Frame type="Button" name="ConvoButton03" template="StandardBattlenetTemplates/BattlenetVerticalTabButtonTemplate">
+			<Anchor side="Top" relative="$parent/ConvoButton02" pos="Max" offset="10"/>
+			<Anchor side="Right" relative="$parent/ConvoButton02" pos="Max" offset="0"/>
+			<Text val="Run Custom UI"/>
+		</Frame>
 		<!--
 			<Frame type="Frame" name="ConversationLine01" template="ConvUI_LineTemplate/ConversationLineTemplateLeft">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="100"/>

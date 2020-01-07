@@ -176,6 +176,7 @@ string ConvUI_CConversationCreateFromData(CConversationRef Conversation,string c
 	Count = MinI(CatalogFieldValueCount(c_gameCatalogConversation, convId, "Waits", c_playerAny),SConversationWaitArraySize);
 	for(i=0;i<Count;i+=1){
 		WaitRef = Conversation.Waits[i];
+		ConvUI_SConversationWaitFromData(WaitRef,convId,i);
 	}
 	Count = MinI(CatalogFieldValueCount(c_gameCatalogConversation, convId, "Jumps", c_playerAny),SConversationJumpArraySize);
 	for(i=0;i<Count;i+=1){

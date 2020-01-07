@@ -1,0 +1,15 @@
+include "Script/Headers/ConvUI_CCharacter_h";
+include "Script/Headers/ConvUI_CConversation_h";
+
+const string CONVUI_BRIEFINGPANEPATH = "UIContainer/FullscreenUpperContainer/BriefingFrame";
+struct ConvUI_BriefingPaneStruct {
+    int Frame;
+    int[4] Portraits;
+    int TextLabel;
+    int SpeakerLabel;
+};
+
+ConvUI_BriefingPaneStruct ConvUI_BriefingPane;
+
+void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex);
+void ConvUI_BriefingUIInit();

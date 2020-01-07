@@ -7,6 +7,7 @@
             <Text value="Conversation/TestConversation/Line00001"/>
             <FacialAnim value="Angry"/>
             <FacialAsVoiceDir value="1"/>
+            <Sound value="Banshee_Attack"/>
             <NoWait value="1"/>
             <OverlapPrevious value="500"/>
             <AnimProps value="Talk"/>
@@ -23,6 +24,7 @@
         <Lines>
             <Id value="Line00002"/>
             <Text value="Conversation/TestConversation/Line00002"/>
+            <Sound value="HeroNovaMP1_Attack"/>
             <OverlapPrevious value="500"/>
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
@@ -33,6 +35,7 @@
         <Lines>
             <Id value="Line00003"/>
             <Text value="Conversation/TestConversation/Line00003"/>
+            <Sound value="Banshee_What"/>
             <OverlapPrevious value="500"/>
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
@@ -42,6 +45,7 @@
         <Lines>
             <Id value="Line00004"/>
             <Text value="Conversation/TestConversation/Line00004"/>
+            <Sound value="GhostFemale_GhostFemale_005"/>
             <OverlapPrevious value="500"/>
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
@@ -51,6 +55,7 @@
         <Lines>
             <Id value="Line00005"/>
             <Text value="Conversation/TestConversation/Line00005"/>
+            <Sound value="MainMenuNova_Sneer"/>
             <OverlapPrevious value="500"/>
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>

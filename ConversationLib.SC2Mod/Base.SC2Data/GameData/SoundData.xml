@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CSound id="GhostFemale_GhostFemale_005">
+        <Flags index="NeedsUpdate" value="0"/>
+        <Flags index="NeedsTTS" value="0"/>
+    </CSound>
+    <CSound id="HeroNovaMP1_Attack">
+        <Flags index="NeedsUpdate" value="0"/>
+        <Flags index="NeedsTTS" value="0"/>
+    </CSound>
+</Catalog>
