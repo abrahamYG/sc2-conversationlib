@@ -1,0 +1,112 @@
+include "Script/Headers/ConvUI_CCharacter_h";
+include "Script/Headers/ConvUI_CConversation_h";
+include "Script/Headers/ConvUI_UI_h";
+
+static const string CONVUI_CONVERSATIONID = "TestConversation";
+static bool ConvUI_DebugConversationInitialized = false;
+static bool ConvUI_DebugCharactersInitialized = false;
+static bool ConvUI_DebugCallbacksInitialized = false;
+
+CConversation ConvUI_DebugConversation;
+ConversationCallback ConvUI_DebugCallbacks;
+
+void ConvUI_DebugCreateTransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+	playergroup pg = PlayerGroupActive();
+	int player = PlayerGroupPlayer(pg,1);
+	string Model = Character.Variations[0].Model;
+	transmissionsource TS = TransmissionSourceFromModel(Model);
+	int Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
+	string Actor = Character.Variations[0].Actor;
+	soundlink Sound;
+	text Speaker = Character.Name;
+	text Subtitle = Line.Text;
+	fixed Duration = 5.0;
+	int DurType = c_transmissionDurationAdd;
+	if(Line.Sound != ""){
+		Sound = SoundLink(Line.Sound,c_soundIndexAny);
+		Duration = SoundLengthSync(Sound);
+	}
+	if(index%2 != 0){
+		Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
+	}
+	else{
+		Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterRight);
+	}
+	TriggerDebugOutput(1,StringToText("Line:"+Line.Id),true);
+	TriggerDebugOutput(1,StringToText("Model:"+Model),true);
+	TriggerDebugOutput(1,StringToText("Actor:"+Actor),true);
+	TransmissionSendForPlayerSelect(pg,TS,Portrait,Actor,"Talk",Sound,Speaker,Subtitle,Duration, DurType,true,player,false);
+}
+
+void ConvUI_DebugCreateDialogIntLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+	int dlg;
+	string template;
+	playergroup pg = PlayerGroupActive();
+	int player = PlayerGroupPlayer(pg,1);
+
+	if(index%2 != 0){
+		template = CONVUI_LINEDLG_TEMPLATELEFT;
+	}
+	else{
+		template = CONVUI_LINEDLG_TEMPLATERIGHT;
+	}
+	dlg = ConvUI_LineDialogCreate(Line,Character,template);
+	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
+	TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
+}
+
+
+void ConvUI_DebugLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+	//ConvUI_DebugCreateDialogIntLineCallback(Conversation,Line,Character,index);
+	ConvUI_DebugCreateTransmissionLineCallback(Conversation,Line,Character,index);
+}
+
+void ConvUI_DebugWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
+    TriggerDebugOutput(1,StringToText("Waiting: "+IntToString(WaitRef.Duration)),true);
+    Wait(IntToFixed(WaitRef.Duration),c_timeReal);
+}
+
+void ConvUI_InitDebugConversation(){
+    if(ConvUI_DebugConversationInitialized){return;}
+    ConvUI_CConversationCreateFromData(ConvUI_DebugConversation,CONVUI_CONVERSATIONID);
+    ConvUI_DebugConversationInitialized = true;
+}
+
+void ConvUI_InitDebugCharacters(){
+    if(ConvUI_DebugCharactersInitialized){return;}
+    ConvUI_CCharacterCreateFromCatalog(ConvUI_CCharacters);
+    ConvUI_DebugCharactersInitialized = true;
+}
+
+
+void ConvUI_InitDebugCallbacks(){
+    ConversationCallbackRef Callbacks = ConvUI_DebugCallbacks;
+    if(ConvUI_DebugCallbacksInitialized){return;}
+    Callbacks.LineCallback = ConvUI_DebugLineCallback;
+    Callbacks.WaitCallback = ConvUI_DebugWaitCallback;
+    ConvUI_DebugCallbacksInitialized = true;
+}
+
+bool ConvUI_DebugRunConversationFunc(bool a, bool b){
+    CConversationRef Conversation = ConvUI_DebugConversation;
+    arrayref<CCharacterArray> Characters = ConvUI_CCharacters;
+    ConversationCallbackRef Callbacks = ConvUI_DebugCallbacks;
+    
+    ConvUI_ConversationRun(Conversation,Characters,Callbacks);
+    return true;
+}
+
+bool ConvUI_DebugInitTriggerFunc(bool a, bool b){
+    ConvUI_InitDebugConversation();
+    ConvUI_InitDebugCharacters();
+    ConvUI_InitDebugCallbacks();
+    return true;
+}
+
+void ConvUI_DebugInit(){
+    trigger t;
+    t = TriggerCreate("ConvUI_DebugInitTriggerFunc");
+    TriggerExecute(t,false,false);
+    t = TriggerCreate("ConvUI_DebugRunConversationFunc");
+    
+}

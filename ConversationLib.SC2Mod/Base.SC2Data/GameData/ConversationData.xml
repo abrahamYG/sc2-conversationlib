@@ -13,8 +13,8 @@
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
             <LookAtType value="FastEyesOnly"/>
-            <SpeakerCharacter value="Artanis"/>
-            <ListenerCharacter value="Artanis"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+            <ListenerCharacter value="TerranAdjutant"/>
             <ConditionCheck value="Any"/>
             <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Operation="Less"/>
             <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
@@ -27,7 +27,8 @@
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
-            <SpeakerCharacter value="Alarak"/>
+            <SpeakerCharacter value="HappyJoe"/>
+            <ListenerCharacter value="GhostFemale"/>
         </Lines>
         <Lines>
             <Id value="Line00003"/>
@@ -36,7 +37,7 @@
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
-            <SpeakerCharacter value="Artanis"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
         </Lines>
         <Lines>
             <Id value="Line00004"/>
@@ -45,7 +46,7 @@
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
-            <SpeakerCharacter value="Karax"/>
+            <SpeakerCharacter value="GhostFemale"/>
         </Lines>
         <Lines>
             <Id value="Line00005"/>
@@ -54,13 +55,14 @@
             <AnimProps value="Talk"/>
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
-            <SpeakerCharacter value="Artanis"/>
+            <SpeakerCharacter value="HappyJoe"/>
         </Lines>
         <Groups Id="Group00001" Name="Conversation/TestConversation/Group00001">
             <Children value="Line00001"/>
             <Children value="Line00002"/>
             <Children value="Line00003"/>
             <Children value="Line00004"/>
+            <Children value="Wait00001"/>
             <Children value="Line00005"/>
             <Children value="RunActions00001"/>
             <Children value="Comment00001"/>
@@ -86,5 +88,6 @@
             <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
         </Choices>
         <Comments Id="Comment00001" Text="Conversation/TestConversation/Comment00001"/>
+        <Waits Id="Wait00001" Duration="1500"/>
     </CConversation>
 </Catalog>

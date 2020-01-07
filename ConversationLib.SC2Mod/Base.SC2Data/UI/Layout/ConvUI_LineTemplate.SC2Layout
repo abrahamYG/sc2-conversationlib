@@ -24,6 +24,9 @@
 			<Width val="114"/>
 			<Height val="174"/>
 		</Frame>
+		<Frame type="Portrait" name="PortraitModel">
+			<Anchor relative="$parent/PortraitImage" offset="0"/>
+		</Frame>
 		<Frame type="Frame" name="BodyFrame">
 			<Frame type="Label" name="SpeakerLabel">
 				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>

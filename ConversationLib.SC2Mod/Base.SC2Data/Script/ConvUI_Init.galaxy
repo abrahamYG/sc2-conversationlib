@@ -1,32 +1,19 @@
-include "Script/ConvUI_UI";
-include "Script/ConvUI_CConversation";
 include "Script/ConvUI_CCharacter";
+include "Script/ConvUI_CConversation";
+include "Script/ConvUI_UI";
+include "Script/ConvUI_Debug";
 
-void ConvUI_CreateDialogIntLineCallback(SConversationLineRef Line, CCharacterRef Character, int index){
-	int dlg;
-	string template;
-	playergroup pg = PlayerGroupActive();
-	int player = PlayerGroupPlayer(pg,1);
-
-	if(index%2 != 0){
-		template = CONVUI_LINEDLG_TEMPLATELEFT;
-	}
-	else{
-		template = CONVUI_LINEDLG_TEMPLATERIGHT;
-	}
-	dlg = ConvUI_LineDialogCreate(Line,Character,template);
-	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*index));
-	TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
-}
+ConversationCallback ConvUI_Callbacks;
 
 bool DummyTrigger(bool a, bool b){
 	CConversationRef Conversation = ConvUI_CConversations[0];
 	string convId = "TestConversation";
 	arrayref<CCharacterArray> Characters = ConvUI_CCharacters;
+	ConversationCallbackRef Callbacks = ConvUI_Callbacks;
 	
-	ConvUI_CCharacterCreateFromCatalog(Characters);
-	ConvUI_CConversationCreateFromData(Conversation,convId);
-	ConvUI_ConversationRun(Conversation,Characters,ConvUI_CreateDialogIntLineCallback);
+	//ConvUI_CCharacterCreateFromCatalog(Characters);
+	//ConvUI_CConversationCreateFromData(Conversation,convId);
+	//ConvUI_ConversationRun(Conversation,Characters,Callbacks);
 
 
 
@@ -34,6 +21,7 @@ bool DummyTrigger(bool a, bool b){
 }
 
 void ConvUI_Init(){
-	trigger t = TriggerCreate("DummyTrigger");
-	TriggerExecute(t,false,false);
+	//trigger t = TriggerCreate("DummyTrigger");
+	//TriggerExecute(t,false,false);
+	ConvUI_DebugInit();
 }

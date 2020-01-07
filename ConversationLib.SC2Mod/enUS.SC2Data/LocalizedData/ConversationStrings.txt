@@ -1,10 +1,11 @@
-﻿Character/Name/FuckingMentalJimRaynor=Fucking Mental Jim Raynor
+﻿Character/Name/FuckingMentalJimRaynor=Angry Jane
+Character/Name/HappyJoe=Happy Joe
 Conversation/TestConversation/Choice00001=User Response
 Conversation/TestConversation/Comment00001=Comment
 Conversation/TestConversation/Group00001=Init
 Conversation/TestConversation/Group00002=User Choices
-Conversation/TestConversation/Line00001=Stop defying me Alarak!
-Conversation/TestConversation/Line00002=Oh, but I can´t resist, Hierarch!
+Conversation/TestConversation/Line00001=I am going to murder you all!
+Conversation/TestConversation/Line00002=Not if I murder you first!
 Conversation/TestConversation/Line00003=You dont tease me!
 Conversation/TestConversation/Line00004=What is happening here?
-Conversation/TestConversation/Line00005=N-nothing, Karax-sama!
+Conversation/TestConversation/Line00005=N-nothing, Adjutant-sama!
