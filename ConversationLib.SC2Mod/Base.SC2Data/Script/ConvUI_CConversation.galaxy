@@ -97,12 +97,25 @@ int ConvUI_SConversationGroupGetChildrenCount(CConversationRef Conversation, SCo
 	return count;
 }
 
+
+
 string ConvUI_SConversationWaitCreateFromData(SConversationWaitRef WaitRef, string convId, string Field, int index){
 	WaitRef.Id =  CatalogFieldValueGet(c_gameCatalogConversation, convId, Field+".Id", c_playerAny);;
 	WaitRef.Duration=  CatalogFieldValueGetAsInt(c_gameCatalogConversation, convId, Field+".Duration", c_playerAny);
 	//WaitRef.Conditions;
 	WaitRef.ConditionCheck=  CatalogFieldValueGetAsInt(c_gameCatalogConversation, convId, Field+".ConditionCheck", c_playerAny);
 	return WaitRef.Id;
+}
+
+
+string ConvUI_SConversationJumpCreateFromData(SConversationJumpRef Jump, string convId, string Field, int index){
+	//string Field = "Jumps[" + IntToString(index) + "]";
+	string Id = CatalogFieldValueGet(c_gameCatalogConversation, convId, Field+".Id", c_playerAny);
+	Jump.Id = Id;
+	Jump.ConditionCheck = CatalogFieldValueGetAsInt(c_gameCatalogConversation, convId, Field+".ConditionCheck", c_playerAny);
+	//Jump.Conditions;
+	Jump.Location = CatalogFieldValueGet(c_gameCatalogConversation, convId, Field+".Location", c_playerAny);
+	return Id;
 }
 
 string ConvUI_SConversationChoiceCreateFromData(SConversationChoiceRef Choice, string convId, string Field, int index){
@@ -266,6 +279,7 @@ string ConvUI_CConversationCreateFromData(CConversationRef Conversation,string c
 	Count = MinI(CatalogFieldValueCount(c_gameCatalogConversation, convId, Field, c_playerAny),SConversationJumpArraySize);
 	for(i=0;i<Count;i+=1){
 		Jump = Conversation.Jumps[i];
+		ConvUI_SConversationJumpCreateFromData(Jump,convId,Field+"[" + IntToString(i) + "]",i);
 	}
 	Field = "Choices";
 	Count = MinI(CatalogFieldValueCount(c_gameCatalogConversation, convId, Field, c_playerAny),SConversationChoiceArraySize);
@@ -281,21 +295,19 @@ string ConvUI_CConversationCreateFromData(CConversationRef Conversation,string c
 	return Conversation.Id;
 }
 
-void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters,ConversationCallbackRef CallbackSet){
+void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters, ConversationCallbackRef CallbackSet, arrayref<TConversationItemIdArray> Children, int Count){
 	int i =0;
-	int ChildrenCount = 0;
-	int LineIndex = -1;
+	int ChildIndex = -1;
 	int LineCount = 0;
 	int WaitCount = 0;
 	int RunActionsCount = 0;
 	int JumpCount = 0;
 	int ChoiceCount = 0;
 	int CommentCount = 0;
+	int GroupCount = 0;
 	int CharIndex = -1;
-	int GroupIndex = ConvUI_CConversationGroupGetById(Conversation,Conversation.RootItems[0]);
-	SConversationGroupRef Group = Conversation.Groups[GroupIndex];
 	//arrayref<SConversationLineArray> Lines = Conversation.Lines;
-	arrayref<TConversationItemIdArray> Children  = Group.Children;
+	SConversationGroupRef Group;
 	SConversationLineRef Line;
 	SConversationWaitRef WaitRef;
 	SConversationRunActionsRef RunActions;
@@ -310,16 +322,18 @@ void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArr
 	SConversationJumpCallback JumpCallback = CallbackSet.JumpCallback;
 	SConversationChoiceCallback ChoiceCallback = CallbackSet.ChoiceCallback;
 	SConversationCommentCallback CommentCallback = CallbackSet.CommentCallback;
+	SConversationGroupCallback GroupCallback = CallbackSet.GroupCallback;
 
-	ChildrenCount = ConvUI_SConversationGroupGetChildrenCount(Conversation,Group);
-	for(i=0;i<ChildrenCount;i+=1){
+	int SubChildrenCount = 0;
+
+	for(i=0;i<Count;i+=1){
 		Child = Children[i];
 		if(StringContains(Child,"Line",0,true)){
-			LineIndex = ConvUI_CConversationLineGetById(Conversation,Child);
-			if(LineIndex<0){
+			ChildIndex = ConvUI_CConversationLineGetById(Conversation,Child);
+			if(ChildIndex<0){
 				continue;
 			}
-			Line = Conversation.Lines[LineIndex];
+			Line = Conversation.Lines[ChildIndex];
 			LineCount += 1;
 			CharIndex = ConvUI_CCharacterGetbyID(Characters,Line.SpeakerCharacter);
 			if(CharIndex<0){
@@ -331,40 +345,44 @@ void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArr
 			LineCallback(Conversation,Line,Character,LineCount);
 		}
 		else if(StringContains(Child,"Wait",0,true)){
-			LineIndex = ConvUI_CConversationWaitGetById(Conversation,Child);
-			if(LineIndex<0){
+			ChildIndex = ConvUI_CConversationWaitGetById(Conversation,Child);
+			if(ChildIndex<0){
 				continue;
 			}
-			WaitRef = Conversation.Waits[LineIndex];
+			WaitRef = Conversation.Waits[ChildIndex];
 			WaitCount += 1;
 			WaitCallback(Conversation,WaitRef,WaitCount);
 		}
 		else if(StringContains(Child,"RunActions",0,true)){
-			LineIndex = ConvUI_CConversationRunActionsGetById(Conversation,Child);
-			if(LineIndex<0){
+			ChildIndex = ConvUI_CConversationRunActionsGetById(Conversation,Child);
+			if(ChildIndex<0){
 				continue;
 			}
-			RunActions = Conversation.RunActions[LineIndex];
+			RunActions = Conversation.RunActions[ChildIndex];
 			RunActionsCount += 1;
 			RunActionsCallback(Conversation,RunActions,RunActionsCount);
 		}
 		
 		else if(StringContains(Child,"Jump",0,true)){
-			LineIndex = ConvUI_CConversationJumpGetById(Conversation,Child);
-			if(LineIndex<0){
+			ChildIndex = ConvUI_CConversationJumpGetById(Conversation,Child);
+			if(ChildIndex<0){
 				continue;
 			}
-			Jump = Conversation.Jumps[LineIndex];
+			Jump = Conversation.Jumps[ChildIndex];
 			JumpCount += 1;
 			JumpCallback(Conversation,Jump,JumpCount);
+			if(Jump.Location==""){DataTableSetBool(false,"Conversation."+Conversation.Id+".Exit",true);}
+			else{
+				Child = Jump.Location;
+			}
 		}
 		
 		else if(StringContains(Child,"Choice",0,true)){
-			LineIndex = ConvUI_CConversationChoiceGetById(Conversation,Child);
-			if(LineIndex<0){
+			ChildIndex = ConvUI_CConversationChoiceGetById(Conversation,Child);
+			if(ChildIndex<0){
 				continue;
 			}
-			Choice = Conversation.Choices[LineIndex];
+			Choice = Conversation.Choices[ChildIndex];
 			ChoiceCount += 1;
 			CharIndex = ConvUI_CCharacterGetbyID(Characters,Line.SpeakerCharacter);
 			if(CharIndex<0){
@@ -374,16 +392,45 @@ void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArr
 				Character = Characters[CharIndex];
 			}
 			ChoiceCallback(Conversation,Choice,Character,ChoiceCount);
+			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Choices["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
+			ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Choice.Children,SubChildrenCount);
 		}
 		
 		else if(StringContains(Child,"Comment",0,true)){
-			LineIndex = ConvUI_CConversationCommentGetById(Conversation,Child);
-			if(LineIndex<0){
+			ChildIndex = ConvUI_CConversationCommentGetById(Conversation,Child);
+			if(ChildIndex<0){
 				continue;
 			}
-			Comment = Conversation.Comments[LineIndex];
+			Comment = Conversation.Comments[ChildIndex];
 			CommentCount += 1;
 			CommentCallback(Conversation,Comment,CommentCount);
 		}
+		if(StringContains(Child,"Group",0,true)){
+			ChildIndex = ConvUI_CConversationGroupGetById(Conversation,Child);
+			if(ChildIndex<0){
+				continue;
+			}
+			Group = Conversation.Groups[ChildIndex];
+			GroupCount += 1;
+			GroupCallback(Conversation,Group,GroupCount);
+			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Groups["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
+			ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Group.Children,SubChildrenCount);
+		}
+		if (DataTableGetBool(false,"Conversation."+Conversation.Id+".Exit")){break;};
 	}
+}
+
+
+
+void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters,ConversationCallbackRef CallbackSet){
+	int i =0;
+	int ChildrenCount = 0;
+	int GroupIndex;
+	arrayref<TConversationItemIdArray> RootItems  = Conversation.RootItems;
+	int RootItemsCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "RootItems", c_playerAny),TConversationItemIdArraySize);
+	arrayref<TConversationItemIdArray> Children;
+	
+	
+	SConversationGroupRef Group;
+	ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,RootItems,RootItemsCount);
 };

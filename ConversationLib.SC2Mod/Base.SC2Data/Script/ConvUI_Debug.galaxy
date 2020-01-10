@@ -43,7 +43,8 @@ void ConvUI_DebugCreateTransmissionLineCallback(CConversationRef Conversation, S
 	}
 	//TriggerDebugOutput(1,StringToText("Line:"+Line.Id),true);
 	//TriggerDebugOutput(1,StringToText("Model:"+Model),true);
-	//TriggerDebugOutput(1,StringToText("Actor:"+Actor),true);
+    //TriggerDebugOutput(1,StringToText("Actor:"+Actor),true);
+    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
 	TransmissionSendForPlayerSelect(pg,TS,Portrait,Actor,"Talk",Sound,Speaker,Subtitle,Duration, DurType,true,player,false);
 }
 
@@ -59,7 +60,8 @@ void ConvUI_DebugCreateDialogIntLineCallback(CConversationRef Conversation, SCon
 	else{
 		template = CONVUI_LINEDLG_TEMPLATERIGHT;
 	}
-	dlg = ConvUI_LineDialogCreate(Line,Character,template);
+    dlg = ConvUI_LineDialogCreate(Line,Character,template);
+    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
 	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
 	//TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
 }
@@ -73,6 +75,7 @@ void ConvUI_DebugSendBriefingTransmissionLineCallback(CConversationRef Conversat
     else if(Character.Id=="GhostFemale"){
         portraitIndex = 2;
     }
+    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
     ConvUI_BriefingSendTransmission(Line, Character, portraitIndex);
 }
 
@@ -86,12 +89,29 @@ void ConvUI_DebugLineCallback(CConversationRef Conversation, SConversationLineRe
 void ConvUI_DebugWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
     fixed Duration = IntToFixed(WaitRef.Duration)/1000;
     TriggerDebugOutput(1,StringToText("Waiting: "+FixedToString(Duration,2)),true);
+    TriggerDebugOutput(1,StringToText("wait: "+WaitRef.Id),true);
     Wait(Duration,c_timeReal);
 }
 
 void ConvUI_DebugChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
-    TriggerDebugOutput(1,Choice.Text,true);
+    TriggerDebugOutput(1,StringToText("Choice: "+Choice.Id),true);
+    //TriggerDebugOutput(1,Choice.Text,true);
 }
+
+void ConvUI_DebugRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
+    TriggerDebugOutput(1,StringToText("RunActions: "+RunActions.Id),true);
+}
+void ConvUI_DebugCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index){
+    TriggerDebugOutput(1,StringToText("Comment: "+Comment.Id),true);
+}
+void ConvUI_DebugJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index){
+    TriggerDebugOutput(1,StringToText("Jump: "+Jump.Id),true);
+}
+
+void ConvUI_DebugGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index){
+    TriggerDebugOutput(1,StringToText("Group: "+Group.Id),true);
+}
+
 
 void ConvUI_InitDebugConversation(){
     if(ConvUI_DebugConversationInitialized){return;}
@@ -111,6 +131,11 @@ void ConvUI_InitDebugCallbacks(){
     if(ConvUI_DebugCallbacksInitialized){return;}
     Callbacks.LineCallback = ConvUI_DebugLineCallback;
     Callbacks.WaitCallback = ConvUI_DebugWaitCallback;
+    Callbacks.ChoiceCallback = ConvUI_DebugChoiceCallback;
+    Callbacks.RunActionsCallback = ConvUI_DebugRunActionsCallback;
+    Callbacks.CommentCallback = ConvUI_DebugCommentCallback;
+    Callbacks.JumpCallback = ConvUI_DebugJumpCallback;
+    Callbacks.GroupCallback = ConvUI_DebugGroupCallback;
     ConvUI_DebugCallbacksInitialized = true;
 }
 
@@ -127,6 +152,22 @@ void ConvUI_InitDebugButtons(){
         TriggerAddEventDialogControl(t,player,ConvUI_DebugButton[i],c_triggerControlEventTypeClick);
     }
     ConvUI_DebugButtonsInitialized = true;
+}
+
+void ConvUI_RunDataConversation(CConversationRef Conversation){
+    playergroup pg = PlayerGroupActive();
+	int player = PlayerGroupPlayer(pg,1);
+    int Portrait1 = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
+    int Portrait2 = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterRight);
+    string CharacterId1 = Conversation.DefaultSpeaker1;
+    string CharacterId2 = Conversation.DefaultSpeaker2;
+
+    libNtve_gf_CinematicMode(true, pg, c_transitionDurationImmediate);
+    ConversationDataPreloadLines(Conversation.Id);
+    ConversationDataRegisterPortrait(CharacterId1, Portrait1);
+    ConversationDataRegisterPortrait(CharacterId2, Portrait2);
+    ConversationDataRun(Conversation.Id,pg, c_conversationSkipFull, true);
+    libNtve_gf_CinematicMode(false, pg, c_transitionDurationImmediate);
 }
 
 
@@ -153,6 +194,7 @@ bool ConvUI_DebugButtonFunc(bool a, bool b){
         return false;
     }
     ConvUI_ConversationRun(Conversation,Characters,Callbacks);
+    //ConvUI_RunDataConversation(Conversation);
     return true;
 }
 

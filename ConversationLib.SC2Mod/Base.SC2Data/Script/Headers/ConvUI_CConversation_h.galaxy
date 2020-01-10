@@ -15,6 +15,8 @@ static void SConversationCommentCallbackFunc(CConversationRef Conversation, SCon
 typedef funcref<SConversationCommentCallbackFunc> SConversationCommentCallback;
 static void SConversationJumpCallbackFunc(CConversationRef Conversation, SConversationJumpRef Jump, int index);
 typedef funcref<SConversationJumpCallbackFunc> SConversationJumpCallback;
+static void SConversationGroupCallbackFunc(CConversationRef Conversation, SConversationGroupRef Group, int index);
+typedef funcref<SConversationGroupCallbackFunc> SConversationGroupCallback;
 
 
 struct ConversationCallback{
@@ -24,6 +26,7 @@ struct ConversationCallback{
 	SConversationRunActionsCallback RunActionsCallback;
 	SConversationCommentCallback CommentCallback;
 	SConversationJumpCallback JumpCallback;
+	SConversationGroupCallback GroupCallback;
 
 };
 

@@ -3,12 +3,12 @@ include "Script/Headers/ConvUI_BriefingUI_h";
 
 void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex){
     text Speaker = Character.Name;
-    text Text = Line.Text;
+    text Subtitle = Line.Text;
     string PortraitModel = Character.Variations[0].Model;
     string PortraitActor = Character.Variations[0].Actor;
     playergroup pg = PlayerGroupActive();
 	int player = PlayerGroupPlayer(pg,1);
-    int portrait = PortraitGetTriggerControl(ConvUI_BriefingPane.Portraits[portraitIndex]);
+    int Portrait = PortraitGetTriggerControl(ConvUI_BriefingPane.Portraits[portraitIndex]);
     soundlink Sound;
     fixed Duration = 5.0;
     if(Line.Sound != ""){
@@ -16,15 +16,16 @@ void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Ch
         SoundLengthQuery(Sound);
         SoundLengthQueryWait();
         Duration = SoundLengthSync(Sound);
-        SoundPlayForPlayer(Sound,player,pg,80,0.0);
+        //SoundPlayForPlayer(Sound,player,pg,80,0.0);
 	}
     if(Line.FixedDuration != 0){
         Duration = IntToFixed(Line.FixedDuration)/1000;
     }
     DialogControlSetPropertyAsText(ConvUI_BriefingPane.SpeakerLabel,c_triggerControlPropertyText,pg,Speaker);
-    DialogControlSetPropertyAsText(ConvUI_BriefingPane.TextLabel,c_triggerControlPropertyText,pg,Text);
-    PortraitSetActor(portrait,PortraitActor);
-    PortraitSetModel(portrait,PortraitModel,false);
+    DialogControlSetPropertyAsText(ConvUI_BriefingPane.TextLabel,c_triggerControlPropertyText,pg,Subtitle);
+    PortraitSetActor(Portrait,PortraitActor);
+    PortraitSetModel(Portrait,PortraitModel,false);
+    TransmissionSendForPlayerSelect(pg,TransmissionSourceFromModel(PortraitModel),Portrait,PortraitActor,"Talk",Sound,Speaker,Subtitle,Duration, c_transmissionDurationAdd,false,player,false);
     Wait(Duration,c_timeReal);
 }
 
