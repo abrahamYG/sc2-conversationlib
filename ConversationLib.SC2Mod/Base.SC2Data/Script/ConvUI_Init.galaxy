@@ -1,10 +1,39 @@
-include "Script/ConvUI_CCharacter";
-include "Script/ConvUI_CConversation";
+include "Script/ConvUI/CCharacter";
+include "Script/ConvUI/CConversation";
+include "Script/ConvUI/Callback";
+include "Script/ConvUI/CConversationGetById";
 include "Script/ConvUI_UI";
 include "Script/ConvUI_BriefingUI";
 include "Script/ConvUI_Debug";
 
 ConversationCallback ConvUI_Callbacks;
+int ConvUI_ManagedConversationCount = 0;
+
+void test(){
+	trigger t;
+	TriggerAddEventGeneric(t,"");
+	TriggerSendEvent("");
+}
+
+int ConvUI_NewManagedConversation(string convid){
+	string key = "ConvUI_ManagedConversation[{id}]";
+	int index = ConvUI_ManagedConversationCount;
+	key = StringReplaceWord(key,"{id}",convid,1,true);
+	if(DataTableValueExists(true,key)){
+		index = DataTableGetInt(true,key);
+	}
+	else{
+		if(index<CConversationArraySize){
+			DataTableSetInt(true,key,index);
+			ConvUI_CConversationCreateFromData(ConvUI_CConversations[index],convid);
+			ConvUI_ManagedConversationCount = index+1;
+		}
+		else{
+			index = -1;
+		}
+	}
+	return index;
+}
 
 bool DummyTrigger(bool a, bool b){
 	CConversationRef Conversation = ConvUI_CConversations[0];

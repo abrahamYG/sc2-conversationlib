@@ -3,6 +3,12 @@ include "TriggerLibs/natives"
 //--------------------------------------------------------------------------------------------------
 // Library: Conversation
 //--------------------------------------------------------------------------------------------------
+// Preset Declarations
+
+// Function Declarations
+void ConvUI_TriggerAddEventLineCallbackWrapper (trigger t, string lp_conversation, string lp_line, bool lp_before);
+
 // Trigger Declarations
 trigger libConv_gt_Test;
+trigger libConv_gt_Test2;
 

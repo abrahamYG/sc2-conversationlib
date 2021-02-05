@@ -1,0 +1,89 @@
+include "Script/ConvUI/Headers/CConversationGetById_h";
+
+
+int ConvUI_CConversationCommentGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationCommentArraySize;i+=1){
+		if(Conversation.Comments[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+int ConvUI_CConversationJumpGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationJumpArraySize;i+=1){
+		if(Conversation.Jumps[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+
+int ConvUI_CConversationRunActionsGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationRunActionsArraySize;i+=1){
+		if(Conversation.RunActions[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+int ConvUI_CConversationWaitGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationWaitArraySize;i+=1){
+		if(Conversation.Waits[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+
+int ConvUI_CConversationChoiceGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationChoiceArraySize;i+=1){
+		if(Conversation.Choices[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+
+int ConvUI_CConversationLineGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationLineArraySize;i+=1){
+		if(Conversation.Lines[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+int ConvUI_CConversationGroupGetById(CConversationRef Conversation, string id){
+	int i = 0;
+	int index = -1;
+	for(i=0;i<SConversationGroupArraySize;i+=1){
+		if(Conversation.Groups[i].Id == id){
+			index = i;
+			break;
+		}
+	}
+	return index;
+}

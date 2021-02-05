@@ -1,0 +1,47 @@
+include "Script/Catalog/Conversation_h";
+
+static void SConversationLineCallbackFunc(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+typedef funcref<SConversationLineCallbackFunc> SConversationLineCallback;
+static void SConversationChoiceCallbackFunc(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index);
+typedef funcref<SConversationChoiceCallbackFunc> SConversationChoiceCallback;
+static void SConversationWaitCallbackFunc(CConversationRef Conversation, SConversationWaitRef WaitRef, int index);
+typedef funcref<SConversationWaitCallbackFunc> SConversationWaitCallback;
+static void SConversationRunActionsCallbackFunc(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index);
+typedef funcref<SConversationRunActionsCallbackFunc> SConversationRunActionsCallback;
+static void SConversationCommentCallbackFunc(CConversationRef Conversation, SConversationCommentRef Comment, int index);
+typedef funcref<SConversationCommentCallbackFunc> SConversationCommentCallback;
+static void SConversationJumpCallbackFunc(CConversationRef Conversation, SConversationJumpRef Jump, int index);
+typedef funcref<SConversationJumpCallbackFunc> SConversationJumpCallback;
+static void SConversationGroupCallbackFunc(CConversationRef Conversation, SConversationGroupRef Group, int index);
+typedef funcref<SConversationGroupCallbackFunc> SConversationGroupCallback;
+
+
+struct ConversationCallback{
+	SConversationLineCallback LineCallback;
+	SConversationChoiceCallback ChoiceCallback;
+	SConversationWaitCallback WaitCallback;
+	SConversationRunActionsCallback RunActionsCallback;
+	SConversationCommentCallback CommentCallback;
+	SConversationJumpCallback JumpCallback;
+	SConversationGroupCallback GroupCallback;
+
+};
+
+typedef structref<ConversationCallback> ConversationCallbackRef;
+
+static void ConversationCallbackSetFunc(ConversationCallbackRef Callback);
+typedef funcref<ConversationCallbackSetFunc> ConversationCallbackSetFuncRef;
+
+
+
+void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index);
+void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index);
+void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index);
+void ConvUI_DefaultCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index);
+void ConvUI_DefaultJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index);
+void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index);
+
+
+string ConvUI_GetLineCallbackEventString(string convId,string lineId,bool before);
+void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId,bool before);

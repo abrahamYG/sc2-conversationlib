@@ -23,52 +23,58 @@ void libConv_InitCustomScript () {
     ConvUI_main();
 }
 
+// Presets
+// Functions
+void ConvUI_TriggerAddEventLineCallbackWrapper (trigger t, string lp_conversation, string lp_line, bool lp_before) {
+    // Automatic Variable Declarations
+    // Implementation
+    ConvUI_TriggerAddEventLineCallback(t, lp_conversation, lp_line, lp_before);
+}
+
 // Triggers
 //--------------------------------------------------------------------------------------------------
 // Trigger: Test
 //--------------------------------------------------------------------------------------------------
 bool libConv_gt_Test_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    string lv_char1;
-    string lv_char2;
-    string lv_char3;
-    string lv_char4;
-    string lv_characterImage;
-    string lv_line;
-    int lv_linuNumber;
-    string lv_lineName;
-    int lv_lineCount;
-    string lv_group;
-    string lv_untitledVariable001;
-    string lv_untitledVariable002;
-    string lv_untitledVariable003;
-
     // Automatic Variable Declarations
-    // Variable Initialization
-    lv_char1 = "char_Artanis";
-    lv_char2 = "char_Alarak";
-    lv_char3 = CatalogFieldValueGet(c_gameCatalogConversation, "TestConversation", "Lines[" + IntToString(0) + "].Text", c_playerAny);
-    lv_char4 = CatalogFieldValueGet(c_gameCatalogConversation, "TestConversation", "Lines", c_playerAny);
-    lv_characterImage = CatalogFieldValueGet(c_gameCatalogCharacter, "Artanis", "Image", c_playerAny);
-    lv_line = "TestConversation|Line00002";
-    lv_linuNumber = ConversationDataLineCount("TestConversation");
-    lv_lineName = ConversationDataLineId("TestConversation", 1);
-    lv_lineCount = CatalogFieldValueCount(c_gameCatalogConversation, "TestConversation", "Lines", c_playerAny);
-    lv_group = CatalogFieldValueGet(c_gameCatalogConversation, "TestConversation", "Groups[" + IntToString(0) + "].Children[" + IntToString(0) + "]", c_playerAny);
-    lv_untitledVariable001 = CatalogReferenceGet("Conversation,TestConversation,Groups[0].Children[0]", c_playerAny);
-    lv_untitledVariable002 = CatalogFieldType("CConversation", "Groups");
-    lv_untitledVariable003 = ("test");
+    // Actions
+    if (!runActions) {
+        return true;
+    }
 
+    TriggerDebugOutput(2, StringExternal("Param/Value/lib_Conv_A6C66E19"), true);
     return true;
 }
 
 //--------------------------------------------------------------------------------------------------
 void libConv_gt_Test_Init () {
     libConv_gt_Test = TriggerCreate("libConv_gt_Test_Func");
+    ConvUI_TriggerAddEventLineCallbackWrapper(libConv_gt_Test, "TestConversation", "TestConversation|Line00001", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Test 2
+//--------------------------------------------------------------------------------------------------
+bool libConv_gt_Test2_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(2, StringExternal("Param/Value/lib_Conv_FE037D92"), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libConv_gt_Test2_Init () {
+    libConv_gt_Test2 = TriggerCreate("libConv_gt_Test2_Func");
+    ConvUI_TriggerAddEventLineCallbackWrapper(libConv_gt_Test2, "TestConversation", "TestConversation|Line00001", false);
 }
 
 void libConv_InitTriggers () {
     libConv_gt_Test_Init();
+    libConv_gt_Test2_Init();
 }
 
 //--------------------------------------------------------------------------------------------------

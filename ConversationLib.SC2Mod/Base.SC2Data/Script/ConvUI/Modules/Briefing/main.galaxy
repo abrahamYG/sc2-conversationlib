@@ -1,0 +1,55 @@
+include "Script/ConvUI/Modules/Briefing/header";
+
+
+void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex){
+    text Speaker = Character.Name;
+    text Subtitle = Line.Text;
+    string PortraitModel = Character.Variations[0].Model;
+    string PortraitActor = Character.Variations[0].Actor;
+    playergroup pg = PlayerGroupActive();
+	int player = PlayerGroupPlayer(pg,1);
+    int Portrait = PortraitGetTriggerControl(ConvUI_BriefingPane.Portraits[portraitIndex]);
+    soundlink Sound;
+    fixed Duration = 5.0;
+    if(Line.Sound != ""){
+        Sound = SoundLink(Line.Sound,c_soundIndexAny);
+        SoundLengthQuery(Sound);
+        SoundLengthQueryWait();
+        Duration = SoundLengthSync(Sound);
+        //SoundPlayForPlayer(Sound,player,pg,80,0.0);
+	}
+    if(Line.FixedDuration != 0){
+        Duration = IntToFixed(Line.FixedDuration)/1000;
+    }
+    DialogControlSetPropertyAsText(ConvUI_BriefingPane.SpeakerLabel,c_triggerControlPropertyText,pg,Speaker);
+    DialogControlSetPropertyAsText(ConvUI_BriefingPane.TextLabel,c_triggerControlPropertyText,pg,Subtitle);
+    PortraitSetActor(Portrait,PortraitActor);
+    PortraitSetModel(Portrait,PortraitModel,false);
+    TransmissionSendForPlayerSelect(pg,TransmissionSourceFromModel(PortraitModel),Portrait,PortraitActor,"Talk",Sound,Speaker,Subtitle,Duration, c_transmissionDurationAdd,false,player,false);
+    Wait(Duration,c_timeReal);
+}
+
+
+void ConvUI_TransmissionSendBriefingTransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+    int portraitIndex = 0;
+    if(Character.Id == "HappyJoe"){
+        portraitIndex = 1;
+    }
+    else if(Character.Id=="GhostFemale"){
+        portraitIndex = 2;
+    }
+    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
+    ConvUI_BriefingSendTransmission(Line, Character, portraitIndex);
+}
+
+
+void ConvUI_BriefingUIInit(){
+    int i = 0;
+    ConvUI_BriefingPane.Frame = DialogControlHookupStandard(c_triggerControlTypePanel,CONVUI_BRIEFINGPANEPATH);
+    for(i=0;i<4;i+=1){
+        ConvUI_BriefingPane.Portraits[i] = DialogControlHookup(ConvUI_BriefingPane.Frame,c_triggerControlTypePortrait,"Portrait0"+IntToString(i+1));
+    }
+    ConvUI_BriefingPane.TextLabel = DialogControlHookup(ConvUI_BriefingPane.Frame,c_triggerControlTypeLabel,"TextFrame/Label");
+    ConvUI_BriefingPane.SpeakerLabel = DialogControlHookup(ConvUI_BriefingPane.Frame,c_triggerControlTypeLabel,"TextFrame/SpeakerLabel");
+
+}

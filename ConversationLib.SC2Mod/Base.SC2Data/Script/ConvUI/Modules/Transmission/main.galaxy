@@ -1,0 +1,85 @@
+include "Script/Catalog/UUID_h";
+include "Script/ConvUI/Modules/Transmission/header";
+include "Script/ConvUI/Headers/CCharacter_h";
+include "Script/ConvUI/Headers/CConversation_h";
+include "Script/ConvUI/Headers/ConvUI_UI_h";
+include "Script/ConvUI/Headers/ConvUI_BriefingUI_h";
+
+
+
+void ConvUI_CreateTransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+	playergroup pg = PlayerGroupActive();
+	int player = PlayerGroupPlayer(pg,1);
+	string Model = Character.Variations[0].Model;
+	transmissionsource TS = TransmissionSourceFromModel(Model);
+	int Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
+	string Actor = Character.Variations[0].Actor;
+	soundlink Sound;
+	text Speaker = Character.Name;
+	text Subtitle = Line.Text;
+	fixed Duration = 5.0;
+	int DurType = c_transmissionDurationAdd;
+	if(Line.Sound != ""){
+        Sound = SoundLink(Line.Sound,c_soundIndexAny);
+        SoundLengthQuery(Sound);
+        SoundLengthQueryWait();
+        Duration = SoundLengthSync(Sound);
+	}
+    if(Line.FixedDuration != 0){
+        Duration = IntToFixed(Line.FixedDuration)/1000;
+    }
+	if(index%2 != 0){
+		Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
+	}
+	else{
+		Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterRight);
+	}
+	//TriggerDebugOutput(1,StringToText("Line:"+Line.Id),true);
+	//TriggerDebugOutput(1,StringToText("Model:"+Model),true);
+    //TriggerDebugOutput(1,StringToText("Actor:"+Actor),true);
+    //TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
+	TransmissionSendForPlayerSelect(pg,TS,Portrait,Actor,"Talk",Sound,Speaker,Subtitle,Duration, DurType,true,player,false);
+}
+
+void ConvUI_TransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
+    ConvUI_CreateTransmissionLineCallback(Conversation,Line,Character,index);
+    //ConvUI_DefaultLineCallback(Conversation,Line,Character,index);
+}
+
+void ConvUI_TransmissionWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
+    fixed Duration = IntToFixed(WaitRef.Duration)/1000;
+    //TriggerDebugOutput(1,StringToText("Waiting: "+FixedToString(Duration,2)),true);
+    //TriggerDebugOutput(1,StringToText("wait: "+WaitRef.Id),true);
+    Wait(Duration,c_timeReal);
+}
+
+void ConvUI_TransmissionChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
+    TriggerDebugOutput(1,StringToText("Choice: "+Choice.Id),true);
+    //TriggerDebugOutput(1,Choice.Text,true);
+}
+
+void ConvUI_TransmissionRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
+    TriggerDebugOutput(1,StringToText("RunActions: "+RunActions.Id),true);
+}
+void ConvUI_TransmissionCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index){
+    TriggerDebugOutput(1,StringToText("Comment: "+Comment.Id),true);
+}
+void ConvUI_TransmissionJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index){
+    TriggerDebugOutput(1,StringToText("Jump: "+Jump.Id),true);
+}
+
+void ConvUI_TransmissionGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index){
+    TriggerDebugOutput(1,StringToText("Group: "+Group.Id),true);
+}
+
+void ConvUI_TransmissionCallbackSet(ConversationCallbackRef Callbacks){
+    Callbacks.LineCallback = ConvUI_TransmissionLineCallback;
+    Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
+    Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
+    Callbacks.RunActionsCallback = ConvUI_TransmissionRunActionsCallback;
+    Callbacks.CommentCallback = ConvUI_TransmissionCommentCallback;
+    Callbacks.JumpCallback = ConvUI_TransmissionJumpCallback;
+    Callbacks.GroupCallback = ConvUI_TransmissionGroupCallback;    
+}
+

@@ -1,4 +1,4 @@
-include "Script/Classes/Character_h";
+include "Script/Catalog/Character_h";
 
 CCharacterArray ConvUI_CCharacters;
 CCharacter ConvUI_EmptyCharacter;

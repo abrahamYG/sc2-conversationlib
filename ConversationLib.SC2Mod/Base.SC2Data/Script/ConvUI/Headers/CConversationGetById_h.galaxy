@@ -1,0 +1,9 @@
+include "Script/Catalog/Conversation_h";
+
+int ConvUI_CConversationJumpGetById(CConversationRef Conversation, string id);
+int ConvUI_CConversationCommentGetById(CConversationRef Conversation, string id);
+int ConvUI_CConversationRunActionsGetById(CConversationRef Conversation, string id);
+int ConvUI_CConversationWaitGetById(CConversationRef Conversation, string id);
+int ConvUI_CConversationChoiceGetById(CConversationRef Conversation, string id);
+int ConvUI_CConversationLineGetById(CConversationRef Conversation, string id);
+int ConvUI_CConversationGroupGetById(CConversationRef Conversation, string id);

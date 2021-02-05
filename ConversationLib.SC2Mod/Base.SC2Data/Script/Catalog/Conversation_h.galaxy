@@ -1,5 +1,5 @@
-include "Script/Classes/UnderlyingTypes_h";
-include "Script/Classes/ConversationState_h";
+include "Script/Catalog/UnderlyingTypes_h";
+include "Script/Catalog/ConversationState_h";
 
 typedef enum EClassIdCConversation;
 EClassIdCConversation e_classIdCConversation = 0;
@@ -180,4 +180,3 @@ struct CConversation {
 typedef structref<CConversation> CConversationRef;
 const int CConversationArraySize = 10; 
 typedef CConversation[CConversationArraySize] CConversationArray;
-

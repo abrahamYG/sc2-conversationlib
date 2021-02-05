@@ -1,0 +1,14 @@
+string IntToHexString(int value) {
+    const string chars = "0123456789ABCDEF";
+    string r;
+    int i;
+    int tmp;
+
+    for (i = 0; i < 8; i += 1) {
+        tmp = value & 0xF;
+        value >>= 4;
+        r = StringSub(chars, tmp + 1, tmp + 1) + r;
+    }
+    return "0x" + r;
+}
+

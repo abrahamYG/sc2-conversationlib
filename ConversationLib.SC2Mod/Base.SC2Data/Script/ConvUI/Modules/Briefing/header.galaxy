@@ -1,5 +1,5 @@
-include "Script/Headers/ConvUI_CCharacter_h";
-include "Script/Headers/ConvUI_CConversation_h";
+include "Script/ConvUI/Headers/CCharacter_h";
+include "Script/ConvUI/Headers/CConversation_h";
 
 const string CONVUI_BRIEFINGPANEPATH = "UIContainer/FullscreenUpperContainer/BriefingFrame";
 struct ConvUI_BriefingPaneStruct {

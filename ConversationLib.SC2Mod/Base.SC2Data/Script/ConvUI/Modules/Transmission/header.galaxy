@@ -1,0 +1,1 @@
+void ConvUI_TransmissionCallbackSet(ConversationCallbackRef Callbacks);

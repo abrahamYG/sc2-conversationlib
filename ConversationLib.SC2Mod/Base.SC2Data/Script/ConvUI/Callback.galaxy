@@ -1,0 +1,41 @@
+include "Script/ConvUI/Headers/Callback_h";
+include "Script/ConvUI/Headers/CConversationGetById_h";
+
+
+string ConvUI_GetLineCallbackEventString(string convId,string lineId,bool before){
+    string suffix = ".Before";
+    if(!before){suffix = ".After";}
+    if(StringContains(lineId,convId+"|",0,true)){
+        return "ConvUI_Event: "+lineId;    
+    }
+    return "ConvUI_Event: "+convId+"|"+lineId;
+}
+void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId, bool before){
+    string event = ConvUI_GetLineCallbackEventString(convId,lineId,true);
+    TriggerAddEventGeneric(t,event);
+}
+
+void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+   // string event = ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id);
+   // TriggerDebugOutput(1,StringToText("Firing event: "+event),true);
+   // TriggerSendEvent(event);
+}
+void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
+
+}
+void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
+
+}
+void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
+
+}
+void ConvUI_DefaultCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index){
+
+}
+void ConvUI_DefaultJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index){
+
+}
+void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index){
+
+}
+
