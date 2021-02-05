@@ -8,8 +8,9 @@ The mod aims to emulate the existing internal data types for data driven convers
 - [x] Parsing Lines
 - [x] Parsing Waits
 - [ ] Parsing Choices
-- [ ] Parsing Jumps
+- [x] Parsing Jumps
 - [ ] Parsing Run Actions
+- [ ] Parsing Conditions
 - [x] Implementing Callbacks for each subtype
 
 ## Demonstration
