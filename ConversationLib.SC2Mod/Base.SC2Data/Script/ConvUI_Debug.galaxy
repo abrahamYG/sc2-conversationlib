@@ -1,8 +1,8 @@
 include "Script/ConvUI/Callbacks/header";
-include "Script/ConvUI/Modules/init";
-//include "Script/ConvUI/Modules/Transmission/main";
-//include "Script/ConvUI/Modules/Briefing/main";
-//include "Script/ConvUI/Modules/LineDialogs/main";
+//include "Script/ConvUI/Modules/init";
+include "Script/ConvUI/Modules/Transmission/header";
+include "Script/ConvUI/Modules/Briefing/header";
+include "Script/ConvUI/Modules/LineDialogs/header";
 
 static const string CONVUI_CONVERSATIONID = "TestConversation";
 static const string CONVUI_DEBUGBUTTONPATH = "UIContainer/FullscreenUpperContainer/ConvoButton0";

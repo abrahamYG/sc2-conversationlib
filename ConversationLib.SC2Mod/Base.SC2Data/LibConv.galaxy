@@ -31,52 +31,6 @@ void ConvUI_TriggerAddEventLineCallbackWrapper (trigger t, string lp_conversatio
     ConvUI_TriggerAddEventLineCallback(t, lp_conversation, lp_line, lp_before);
 }
 
-// Triggers
-//--------------------------------------------------------------------------------------------------
-// Trigger: Test
-//--------------------------------------------------------------------------------------------------
-bool libConv_gt_Test_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    TriggerDebugOutput(2, StringExternal("Param/Value/lib_Conv_A6C66E19"), true);
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libConv_gt_Test_Init () {
-    libConv_gt_Test = TriggerCreate("libConv_gt_Test_Func");
-    ConvUI_TriggerAddEventLineCallbackWrapper(libConv_gt_Test, "TestConversation", "TestConversation|Line00001", true);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Trigger: Test 2
-//--------------------------------------------------------------------------------------------------
-bool libConv_gt_Test2_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    TriggerDebugOutput(2, StringExternal("Param/Value/lib_Conv_FE037D92"), true);
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libConv_gt_Test2_Init () {
-    libConv_gt_Test2 = TriggerCreate("libConv_gt_Test2_Func");
-    ConvUI_TriggerAddEventLineCallbackWrapper(libConv_gt_Test2, "Tutorial", "Tutorial|Line00060", false);
-}
-
-void libConv_InitTriggers () {
-    libConv_gt_Test_Init();
-    libConv_gt_Test2_Init();
-}
-
 //--------------------------------------------------------------------------------------------------
 // Library Initialization
 //--------------------------------------------------------------------------------------------------
@@ -91,6 +45,5 @@ void libConv_InitLib () {
 
     libConv_InitLibraries();
     libConv_InitCustomScript();
-    libConv_InitTriggers();
 }
 

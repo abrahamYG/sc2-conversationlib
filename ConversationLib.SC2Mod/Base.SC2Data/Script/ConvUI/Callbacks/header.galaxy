@@ -44,6 +44,35 @@ void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGro
 
 
 string ConvUI_GetLineCallbackEventString(string convId,string lineId,bool before);
+string ConvUI_GetChoiceCallbackEventString(string convId,string choiceId,bool before);
+string ConvUI_GetWaitCallbackEventString(string convId,string waitId,bool before);
+string ConvUI_GetRunActionsCallbackEventString(string convId,string runActionsId,bool before);
+string ConvUI_GetCommentCallbackEventString(string convId,string commentId,bool before);
+string ConvUI_GetJumpCallbackEventString(string convId,string jumpId,bool before);
+string ConvUI_GetGroupCallbackEventString(string convId,string groupId,bool before);
+
+
 void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId,bool before);
+void ConvUI_TriggerAddEventChoiceCallback(trigger t, string convId,string choiceId, bool before);
+void ConvUI_TriggerAddEventWaitCallback(trigger t, string convId,string waitId,bool before);
+void ConvUI_TriggerAddEventRunActionsCallback(trigger t, string convId,string runActionsId,bool before);
+void ConvUI_TriggerAddEventCommentCallback(trigger t, string convId,string commentId,bool before);
+void ConvUI_TriggerAddEventJumpCallback(trigger t, string convId,string jumpId,bool before);
+void ConvUI_TriggerAddEventGroupCallback(trigger t, string convId,string groupId,bool before);
+
+string ConvUI_EventConversationId();
+string ConvUI_EventCharacterId();
+string ConvUI_EventJumpId();
+string ConvUI_EventCommentId();
+string ConvUI_EventRunActionsId();
+string ConvUI_EventWaitId();
+string ConvUI_EventChoiceId();
+string ConvUI_EventLineId();
+string ConvUI_EventGroupId();
+int ConvUI_EventPlayer();
+
+
+void ConvUI_EventParamsStore(string convId, string charId, string itemId, string itemType, int player,bool before);
+
 void ConvUI_DefaultCallbackSet(ConversationCallbackRef Callbacks);
 void ConvUI_InitDefaultCallbacks();

@@ -1,1 +1,10 @@
-﻿Trigger/Name/C94335FD=Initialize Conversation
+﻿Trigger/Name/B807E9DE=Conversation Event Responses
+Trigger/Name/C94335FD=Initialize Conversation
+Trigger/Name/EC30AC91=Run Managed Conversation
+Variable/Name/13AC9931=EventName
+Variable/Name/52D2933A=Conversation
+Variable/Name/9195D87A=Conversation
+Variable/Name/AA049E3B=Line
+Variable/Name/B4EA32E7=Choice
+Variable/Name/B95B6BF7=Player
+Variable/Name/C03C9F4A=Character

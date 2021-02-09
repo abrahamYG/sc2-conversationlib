@@ -1,5 +1,4 @@
 ﻿DocInfo/DescLong=Completely devoid of any description whatsoever.
 DocInfo/DescShort=Any
 DocInfo/Name=Just Another StarCraft II Mod
-Param/Value/lib_Conv_A6C66E19=Did it work beofre?
-Param/Value/lib_Conv_FE037D92=Did it work after all?
+Param/Value/lib_Conv_A6C66E19=This runs before the Line plays

@@ -252,18 +252,18 @@ void ConvUI_SConversationGroupWaitForChoice(CConversationRef Conversation, SConv
 	}
 }
 
-void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters, ConversationCallbackRef CallbackSet, arrayref<TConversationItemIdArray> Children, int Count, int player){
+void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters, ConversationCallbackRef Callbacks, arrayref<TConversationItemIdArray> Children, int Count, int player){
 	int i =0;
-	int ChildIndex = -1;
-	int LineCount = 0;
-	int WaitCount = 0;
-	int RunActionsCount = 0;
-	int JumpCount = 0;
-	int ChoiceCount = 0;
-	int CommentCount = 0;
-	int GroupCount = 0;
-	int CharIndex = -1;
-	//arrayref<SConversationLineArray> Lines = Conversation.Lines;
+	int childIndex = -1;
+	int lineCount = 0;
+	int waitCount = 0;
+	int runActionsCount = 0;
+	int jumpCount = 0;
+	int choiceCount = 0;
+	int commentCount = 0;
+	int groupCount = 0;
+	int charIndex = -1;
+	string eventString;
 	SConversationGroupRef Group;
 	SConversationLineRef Line;
 	SConversationWaitRef WaitRef;
@@ -273,64 +273,101 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 	SConversationCommentRef Comment;
 	CCharacterRef Character;
 	TConversationItemId Child;
-	SConversationLineCallback LineCallback = CallbackSet.LineCallback;
-	SConversationWaitCallback WaitCallback = CallbackSet.WaitCallback;
-	SConversationRunActionsCallback RunActionsCallback = CallbackSet.RunActionsCallback;
-	SConversationJumpCallback JumpCallback = CallbackSet.JumpCallback;
-	SConversationChoiceCallback ChoiceCallback = CallbackSet.ChoiceCallback;
-	SConversationCommentCallback CommentCallback = CallbackSet.CommentCallback;
-	SConversationGroupCallback GroupCallback = CallbackSet.GroupCallback;
+	SConversationLineCallback LineCallback = Callbacks.LineCallback;
+	SConversationWaitCallback WaitCallback = Callbacks.WaitCallback;
+	SConversationRunActionsCallback RunActionsCallback = Callbacks.RunActionsCallback;
+	SConversationJumpCallback JumpCallback = Callbacks.JumpCallback;
+	SConversationChoiceCallback ChoiceCallback = Callbacks.ChoiceCallback;
+	SConversationCommentCallback CommentCallback = Callbacks.CommentCallback;
+	SConversationGroupCallback GroupCallback = Callbacks.GroupCallback;
 
 	int SubChildrenCount = 0;
 
 	for(i=0;i<Count;i+=1){
 		Child = Children[i];
 		if(StringContains(Child,"Line",0,true)){
-			ChildIndex = ConvUI_CConversationLineGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationLineGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			Line = Conversation.Lines[ChildIndex];
-			LineCount += 1;
-			CharIndex = ConvUI_CCharacterGetbyID(Characters, Line.SpeakerCharacter);
-			if(CharIndex<0){
+			Line = Conversation.Lines[childIndex];
+			lineCount += 1;
+			charIndex = ConvUI_CCharacterGetbyID(Characters, Line.SpeakerCharacter);
+			if(charIndex<0){
 				Character = ConvUI_EmptyCharacter;
 			}
 			else {
-				Character = Characters[CharIndex];
+				Character = Characters[charIndex];
 			}
-			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id,true));
-			LineCallback(Conversation,Line,Character,LineCount, player);
-			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id,false));
+
+			eventString = ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,Character.Id,Line.Id,"Line",player,true);
+			TriggerSendEvent(eventString);
+
+			LineCallback(Conversation,Line,Character,lineCount, player);
+
+			eventString = ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,Character.Id,Line.Id,"Line",player,false);
+			TriggerSendEvent(eventString);
 			
 		}
 		else if(StringContains(Child,"Wait",0,true)){
-			ChildIndex = ConvUI_CConversationWaitGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationWaitGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			WaitRef = Conversation.Waits[ChildIndex];
-			WaitCount += 1;
-			WaitCallback(Conversation,WaitRef,WaitCount, player);
+			WaitRef = Conversation.Waits[childIndex];
+			waitCount += 1;
+
+			eventString = ConvUI_GetWaitCallbackEventString(Conversation.Id,WaitRef.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,"",WaitRef.Id,"Wait",player,true);
+			TriggerSendEvent(eventString);
+			
+			WaitCallback(Conversation,WaitRef,waitCount, player);
+
+			eventString = ConvUI_GetWaitCallbackEventString(Conversation.Id,WaitRef.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,"",WaitRef.Id,"Wait",player,false);
+			TriggerSendEvent(eventString);
+			
 		}
 		else if(StringContains(Child,"RunActions",0,true)){
-			ChildIndex = ConvUI_CConversationRunActionsGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationRunActionsGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			RunActions = Conversation.RunActions[ChildIndex];
-			RunActionsCount += 1;
-			RunActionsCallback(Conversation,RunActions,RunActionsCount, player);
+			RunActions = Conversation.RunActions[childIndex];
+			runActionsCount += 1;
+
+			eventString = ConvUI_GetRunActionsCallbackEventString(Conversation.Id,RunActions.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,"",RunActions.Id,"RunActions",player,true);
+			TriggerSendEvent(eventString);
+
+			RunActionsCallback(Conversation,RunActions,runActionsCount, player);
+
+			eventString = ConvUI_GetRunActionsCallbackEventString(Conversation.Id,RunActions.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,"",RunActions.Id,"RunActions",player,false);
+			TriggerSendEvent(eventString);
+			
 		}
 		
 		else if(StringContains(Child,"Jump",0,true)){
-			ChildIndex = ConvUI_CConversationJumpGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationJumpGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			Jump = Conversation.Jumps[ChildIndex];
-			JumpCount += 1;
-			JumpCallback(Conversation,Jump,JumpCount, player);
+			Jump = Conversation.Jumps[childIndex];
+			jumpCount += 1;
+
+			eventString = ConvUI_GetJumpCallbackEventString(Conversation.Id,Jump.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,"",Jump.Id,"Jump",player,true);
+			TriggerSendEvent(eventString);
+			
+			JumpCallback(Conversation,Jump,jumpCount, player);
+
+			eventString = ConvUI_GetJumpCallbackEventString(Conversation.Id,Jump.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,"",Jump.Id,"Jump",player,false);
+			TriggerSendEvent(eventString);
+
 			if(Jump.Location==""){DataTableSetBool(false,"Conversation."+Conversation.Id+".Exit",true);}
 			else{
 				Child = Jump.Location;
@@ -338,49 +375,77 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 		}
 		
 		else if(StringContains(Child,"Choice",0,true)){
-			ChildIndex = ConvUI_CConversationChoiceGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationChoiceGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			Choice = Conversation.Choices[ChildIndex];
-			ChoiceCount += 1;
-			CharIndex = ConvUI_CCharacterGetbyID(Characters,Line.SpeakerCharacter);
-			if(CharIndex<0){
+			Choice = Conversation.Choices[childIndex];
+			choiceCount += 1;
+			charIndex = ConvUI_CCharacterGetbyID(Characters,Line.SpeakerCharacter);
+			if(charIndex<0){
 				Character = ConvUI_EmptyCharacter;
 			}
 			else {
-				Character = Characters[CharIndex];
+				Character = Characters[charIndex];
 			}
-			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Choice.Id,true));
-			ChoiceCallback(Conversation,Choice,Character,ChoiceCount, player);
-			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Choice.Id,false));
-			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Choices["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
-			ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Choice.Children,SubChildrenCount, player);
+
+			eventString = ConvUI_GetChoiceCallbackEventString(Conversation.Id,Choice.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,Character.Id,Choice.Id,"Choice",player,true);
+			TriggerSendEvent(eventString);
+
+			ChoiceCallback(Conversation,Choice,Character,choiceCount, player);
+
+			eventString = ConvUI_GetChoiceCallbackEventString(Conversation.Id,Choice.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,Character.Id,Choice.Id,"Choice",player,false);
+			TriggerSendEvent(eventString);
+
+			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Choices["+IntToString(childIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
+			ConvUI_SConversationChildrenSetRun(Conversation,Characters,Callbacks,Choice.Children,SubChildrenCount, player);
 		}
 		
 		else if(StringContains(Child,"Comment",0,true)){
-			ChildIndex = ConvUI_CConversationCommentGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationCommentGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			Comment = Conversation.Comments[ChildIndex];
-			CommentCount += 1;
-			CommentCallback(Conversation,Comment,CommentCount, player);
+			Comment = Conversation.Comments[childIndex];
+			commentCount += 1;
+			
+			eventString = ConvUI_GetCommentCallbackEventString(Conversation.Id,Comment.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,"",Comment.Id,"Comment",player,true);
+			TriggerSendEvent(eventString);
+
+			CommentCallback(Conversation,Comment,commentCount, player);
+
+			eventString = ConvUI_GetCommentCallbackEventString(Conversation.Id,Comment.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,"",Comment.Id,"Comment",player,false);
+			TriggerSendEvent(eventString);
 		}
 		if(StringContains(Child,"Group",0,true)){
-			ChildIndex = ConvUI_CConversationGroupGetById(Conversation,Child);
-			if(ChildIndex<0){
+			childIndex = ConvUI_CConversationGroupGetById(Conversation,Child);
+			if(childIndex<0){
 				continue;
 			}
-			Group = Conversation.Groups[ChildIndex];
-			GroupCount += 1;
-			GroupCallback(Conversation,Group,GroupCount, player);
-			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Groups["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
+			Group = Conversation.Groups[childIndex];
+			groupCount += 1;
+
+			
+			eventString = ConvUI_GetGroupCallbackEventString(Conversation.Id,Group.Id,true);
+			ConvUI_EventParamsStore(Conversation.Id,"",Group.Id,"Group",player,true);
+			TriggerSendEvent(eventString);
+
+			GroupCallback(Conversation,Group,groupCount, player);
+
+			eventString = ConvUI_GetGroupCallbackEventString(Conversation.Id,Group.Id,false);
+			ConvUI_EventParamsStore(Conversation.Id,"",Group.Id,"Group",player,false);
+			TriggerSendEvent(eventString);
+			
+			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Groups["+IntToString(childIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
 			if(ConvUI_SConversationGroupHasOnlyChoices(Conversation,Group)){
 				ConvUI_SConversationGroupWaitForChoice(Conversation,Group);
 			}
 			else{
-				ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Group.Children,SubChildrenCount, player);
+				ConvUI_SConversationChildrenSetRun(Conversation,Characters,Callbacks,Group.Children,SubChildrenCount, player);
 			}
 		}
 		if (DataTableGetBool(false,"Conversation."+Conversation.Id+".Exit")){break;};

@@ -1,2 +1,2 @@
-﻿Conversation/Name/TestConversation=TestConversation
+﻿Conversation/Name/TestConversation=Test Conversation
 Conversation/Name/testconvo2=testconvo2

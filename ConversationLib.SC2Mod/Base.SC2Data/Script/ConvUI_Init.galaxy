@@ -3,15 +3,58 @@ include "Script/ConvUI/Characters/main";
 include "Script/ConvUI/Callbacks/main";
 
 include "Script/ConvUI/CConversationGetById";
+include "Script/ConvUI/Modules/init";
 include "Script/ConvUI_Debug";
 
 ConversationCallback ConvUI_ManagedCallbacks;
 int ConvUI_ManagedConversationCount = 0;
+bool ConvUI_ManagedCharactersInitialized = false;
+
+string ConvUI_GetManagedConversationKey(string convid){
+	string key = "ConvUI_ManagedConversation[{id}]";
+	return StringReplaceWord(key,"{id}",convid,1,true);
+}
+
+
+int ConvUI_GetManagedConversationIndex(string convid){
+	string key = ConvUI_GetManagedConversationKey(convid);
+	int index = -1;
+	if(DataTableValueExists(true,key)){
+		index = DataTableGetInt(true,key);
+	}
+	return index;
+}
+
+void ConvUI_SetManagedCallbackModuleWrapper(string convid, string module){
+	int index = ConvUI_GetManagedConversationIndex(convid);
+	string key = ConvUI_GetManagedConversationKey(convid);
+	DataTableSetString(true,key+".Module",module);
+	ConvUI_SetManagedCallbackModule(ConvUI_CConversations[index],ConvUI_ManagedCallbacks,module);
+}
+
+void ConvUI_RunManagedConversation(string convid, int player){
+	int index = ConvUI_GetManagedConversationIndex(convid);
+	string key = ConvUI_GetManagedConversationKey(convid);
+	string module = DataTableGetString(true,key+".Module");
+	playergroup pg = PlayerGroupSingle(player);
+	if(index>-1){
+		DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,(module=="Briefing"));		
+		ConvUI_ConversationRun(ConvUI_CConversations[index],ConvUI_CCharacters,ConvUI_ManagedCallbacks, player);
+	}
+}
+
+
+void ConvUI_InitManagedCharacters(){
+	if(ConvUI_ManagedCharactersInitialized){return;}
+    ConvUI_CCharacterCreateFromCatalog(ConvUI_CCharacters);
+    ConvUI_ManagedCharactersInitialized = true;
+}
+
 
 int ConvUI_NewManagedConversation(string convid){
-	string key = "ConvUI_ManagedConversation[{id}]";
+	string key = ConvUI_GetManagedConversationKey(convid);
 	int index = ConvUI_ManagedConversationCount;
-	key = StringReplaceWord(key,"{id}",convid,1,true);
+	ConvUI_InitManagedCharacters();
 	if(DataTableValueExists(true,key)){
 		index = DataTableGetInt(true,key);
 	}
@@ -30,8 +73,6 @@ int ConvUI_NewManagedConversation(string convid){
 
 
 void ConvUI_Init(){
-	//trigger t = TriggerCreate("DummyTrigger");
-	//TriggerExecute(t,false,false);
 	ConvUI_BriefingUIInit();
 	ConvUI_DebugInit();
 }

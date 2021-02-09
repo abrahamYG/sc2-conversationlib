@@ -25,7 +25,9 @@ void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Ch
     DialogControlSetPropertyAsText(ConvUI_BriefingPane.TextLabel,c_triggerControlPropertyText,pg,Subtitle);
     PortraitSetActor(Portrait,PortraitActor);
     PortraitSetModel(Portrait,PortraitModel,false);
+    DialogSetSubtitlePositionOverrideControl(ConvUI_BriefingPane.TextLabel);
     TransmissionSendForPlayerSelect(pg,TransmissionSourceFromModel(PortraitModel),Portrait,PortraitActor,"Talk",Sound,Speaker,Subtitle,Duration, c_transmissionDurationAdd,false,player,false);
+    DialogSetSubtitlePositionOverrideControl(ConvUI_BriefingPane.TextLabel);
     Wait(Duration,c_timeReal);
 }
 

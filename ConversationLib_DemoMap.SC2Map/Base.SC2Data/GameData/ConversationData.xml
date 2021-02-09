@@ -2,11 +2,13 @@
 <Catalog>
     <CConversation id="TestConversation">
         <EditorCategories value="ConversationType:Briefing"/>
+        <DefaultSpeaker1 value="FuckingMentalJimRaynor"/>
+        <DefaultSpeaker2 value="HappyJoe"/>
         <Lines>
             <Id value="Line00001"/>
             <Text value="Conversation/TestConversation/Line00001"/>
             <FacialAnim value="Angry"/>
-            <FacialAsVoiceDir value="1"/>
+            <FacialBlend value="100"/>
             <Sound value="Banshee_Attack"/>
             <NoWait value="1"/>
             <OverlapPrevious value="500"/>
@@ -17,12 +19,19 @@
             <SpeakerCharacter value="FuckingMentalJimRaynor"/>
             <ListenerCharacter value="TerranAdjutant"/>
             <ConditionCheck value="Any"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
             <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Operation="Less"/>
             <Tags value="test"/>
         </Lines>
         <Lines>
             <Id value="Line00002"/>
             <Text value="Conversation/TestConversation/Line00002"/>
+            <FacialBlend value="100"/>
             <Sound value="HeroNovaMP1_Attack"/>
             <OverlapPrevious value="500"/>
             <AnimProps value="Talk"/>
@@ -30,6 +39,12 @@
             <AnimBlendOut value="-1"/>
             <SpeakerCharacter value="HappyJoe"/>
             <ListenerCharacter value="GhostFemale"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
         </Lines>
         <Lines>
             <Id value="Line00003"/>
@@ -40,6 +55,12 @@
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
             <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
         </Lines>
         <Lines>
             <Id value="Line00004"/>
@@ -50,6 +71,12 @@
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
             <SpeakerCharacter value="GhostFemale"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
         </Lines>
         <Lines>
             <Id value="Line00005"/>
@@ -60,6 +87,12 @@
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
             <SpeakerCharacter value="HappyJoe"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
         </Lines>
         <Lines>
             <Id value="Line00006"/>
@@ -69,6 +102,12 @@
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
             <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
         </Lines>
         <Lines>
             <Id value="Line00007"/>
@@ -78,7 +117,28 @@
             <AnimBlendIn value="-1"/>
             <AnimBlendOut value="-1"/>
             <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+            <Objects index="Speaker" value=""/>
+            <Objects index="Listener" value=""/>
+            <Objects index="Camera" value=""/>
+            <Variations index="Speaker" value=""/>
+            <Variations index="Listener" value=""/>
+            <Variations index="Camera" value=""/>
         </Lines>
+        <RunActions Id="RunActions00001">
+            <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text"/>
+        </RunActions>
+        <Waits Id="Wait00001" Duration="1500"/>
+        <Jumps Id="Jump00001" Location="Group00003">
+            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
+        </Jumps>
+        <Jumps Id="Jump00002"/>
+        <Jumps Id="Jump00003" Location="Group00002">
+            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
+        </Jumps>
+        <Choices Id="Choice00002" Text="Conversation/TestConversation/Choice00002">
+            <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text"/>
+        </Choices>
+        <Choices Id="Choice00004" Text="Conversation/TestConversation/Choice00004"/>
         <Groups Id="Group00001" Name="Conversation/TestConversation/Group00001">
             <Children value="Line00001"/>
             <Children value="Line00002"/>
@@ -101,26 +161,9 @@
             <Children value="Line00007"/>
             <Children value="Choice00004"/>
         </Groups>
+        <Comments Id="Comment00001" Text="Conversation/TestConversation/Comment00001"/>
         <RootItems value="Group00001"/>
         <RootItems value="Group00002"/>
-        <RunActions Id="RunActions00001">
-            <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text"/>
-        </RunActions>
-        <Jumps Id="Jump00001" Location="Group00003">
-            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
-        </Jumps>
-        <Jumps Id="Jump00002"/>
-        <Jumps Id="Jump00003" Location="Group00002">
-            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
-        </Jumps>
-        <Choices Id="Choice00002" Text="Conversation/TestConversation/Choice00002">
-            <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text"/>
-        </Choices>
-        <Choices Id="Choice00004" Text="Conversation/TestConversation/Choice00004"/>
-        <Comments Id="Comment00001" Text="Conversation/TestConversation/Comment00001"/>
-        <Waits Id="Wait00001" Duration="1500"/>
-        <DefaultSpeaker1 value="FuckingMentalJimRaynor"/>
-        <DefaultSpeaker2 value="HappyJoe"/>
     </CConversation>
     <CConversation id="testconvo2">
         <DefaultSpeaker1 value="FuckingMentalJimRaynor"/>

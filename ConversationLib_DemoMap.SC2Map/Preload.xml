@@ -2,5 +2,6 @@
 <Preload>
 <Actor id="SYSTEM_ActorConfig"/>
 <Conversation id="TestConversation"/>
+<Sound id="HeroNovaMP1_Attack"/>
 <Terrain id="Zerus"/>
 </Preload>

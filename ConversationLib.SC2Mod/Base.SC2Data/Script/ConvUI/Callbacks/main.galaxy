@@ -1,19 +1,110 @@
 include "Script/ConvUI/Callbacks/header";
 include "Script/ConvUI/Headers/CConversationGetById_h";
 
+string ConvUI_GetCallbackEventString(string convId,string id,bool before){
+	string suffix = ".Before";
+
+	if(!before){suffix = ".After";}
+	if(StringContains(id,convId+"|",0,true)){
+		return "ConvUI_Event: "+id+suffix;
+	}
+	return "ConvUI_Event: "+convId+"|"+id+suffix;
+}
+
 
 string ConvUI_GetLineCallbackEventString(string convId,string lineId,bool before){
-    string suffix = ".Before";
-    if(!before){suffix = ".After";}
-    if(StringContains(lineId,convId+"|",0,true)){
-        return "ConvUI_Event: "+lineId;    
-    }
-    return "ConvUI_Event: "+convId+"|"+lineId;
+	return ConvUI_GetCallbackEventString(convId,lineId,before);
 }
+
+
+string ConvUI_GetChoiceCallbackEventString(string convId,string choiceId,bool before){
+	return ConvUI_GetCallbackEventString(convId,choiceId,before);
+}
+string ConvUI_GetWaitCallbackEventString(string convId,string waitId,bool before){
+	return ConvUI_GetCallbackEventString(convId,waitId,before);
+}
+string ConvUI_GetRunActionsCallbackEventString(string convId,string runActionsId,bool before){
+	return ConvUI_GetCallbackEventString(convId,runActionsId,before);
+}
+string ConvUI_GetCommentCallbackEventString(string convId,string commentId,bool before){
+	return ConvUI_GetCallbackEventString(convId,commentId,before);
+}
+string ConvUI_GetJumpCallbackEventString(string convId,string jumpId,bool before){
+	return ConvUI_GetCallbackEventString(convId,jumpId,before);
+}
+string ConvUI_GetGroupCallbackEventString(string convId,string groupId,bool before){
+	return ConvUI_GetCallbackEventString(convId,groupId,before);
+}
+
+
 void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId, bool before){
-    string event = ConvUI_GetLineCallbackEventString(convId,lineId,true);
-    TriggerAddEventGeneric(t,event);
+	string event = ConvUI_GetLineCallbackEventString(convId,lineId,true);
+	TriggerAddEventGeneric(t,event);
 }
+void ConvUI_TriggerAddEventChoiceCallback(trigger t, string convId,string choiceId, bool before){
+	string event = ConvUI_GetChoiceCallbackEventString(convId,choiceId,true);
+	TriggerAddEventGeneric(t,event);
+}
+void ConvUI_TriggerAddEventWaitCallback(trigger t, string convId,string waitId,bool before){
+	string event = ConvUI_GetWaitCallbackEventString(convId,waitId,true);
+	TriggerAddEventGeneric(t,event);
+}
+void ConvUI_TriggerAddEventRunActionsCallback(trigger t, string convId,string runActionsId,bool before){
+	string event = ConvUI_GetRunActionsCallbackEventString(convId,runActionsId,true);
+	TriggerAddEventGeneric(t,event);
+}
+void ConvUI_TriggerAddEventCommentCallback(trigger t, string convId,string commentId,bool before){
+	string event = ConvUI_GetCommentCallbackEventString(convId,commentId,true);
+	TriggerAddEventGeneric(t,event);
+}
+void ConvUI_TriggerAddEventJumpCallback(trigger t, string convId,string jumpId,bool before){
+	string event = ConvUI_GetJumpCallbackEventString(convId,jumpId,true);
+	TriggerAddEventGeneric(t,event);
+}
+void ConvUI_TriggerAddEventGroupCallback(trigger t, string convId,string groupId,bool before){
+	string event = ConvUI_GetGroupCallbackEventString(convId,groupId,true);
+	TriggerAddEventGeneric(t,event);
+}
+
+string ConvUI_EventConversationId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Conversation"));
+}
+string ConvUI_EventCharacterId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Character"));
+}
+string ConvUI_EventJumpId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Jump"));
+}
+string ConvUI_EventCommentId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Comment"));
+}
+string ConvUI_EventRunActionsId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"RunAction"));
+}
+string ConvUI_EventWaitId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Wait"));
+}
+string ConvUI_EventChoiceId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Choice"));
+}
+string ConvUI_EventLineId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Line"));
+}
+string ConvUI_EventGroupId(){
+	return DataTableGetString(false,TriggerEventParamName(EventGenericName(),"Group"));
+}
+int ConvUI_EventPlayer(){
+	return DataTableGetInt(false,TriggerEventParamName(EventGenericName(),"Player"));
+}
+
+void ConvUI_EventParamsStore(string convId, string charId, string itemId, string itemType, int player,bool before){
+	string key = ConvUI_GetCallbackEventString(convId,itemId,before);
+	DataTableSetString(false,TriggerEventParamName(key,"Conversation"),convId);
+	DataTableSetString(false,TriggerEventParamName(key,"Character"),charId);
+	DataTableSetString(false,TriggerEventParamName(key,itemType),itemId);
+	DataTableSetInt(false,TriggerEventParamName(key,"Player"),player);
+}
+
 
 void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
   
@@ -22,8 +113,8 @@ void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationCh
 
 }
 void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player){
-    fixed Duration = IntToFixed(WaitRef.Duration)/1000;
-    Wait(Duration,c_timeReal);
+	fixed Duration = IntToFixed(WaitRef.Duration)/1000;
+	Wait(Duration,c_timeReal);
 }
 void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index, int player){
 
@@ -41,7 +132,7 @@ void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGro
 
 
 void ConvUI_DefaultCallbackSet(ConversationCallbackRef Callbacks){
-    Callbacks.LineCallback = ConvUI_DefaultLineCallback;
+	Callbacks.LineCallback = ConvUI_DefaultLineCallback;
 	Callbacks.ChoiceCallback = ConvUI_DefaultChoiceCallback;
 	Callbacks.WaitCallback = ConvUI_DefaultWaitCallback;
 	Callbacks.RunActionsCallback = ConvUI_DefaultRunActionsCallback;
@@ -51,5 +142,5 @@ void ConvUI_DefaultCallbackSet(ConversationCallbackRef Callbacks){
 }
 
 void ConvUI_InitDefaultCallbacks(){
-    ConvUI_DefaultCallbackSet(ConvUI_DefaultCallbacks);
+	ConvUI_DefaultCallbackSet(ConvUI_DefaultCallbacks);
 }

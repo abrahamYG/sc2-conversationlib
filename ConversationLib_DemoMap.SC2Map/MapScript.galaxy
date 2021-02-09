@@ -17,9 +17,20 @@ void InitLibs () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Global Variables
+//--------------------------------------------------------------------------------------------------
+string gv_conversation;
+
+void InitGlobals () {
+    gv_conversation = "TestConversation";
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger Variables
 //--------------------------------------------------------------------------------------------------
 trigger gt_InitializeConversation;
+trigger gt_RunManagedConversation;
+trigger gt_ConversationEventResponses;
 
 //--------------------------------------------------------------------------------------------------
 // Trigger: Initialize Conversation
@@ -31,7 +42,7 @@ bool gt_InitializeConversation_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    ConvUI_NewManagedConversation("TestConversation");
+    ConvUI_NewManagedConversation(gv_conversation);
     return true;
 }
 
@@ -42,10 +53,79 @@ void gt_InitializeConversation_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Run Managed Conversation
+//--------------------------------------------------------------------------------------------------
+bool gt_RunManagedConversation_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    ConvUI_SetManagedCallbackModuleWrapper(gv_conversation, "Briefing");
+    ConvUI_RunManagedConversation(gv_conversation, 1);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_RunManagedConversation_Init () {
+    gt_RunManagedConversation = TriggerCreate("gt_RunManagedConversation_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Conversation Event Responses
+//--------------------------------------------------------------------------------------------------
+bool gt_ConversationEventResponses_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    string lv_eventName;
+    string lv_conversation;
+    string lv_character;
+    int lv_player;
+    string lv_line;
+    string lv_choice;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_eventName = EventGenericName();
+    lv_conversation = ConvUI_EventConversationId();
+    lv_character = ConvUI_EventCharacterId();
+    lv_player = ConvUI_EventPlayer();
+    lv_line = ConvUI_EventLineId();
+    lv_choice = ConvUI_EventChoiceId();
+
+    // Conditions
+    if (testConds) {
+        if (!((EventGenericName() != ""))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(2, StringExternal("Param/Value/061DA059"), true);
+    TriggerDebugOutput(2, (StringExternal("Param/Value/D4E013B1") + StringToText("lv_conversation")), true);
+    TriggerDebugOutput(2, (StringExternal("Param/Value/AE42CD80") + StringToText((CatalogFieldValueGet(c_gameCatalogCharacter, lv_character, "Name", c_playerAny)))), true);
+    TriggerDebugOutput(2, (StringExternal("Param/Value/AE119E17") + StringToText(lv_line)), true);
+    TriggerDebugOutput(2, (StringExternal("Param/Value/98A78E63") + PlayerName(lv_player)), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_ConversationEventResponses_Init () {
+    gt_ConversationEventResponses = TriggerCreate("gt_ConversationEventResponses_Func");
+    ConvUI_TriggerAddEventLineCallbackWrapper(gt_ConversationEventResponses, "TestConversation", "TestConversation|Line00002", true);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger Initialization
 //--------------------------------------------------------------------------------------------------
 void InitTriggers () {
     gt_InitializeConversation_Init();
+    gt_RunManagedConversation_Init();
+    gt_ConversationEventResponses_Init();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -53,5 +133,6 @@ void InitTriggers () {
 //--------------------------------------------------------------------------------------------------
 void InitMap () {
     InitLibs();
+    InitGlobals();
     InitTriggers();
 }
