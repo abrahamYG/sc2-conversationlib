@@ -1,12 +1,32 @@
 include "Script/ConvUI/Modules/LineDialogs/header";
 
 
-int ConvUI_DialogMainHookupGet(){
-    if(ConvUI_DialogMainHookup<0){
-        ConvUI_DialogMainHookup = DialogControlHookupStandard(c_triggerControlTypePanel,"UIContainer/FullscreenUpperContainer");
+int ConvUI_LineDialogMainHookupGet(){
+    if(ConvUI_LineDialogMainHookup < 0){
+        ConvUI_LineDialogMainHookup = DialogControlHookupStandard(c_triggerControlTypePanel,CONVUI_LINEDLG_HOOKUPPATH);
     }
-    return ConvUI_DialogMainHookup;
+    return ConvUI_LineDialogMainHookup;
 }
+
+void ConvUI_LineDialogConversationStartCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player){
+    int i;
+    for(i=0;i<c_maxPlayers;i+=1){
+        ConvUI_LineDialogCount[i]=0;
+    }
+    DialogControlSetVisible(ConvUI_LineDialogMainHookupGet(),PlayerGroupSingle(player),true);
+}
+void ConvUI_LineDialogConversationEndCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player){
+    int i;
+    int j;
+    DialogControlSetVisible(ConvUI_LineDialogMainHookupGet(),PlayerGroupSingle(player),false);
+    for(i=0;i<c_maxPlayers;i+=1){
+        for(j=0;j<ConvUI_LineDialogCount[i];j+=1){
+            DialogControlDestroy(ConvUI_LineDialogs[i][j]);
+        }
+        ConvUI_LineDialogCount[i]=0;
+    }
+}
+
 
 void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
 	int dlg;
@@ -31,8 +51,9 @@ void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineR
 		template = CONVUI_LINEDLG_TEMPLATERIGHT;
 	}
     dlg = ConvUI_LineDialogCreate(Line,Character,template);
-    //TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
+    DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_LineDialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
+    ConvUI_LineDialogs[player][ConvUI_LineDialogCount[player]] = dlg;
+    ConvUI_LineDialogCount[player] += 1 ;
     Wait(Duration,c_timeReal);
 }
 
@@ -44,7 +65,7 @@ int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,s
     string PortraitActor = Character.Variations[0].Actor;
     string finalTemplate = template;
     playergroup pg = PlayerGroupActive();
-    int parent = ConvUI_DialogMainHookupGet();
+    int parent = ConvUI_LineDialogMainHookupGet();
     int dlg;
     int dlgPortraitImage;
     int dlgPortraitModel;
@@ -76,12 +97,8 @@ int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,s
 
 void ConvUI_LineDialogCallbackSet(ConversationCallbackRef Callbacks){
     ConvUI_DefaultCallbackSet(Callbacks);
+    Callbacks.ConversationStartCallback = ConvUI_LineDialogConversationStartCallback;
+    Callbacks.ConversationEndCallback = ConvUI_LineDialogConversationEndCallback;
     Callbacks.LineCallback = ConvUI_LineDialogCallback;
-    //Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
-    //Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
-    //Callbacks.RunActionsCallback = ConvUI_TransmissionRunActionsCallback;
-    //Callbacks.CommentCallback = ConvUI_TransmissionCommentCallback;
-    //Callbacks.JumpCallback = ConvUI_TransmissionJumpCallback;
-    //Callbacks.GroupCallback = ConvUI_TransmissionGroupCallback;    
 }
 

@@ -1,12 +1,20 @@
 include "Script/Catalog/Character_h";
 include "Script/Catalog/Conversation_h";
 
+const string CONVUI_LINEDLG_HOOKUPPATH = "UIContainer/FullscreenUpperContainer/LineDialogFrame";
 const string CONVUI_LINEDLG_TEMPLATE = "ConvUI_LineTemplate/ConversationLineTemplate";
 const string CONVUI_LINEDLG_TEMPLATELEFT = "ConvUI_LineTemplate/ConversationLineTemplateLeft";
 const string CONVUI_LINEDLG_TEMPLATERIGHT = "ConvUI_LineTemplate/ConversationLineTemplateRight";
-int ConvUI_DialogMainHookup = -1;
+const int CONVUI_LINEDLG_MAXDLGCOUNT = 40;
+int ConvUI_LineDialogMainHookup = -1;
+int[c_maxPlayers][CONVUI_LINEDLG_MAXDLGCOUNT] ConvUI_LineDialogs;
+int[c_maxPlayers] ConvUI_LineDialogCount;
 
-int ConvUI_DialogMainHookupGet();
+
+int ConvUI_LineDialogMainHookupGet();
+void ConvUI_LineDialogConversationStartCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player);
+void ConvUI_LineDialogConversationEndCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player);
+
 void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,string template);
 void ConvUI_LineDialogCallbackSet(ConversationCallbackRef Callbacks);

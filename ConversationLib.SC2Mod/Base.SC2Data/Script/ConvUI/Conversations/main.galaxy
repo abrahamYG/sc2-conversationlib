@@ -464,5 +464,7 @@ void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArr
 	
 	
 	SConversationGroupRef Group;
+	CallbackSet.ConversationStartCallback(Conversation,Characters,player);
 	ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,RootItems,RootItemsCount, player);
+	CallbackSet.ConversationEndCallback(Conversation,Characters,player);
 };

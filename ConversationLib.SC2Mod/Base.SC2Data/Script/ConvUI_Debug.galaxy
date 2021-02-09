@@ -103,15 +103,12 @@ bool ConvUI_DebugButtonFunc(bool a, bool b){
     ConversationCallbackRef Callbacks = ConvUI_DebugCallbacks;
     int button = EventDialogControl();
     if(button==ConvUI_DebugButton[0]){
-        DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,false);
         ConvUI_SetManagedCallbackModule(Conversation, Callbacks, "Transmission");
     }
     else if(button==ConvUI_DebugButton[1]){
-        DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,true);
         ConvUI_SetManagedCallbackModule(Conversation, Callbacks, "Briefing");
     }
     else if(button==ConvUI_DebugButton[2]){
-        DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,false);
         ConvUI_SetManagedCallbackModule(Conversation, Callbacks, "LineDialogs");
     }
     else{

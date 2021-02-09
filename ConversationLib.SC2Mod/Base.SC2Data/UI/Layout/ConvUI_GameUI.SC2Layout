@@ -9,6 +9,13 @@
 			<Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
 			<Visible val="False"/>
 		</Frame>
+		<Frame type="Frame" name="LineDialogFrame">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Visible val="True"/>
+		</Frame>
 		<Frame type="Button" name="ConvoButton01" template="StandardBattlenetTemplates/BattlenetVerticalTabButtonTemplate">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="80"/>
 			<Anchor side="Right" relative="$parent" pos="Max" offset="-20"/>
@@ -24,6 +31,14 @@
 			<Anchor side="Right" relative="$parent/ConvoButton02" pos="Max" offset="0"/>
 			<Text val="Run Custom UI"/>
 		</Frame>
+		<Frame type="Frame" name="OutOfScreen">
+			<Anchor side="Top" relative="$parent" pos="Max" offset="20"/>
+			<Anchor side="Left" relative="$parent" pos="Max" offset="20"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="20"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="20"/>
+			<Visible val="False"/>
+		</Frame>
+
 		<!--
 			<Frame type="Frame" name="ConversationLine01" template="ConvUI_LineTemplate/ConversationLineTemplateLeft">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="100"/>

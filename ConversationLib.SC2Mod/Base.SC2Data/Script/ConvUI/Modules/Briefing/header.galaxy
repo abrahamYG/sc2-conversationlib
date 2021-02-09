@@ -1,17 +1,21 @@
 include "Script/ConvUI/Characters/header";
 include "Script/ConvUI/Conversations/header";
 
+
 const string CONVUI_BRIEFINGPANEPATH = "UIContainer/FullscreenUpperContainer/BriefingFrame";
+const string CONVUI_OUTOFSCREENPATH = "UIContainer/FullscreenUpperContainer/OutOfScreen";
 struct ConvUI_BriefingPaneStruct {
     int Frame;
     int[4] Portraits;
     int TextLabel;
     int SpeakerLabel;
 };
-
+int ConvUI_BriefingOutOfScreenPane;
 ConvUI_BriefingPaneStruct ConvUI_BriefingPane;
 
 void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex, int player);
+void ConvUI_BriefingConversationStartCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player);
+void ConvUI_BriefingConversationEndCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player);
 void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 void ConvUI_BriefingCallbackSet(ConversationCallbackRef Callbacks);
 void ConvUI_BriefingUIInit();

@@ -45,8 +45,9 @@ void ConvUI_RunManagedConversation(string convid, int player){
 	string module = DataTableGetString(true,key+".Module");
 	playergroup pg = PlayerGroupSingle(player);
 	if(index>-1){
-		DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,(module=="Briefing"));		
+		
 		ConvUI_ConversationRun(ConvUI_CConversations[index],ConvUI_CCharacters,ConvUI_ManagedCallbacks, player);
+		CinematicMode(pg,false,0.0);
 	}
 }
 

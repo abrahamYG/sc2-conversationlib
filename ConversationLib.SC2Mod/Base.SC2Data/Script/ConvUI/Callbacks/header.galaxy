@@ -1,5 +1,7 @@
 include "Script/Catalog/Conversation_h";
 
+static void CConversationCallbackFunc(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player);
+typedef funcref<CConversationCallbackFunc> CConversationCallback;
 static void SConversationLineCallbackFunc(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 typedef funcref<SConversationLineCallbackFunc> SConversationLineCallback;
 static void SConversationChoiceCallbackFunc(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player);
@@ -17,6 +19,8 @@ typedef funcref<SConversationGroupCallbackFunc> SConversationGroupCallback;
 
 
 struct ConversationCallback{
+	CConversationCallback ConversationStartCallback;
+	CConversationCallback ConversationEndCallback;
 	SConversationLineCallback LineCallback;
 	SConversationChoiceCallback ChoiceCallback;
 	SConversationWaitCallback WaitCallback;
@@ -34,6 +38,7 @@ typedef funcref<ConversationCallbackSetFunc> ConversationCallbackSetFuncRef;
 
 
 ConversationCallback ConvUI_DefaultCallbacks;
+void ConvUI_DefaultConversationCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player);
 void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player);
 void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player);

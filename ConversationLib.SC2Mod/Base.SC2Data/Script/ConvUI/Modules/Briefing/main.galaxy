@@ -27,8 +27,21 @@ void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Ch
     PortraitSetModel(Portrait,PortraitModel,false);
     DialogSetSubtitlePositionOverrideControl(ConvUI_BriefingPane.TextLabel);
     TransmissionSendForPlayerSelect(pg,TransmissionSourceFromModel(PortraitModel),Portrait,PortraitActor,"Talk",Sound,Speaker,Subtitle,Duration, c_transmissionDurationAdd,false,player,false);
-    DialogSetSubtitlePositionOverrideControl(ConvUI_BriefingPane.TextLabel);
+    DialogSetSubtitlePositionOverrideControl(ConvUI_BriefingOutOfScreenPane);
     Wait(Duration,c_timeReal);
+}
+
+void ConvUI_BriefingConversationStartCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player){
+    playergroup pg = PlayerGroupSingle(player);
+    ConvUI_BriefingUIInit();
+    CinematicMode(pg,true,0.0);
+    DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,true);
+}
+
+void ConvUI_BriefingConversationEndCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player){
+    playergroup pg = PlayerGroupSingle(player);
+    DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,false);
+    CinematicMode(pg,false,0.0);
 }
 
 
@@ -48,6 +61,8 @@ void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLin
 
 void ConvUI_BriefingCallbackSet(ConversationCallbackRef Callbacks){
     ConvUI_DefaultCallbackSet(Callbacks);
+    Callbacks.ConversationStartCallback = ConvUI_BriefingConversationStartCallback;
+    Callbacks.ConversationEndCallback = ConvUI_BriefingConversationEndCallback;
     Callbacks.LineCallback = ConvUI_BriefingLineCallback;
     //Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
     //Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
@@ -62,6 +77,7 @@ void ConvUI_BriefingCallbackSet(ConversationCallbackRef Callbacks){
 
 void ConvUI_BriefingUIInit(){
     int i = 0;
+    ConvUI_BriefingOutOfScreenPane = DialogControlHookupStandard(c_triggerControlTypePanel,CONVUI_OUTOFSCREENPATH);
     ConvUI_BriefingPane.Frame = DialogControlHookupStandard(c_triggerControlTypePanel,CONVUI_BRIEFINGPANEPATH);
     for(i=0;i<4;i+=1){
         ConvUI_BriefingPane.Portraits[i] = DialogControlHookup(ConvUI_BriefingPane.Frame,c_triggerControlTypePortrait,"Portrait0"+IntToString(i+1));

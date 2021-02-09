@@ -64,11 +64,11 @@ void ConvUI_TransmissionGroupCallback(CConversationRef Conversation, SConversati
 void ConvUI_TransmissionCallbackSet(ConversationCallbackRef Callbacks){
     ConvUI_DefaultCallbackSet(Callbacks);
     Callbacks.LineCallback = ConvUI_TransmissionLineCallback;
-    Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
-    Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
-    Callbacks.RunActionsCallback = ConvUI_TransmissionRunActionsCallback;
-    Callbacks.CommentCallback = ConvUI_TransmissionCommentCallback;
-    Callbacks.JumpCallback = ConvUI_TransmissionJumpCallback;
-    Callbacks.GroupCallback = ConvUI_TransmissionGroupCallback;    
+    //Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
+    //Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
+    //Callbacks.RunActionsCallback = ConvUI_TransmissionRunActionsCallback;
+    //Callbacks.CommentCallback = ConvUI_TransmissionCommentCallback;
+    //Callbacks.JumpCallback = ConvUI_TransmissionJumpCallback;
+    //Callbacks.GroupCallback = ConvUI_TransmissionGroupCallback;    
 }
 

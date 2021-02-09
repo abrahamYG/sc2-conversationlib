@@ -10,10 +10,9 @@ void ConvUI_SetManagedCallbackModule(CConversationRef Conversation, Conversation
             ConvUI_TransmissionCallbackSet(Callback);
         }
         else if(module=="Briefing"){
-            ConvUI_BriefingUIInit();
             ConvUI_BriefingCallbackSet(Callback);
         }
         else if(module=="LineDialogs"){
-            ConvUI_BriefingCallbackSet(Callback);
+            ConvUI_LineDialogCallbackSet(Callback);
         }
 }

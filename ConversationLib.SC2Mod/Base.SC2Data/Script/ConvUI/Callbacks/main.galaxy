@@ -105,7 +105,9 @@ void ConvUI_EventParamsStore(string convId, string charId, string itemId, string
 	DataTableSetInt(false,TriggerEventParamName(key,"Player"),player);
 }
 
+void ConvUI_DefaultConversationCallback(CConversationRef Conversation, arrayref<CCharacterArray> Characters, int player){
 
+}
 void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
   
 }
@@ -132,6 +134,8 @@ void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGro
 
 
 void ConvUI_DefaultCallbackSet(ConversationCallbackRef Callbacks){
+	Callbacks.ConversationStartCallback = ConvUI_DefaultConversationCallback;
+	Callbacks.ConversationEndCallback = ConvUI_DefaultConversationCallback;
 	Callbacks.LineCallback = ConvUI_DefaultLineCallback;
 	Callbacks.ChoiceCallback = ConvUI_DefaultChoiceCallback;
 	Callbacks.WaitCallback = ConvUI_DefaultWaitCallback;
