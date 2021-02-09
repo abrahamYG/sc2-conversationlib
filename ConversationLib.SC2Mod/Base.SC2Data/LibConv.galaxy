@@ -31,6 +31,57 @@ void ConvUI_TriggerAddEventLineCallbackWrapper (trigger t, string lp_conversatio
     ConvUI_TriggerAddEventLineCallback(t, lp_conversation, lp_line, lp_before);
 }
 
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Test
+//--------------------------------------------------------------------------------------------------
+bool libConv_gt_Test_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    string lv_eventName;
+    string lv_conversation;
+    string lv_character;
+    int lv_player;
+    string lv_line;
+    string lv_choice;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_eventName = EventGenericName();
+    lv_conversation = ConvUI_EventConversationId();
+    lv_character = ConvUI_EventCharacterId();
+    lv_player = ConvUI_EventPlayer();
+    lv_line = ConvUI_EventLineId();
+    lv_choice = ConvUI_EventChoiceId();
+
+    // Conditions
+    if (testConds) {
+        if (!((EventGenericName() != ""))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(2, StringExternal("Param/Value/lib_Conv_A6C66E19"), true);
+    ConvUI_NewManagedConversation("GhostFemale");
+    ConvUI_SetManagedCallbackModuleWrapper(lv_conversation, "Briefing");
+    ConvUI_RunManagedConversation("GhostFemale", 1);
+    TriggerDebugOutput(1, ConvUI_GetManagedConversationLineText(lv_conversation, lv_line), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libConv_gt_Test_Init () {
+    libConv_gt_Test = TriggerCreate("libConv_gt_Test_Func");
+}
+
+void libConv_InitTriggers () {
+    libConv_gt_Test_Init();
+}
+
 //--------------------------------------------------------------------------------------------------
 // Library Initialization
 //--------------------------------------------------------------------------------------------------
@@ -45,5 +96,6 @@ void libConv_InitLib () {
 
     libConv_InitLibraries();
     libConv_InitCustomScript();
+    libConv_InitTriggers();
 }
 

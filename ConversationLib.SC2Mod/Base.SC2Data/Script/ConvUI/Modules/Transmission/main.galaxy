@@ -2,7 +2,6 @@ include "Script/ConvUI/Modules/Transmission/header";
 
 void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
 	playergroup pg = PlayerGroupSingle(player);
-	//int player = PlayerGroupPlayer(pg,1);
 	string Model = Character.Variations[0].Model;
 	transmissionsource TS = TransmissionSourceFromModel(Model);
 	int Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
@@ -27,10 +26,6 @@ void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationL
 	else{
 		Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterRight);
 	}
-	//TriggerDebugOutput(1,StringToText("Line:"+Line.Id),true);
-	//TriggerDebugOutput(1,StringToText("Model:"+Model),true);
-    //TriggerDebugOutput(1,StringToText("Actor:"+Actor),true);
-    //TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
 	TransmissionSendForPlayerSelect(pg,TS,Portrait,Actor,"Talk",Sound,Speaker,Subtitle,Duration, DurType,true,player,false);
 }
 

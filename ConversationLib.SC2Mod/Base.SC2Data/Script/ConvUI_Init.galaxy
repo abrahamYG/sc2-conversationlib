@@ -10,6 +10,9 @@ ConversationCallback ConvUI_ManagedCallbacks;
 int ConvUI_ManagedConversationCount = 0;
 bool ConvUI_ManagedCharactersInitialized = false;
 
+
+
+
 string ConvUI_GetManagedConversationKey(string convid){
 	string key = "ConvUI_ManagedConversation[{id}]";
 	return StringReplaceWord(key,"{id}",convid,1,true);
@@ -24,6 +27,10 @@ int ConvUI_GetManagedConversationIndex(string convid){
 	}
 	return index;
 }
+
+
+
+
 
 void ConvUI_SetManagedCallbackModuleWrapper(string convid, string module){
 	int index = ConvUI_GetManagedConversationIndex(convid);
@@ -43,6 +50,22 @@ void ConvUI_RunManagedConversation(string convid, int player){
 	}
 }
 
+
+text ConvUI_GetManagedConversationLineText(string convid, string lineid){
+	string key = ConvUI_GetManagedConversationKey(convid);
+	int index = ConvUI_GetManagedConversationIndex(convid);
+	int lineIndex = -1;
+	text t;
+	SConversationLineRef Line;
+	if(index>-1){
+		lineIndex = ConvUI_CConversationLineGetById(ConvUI_CConversations[index],lineid);
+		if(lineIndex>-1){
+			Line = ConvUI_CConversations[index].Lines[lineIndex];
+			t = Line.Text;
+		}
+	}
+	return t;
+}
 
 void ConvUI_InitManagedCharacters(){
 	if(ConvUI_ManagedCharactersInitialized){return;}
