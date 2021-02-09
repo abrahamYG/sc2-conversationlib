@@ -1,0 +1,17 @@
+include "Script/Catalog/Conversation_h";
+include "Script/ConvUI/Callbacks/header";
+include "Script/ConvUI/Modules/Transmission/main";
+include "Script/ConvUI/Modules/Briefing/main";
+include "Script/ConvUI/Modules/LineDialogs/main";
+
+void ConvUI_SetManagedConversationCallbackModule(CConversationRef Conversation, ConversationCallbackRef Callback, string module){
+        if(module=="Transmission"){
+            ConvUI_TransmissionCallbackSet(Callback);
+        }
+        else if(module=="Briefing"){
+            ConvUI_BriefingCallbackSet(Callback);
+        }
+        else if(module=="LineDialogs"){
+            ConvUI_BriefingCallbackSet(Callback);
+        }
+}

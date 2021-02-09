@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CConversation id="TestConversation">
+        <EditorCategories value="ConversationType:Briefing"/>
+        <Lines>
+            <Id value="Line00001"/>
+            <Text value="Conversation/TestConversation/Line00001"/>
+            <FacialAnim value="Angry"/>
+            <FacialAsVoiceDir value="1"/>
+            <Sound value="Banshee_Attack"/>
+            <NoWait value="1"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <LookAtType value="FastEyesOnly"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+            <ListenerCharacter value="TerranAdjutant"/>
+            <ConditionCheck value="Any"/>
+            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Operation="Less"/>
+            <Tags value="test"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00002"/>
+            <Text value="Conversation/TestConversation/Line00002"/>
+            <Sound value="HeroNovaMP1_Attack"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="HappyJoe"/>
+            <ListenerCharacter value="GhostFemale"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00003"/>
+            <Text value="Conversation/TestConversation/Line00003"/>
+            <Sound value="Banshee_What"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00004"/>
+            <Text value="Conversation/TestConversation/Line00004"/>
+            <Sound value="GhostFemale_GhostFemale_005"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="GhostFemale"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00005"/>
+            <Text value="Conversation/TestConversation/Line00005"/>
+            <Sound value="MainMenuNova_Sneer"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="HappyJoe"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00006"/>
+            <Text value="Conversation/TestConversation/Line00006"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00007"/>
+            <Text value="Conversation/TestConversation/Line00007"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+        </Lines>
+        <Groups Id="Group00001" Name="Conversation/TestConversation/Group00001">
+            <Children value="Line00001"/>
+            <Children value="Line00002"/>
+            <Children value="Line00003"/>
+            <Children value="Line00004"/>
+            <Children value="Wait00001"/>
+            <Children value="Line00005"/>
+            <Children value="RunActions00001"/>
+            <Children value="Comment00001"/>
+            <Children value="Choice00002"/>
+            <Children value="Jump00001"/>
+            <Children value="Jump00003"/>
+            <Children value="Group00003"/>
+        </Groups>
+        <Groups Id="Group00002" Name="Conversation/TestConversation/Group00002">
+            <Children value="Line00006"/>
+            <Children value="Jump00002"/>
+        </Groups>
+        <Groups Id="Group00003" Name="Conversation/TestConversation/Group00003">
+            <Children value="Line00007"/>
+            <Children value="Choice00004"/>
+        </Groups>
+        <RootItems value="Group00001"/>
+        <RootItems value="Group00002"/>
+        <RunActions Id="RunActions00001">
+            <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text"/>
+        </RunActions>
+        <Jumps Id="Jump00001" Location="Group00003">
+            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
+        </Jumps>
+        <Jumps Id="Jump00002"/>
+        <Jumps Id="Jump00003" Location="Group00002">
+            <Conditions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text" Value="1"/>
+        </Jumps>
+        <Choices Id="Choice00002" Text="Conversation/TestConversation/Choice00002">
+            <Actions State="TutorialLoadScreenText" Index="Tutorial Load Screen Text"/>
+        </Choices>
+        <Choices Id="Choice00004" Text="Conversation/TestConversation/Choice00004"/>
+        <Comments Id="Comment00001" Text="Conversation/TestConversation/Comment00001"/>
+        <Waits Id="Wait00001" Duration="1500"/>
+        <DefaultSpeaker1 value="FuckingMentalJimRaynor"/>
+        <DefaultSpeaker2 value="HappyJoe"/>
+    </CConversation>
+    <CConversation id="testconvo2">
+        <DefaultSpeaker1 value="FuckingMentalJimRaynor"/>
+        <DefaultSpeaker2 value="HappyJoe"/>
+        <Lines>
+            <Id value="Line00001"/>
+            <Text value="Conversation/testconvo2/Line00001"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="FuckingMentalJimRaynor"/>
+            <ListenerCharacter value="HappyJoe"/>
+        </Lines>
+        <Lines>
+            <Id value="Line00002"/>
+            <Text value="Conversation/testconvo2/Line00002"/>
+            <OverlapPrevious value="500"/>
+            <AnimProps value="Talk"/>
+            <AnimBlendIn value="-1"/>
+            <AnimBlendOut value="-1"/>
+            <SpeakerCharacter value="HappyJoe"/>
+            <ListenerCharacter value="FuckingMentalJimRaynor"/>
+        </Lines>
+        <Groups Id="Group00001" Name="Conversation/testconvo2/Group00001">
+            <Children value="Line00001"/>
+        </Groups>
+        <Groups Id="Group00002" Name="Conversation/testconvo2/Group00002">
+            <Children value="Line00002"/>
+        </Groups>
+        <RootItems value="Group00001"/>
+        <RootItems value="Group00002"/>
+    </CConversation>
+</Catalog>

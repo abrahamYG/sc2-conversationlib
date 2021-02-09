@@ -1,0 +1,106 @@
+include "Script/ConvUI/Modules/LineDialogs/header";
+
+
+int ConvUI_DialogMainHookupGet(){
+    if(ConvUI_DialogMainHookup<0){
+        ConvUI_DialogMainHookup = DialogControlHookupStandard(c_triggerControlTypePanel,"UIContainer/FullscreenUpperContainer");
+    }
+    return ConvUI_DialogMainHookup;
+}
+
+void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+	int dlg;
+	string template;
+	playergroup pg = PlayerGroupActive();
+	int player = PlayerGroupPlayer(pg,1);
+    fixed Duration = 5.0;
+    soundlink Sound;
+    if(Line.Sound != ""){
+        Sound = SoundLink(Line.Sound,c_soundIndexAny);
+        SoundLengthQuery(Sound);
+        SoundLengthQueryWait();
+        Duration = SoundLengthSync(Sound);
+        //SoundPlayForPlayer(Sound,player,pg,80,0.0);
+	}
+    if(Line.FixedDuration != 0){
+        Duration = IntToFixed(Line.FixedDuration)/1000;
+    }
+	if(index%2 != 0){
+		template = CONVUI_LINEDLG_TEMPLATELEFT;
+	}
+	else{
+		template = CONVUI_LINEDLG_TEMPLATERIGHT;
+	}
+    dlg = ConvUI_LineDialogCreate(Line,Character,template);
+    //TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
+	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
+    Wait(Duration,c_timeReal);
+}
+
+//void ConvUI_TransmissionCreateDialogIntLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+//	int dlg;
+//	string template;
+//	playergroup pg = PlayerGroupActive();
+//	int player = PlayerGroupPlayer(pg,1);
+//
+//	if(index%2 != 0){
+//		template = CONVUI_LINEDLG_TEMPLATELEFT;
+//	}
+//	else{
+//		template = CONVUI_LINEDLG_TEMPLATERIGHT;
+//	}
+//    dlg = ConvUI_LineDialogCreate(Line,Character,template);
+//    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
+//	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
+//	//TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
+//}
+
+int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,string template){
+    string PortraitImage = Character.Image;
+    text Speaker = Character.Name;
+    text Text = Line.Text;
+    string PortraitModel = Character.Variations[0].Model;
+    string PortraitActor = Character.Variations[0].Actor;
+    string finalTemplate = template;
+    playergroup pg = PlayerGroupActive();
+    int parent = ConvUI_DialogMainHookupGet();
+    int dlg;
+    int dlgPortraitImage;
+    int dlgPortraitModel;
+    int dlgSPeaker;
+    int dlgText;
+    int portrait;
+    if(finalTemplate == ""){
+        finalTemplate = CONVUI_LINEDLG_TEMPLATELEFT;
+    }
+    dlg = DialogControlCreateInPanelFromTemplate(parent,c_triggerControlTypePanel,finalTemplate);
+    dlgPortraitImage = DialogControlHookup(dlg,c_triggerControlTypeImage,"PortraitImage");
+    dlgPortraitModel = DialogControlHookup(dlg,c_triggerControlTypePortrait,"PortraitModel");
+    dlgSPeaker = DialogControlHookup(dlg,c_triggerControlTypeLabel,"BodyFrame/SpeakerLabel");
+    dlgText = DialogControlHookup(dlg,c_triggerControlTypeLabel,"BodyFrame/TextLabel");
+    DialogControlSetPropertyAsString(dlgPortraitImage,c_triggerControlPropertyImage,pg,PortraitImage);
+    DialogControlSetPropertyAsText(dlgSPeaker,c_triggerControlPropertyText,pg,Speaker);
+    DialogControlSetPropertyAsText(dlgText,c_triggerControlPropertyText,pg,Text);
+    portrait = PortraitGetTriggerControl(dlgPortraitModel);
+    PortraitSetBorderVisible(portrait,false);
+    PortraitSetActor(portrait,PortraitActor);
+    PortraitSetModel(portrait,PortraitModel,false);
+    DialogControlSetVisible(dlgPortraitImage,pg,false);
+    return dlg;
+}
+
+
+
+
+
+void ConvUI_LineDialogCallbackSet(ConversationCallbackRef Callbacks){
+    ConvUI_DefaultCallbackSet(Callbacks);
+    Callbacks.LineCallback = ConvUI_LineDialogCallback;
+    //Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
+    //Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
+    //Callbacks.RunActionsCallback = ConvUI_TransmissionRunActionsCallback;
+    //Callbacks.CommentCallback = ConvUI_TransmissionCommentCallback;
+    //Callbacks.JumpCallback = ConvUI_TransmissionJumpCallback;
+    //Callbacks.GroupCallback = ConvUI_TransmissionGroupCallback;    
+}
+

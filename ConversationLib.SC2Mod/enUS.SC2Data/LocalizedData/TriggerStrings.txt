@@ -1,4 +1,10 @@
-﻿CustomScript/Name/lib_Conv_0FCB9EF3=Init
+﻿Category/Name/lib_Conv_17BA2516=Events
+Category/Name/lib_Conv_25B9023A=Script
+Category/Name/lib_Conv_577FA880=Functions
+Category/Name/lib_Conv_6AA7BF4D=Presets
+Category/Name/lib_Conv_D36071B6=Actions
+Category/Name/lib_Conv_F78D007B=Test Triggers
+CustomScript/Name/lib_Conv_0FCB9EF3=Init
 FunctionDef/Grammar/lib_Conv_764A5F5B=~before~ Line ~line~ is Played for ~conversation~
 FunctionDef/Name/lib_Conv_23D6182F=ConvUI_NewManagedConversation
 FunctionDef/Name/lib_Conv_72E0591E=ConvUI_TriggerAddEventLineCallback

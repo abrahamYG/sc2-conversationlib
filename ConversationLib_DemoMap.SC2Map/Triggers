@@ -1,3 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggerData>
+    <Root>
+        <Item Type="Trigger" Id="C94335FD"/>
+    </Root>
+    <Element Type="Trigger" Id="C94335FD">
+        <Event Type="FunctionCall" Id="BC7F6DF6"/>
+        <Action Type="Comment" Id="322AF062"/>
+        <Action Type="FunctionCall" Id="F535C591"/>
+    </Element>
+    <Element Type="FunctionCall" Id="BC7F6DF6">
+        <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000120"/>
+    </Element>
+    <Element Type="Comment" Id="322AF062">
+        <Comment>
+            We need to initialize first the conversation we want to run within the conversation library sing the action below.
+        </Comment>
+    </Element>
+    <Element Type="FunctionCall" Id="F535C591">
+        <FunctionDef Type="FunctionDef" Library="Conv" Id="23D6182F"/>
+        <Parameter Type="Param" Id="99E0A514"/>
+    </Element>
+    <Element Type="Param" Id="99E0A514">
+        <ParameterDef Type="ParamDef" Library="Conv" Id="952AFB4D"/>
+        <Value>TestConversation</Value>
+        <ValueType Type="gamelink"/>
+        <ValueGameType Type="Conversation"/>
+    </Element>
 </TriggerData>

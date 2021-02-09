@@ -1,13 +1,6 @@
-include "Script/Catalog/UUID_h";
 include "Script/ConvUI/Modules/Transmission/header";
-include "Script/ConvUI/Headers/CCharacter_h";
-include "Script/ConvUI/Headers/CConversation_h";
-include "Script/ConvUI/Headers/ConvUI_UI_h";
-include "Script/ConvUI/Headers/ConvUI_BriefingUI_h";
 
-
-
-void ConvUI_CreateTransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
 	playergroup pg = PlayerGroupActive();
 	int player = PlayerGroupPlayer(pg,1);
 	string Model = Character.Variations[0].Model;
@@ -43,7 +36,7 @@ void ConvUI_CreateTransmissionLineCallback(CConversationRef Conversation, SConve
 
 void ConvUI_TransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
     TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-    ConvUI_CreateTransmissionLineCallback(Conversation,Line,Character,index);
+    ConvUI_CreateTransmissionLine(Conversation,Line,Character,index);
     //ConvUI_DefaultLineCallback(Conversation,Line,Character,index);
 }
 
@@ -74,6 +67,7 @@ void ConvUI_TransmissionGroupCallback(CConversationRef Conversation, SConversati
 }
 
 void ConvUI_TransmissionCallbackSet(ConversationCallbackRef Callbacks){
+    ConvUI_DefaultCallbackSet(Callbacks);
     Callbacks.LineCallback = ConvUI_TransmissionLineCallback;
     Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
     Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;

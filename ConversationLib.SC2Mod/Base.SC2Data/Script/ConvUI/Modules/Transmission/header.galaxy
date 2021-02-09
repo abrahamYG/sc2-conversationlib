@@ -1,1 +1,15 @@
+include "Script/Catalog/UUID_h";
+include "Script/Catalog/Character_h";
+include "Script/Catalog/Conversation_h";
+include "Script/ConvUI/Callbacks/header";
+
+void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+void ConvUI_TransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+void ConvUI_TransmissionWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index);
+void ConvUI_TransmissionChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index);
+void ConvUI_TransmissionRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index);
+void ConvUI_TransmissionCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index);
+void ConvUI_TransmissionJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index);
+void ConvUI_TransmissionGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index);
+
 void ConvUI_TransmissionCallbackSet(ConversationCallbackRef Callbacks);

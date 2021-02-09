@@ -30,7 +30,7 @@ void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Ch
 }
 
 
-void ConvUI_TransmissionSendBriefingTransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
     int portraitIndex = 0;
     if(Character.Id == "HappyJoe"){
         portraitIndex = 1;
@@ -41,6 +41,21 @@ void ConvUI_TransmissionSendBriefingTransmissionLineCallback(CConversationRef Co
     TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
     ConvUI_BriefingSendTransmission(Line, Character, portraitIndex);
 }
+
+
+
+void ConvUI_BriefingCallbackSet(ConversationCallbackRef Callbacks){
+    ConvUI_DefaultCallbackSet(Callbacks);
+    Callbacks.LineCallback = ConvUI_BriefingLineCallback;
+    //Callbacks.WaitCallback = ConvUI_TransmissionWaitCallback;
+    //Callbacks.ChoiceCallback = ConvUI_TransmissionChoiceCallback;
+    //Callbacks.RunActionsCallback = ConvUI_TransmissionRunActionsCallback;
+    //Callbacks.CommentCallback = ConvUI_TransmissionCommentCallback;
+    //Callbacks.JumpCallback = ConvUI_TransmissionJumpCallback;
+    //Callbacks.GroupCallback = ConvUI_TransmissionGroupCallback;    
+}
+
+
 
 
 void ConvUI_BriefingUIInit(){

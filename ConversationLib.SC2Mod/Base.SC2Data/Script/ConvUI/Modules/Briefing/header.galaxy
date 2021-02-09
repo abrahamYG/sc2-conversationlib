@@ -1,5 +1,5 @@
-include "Script/ConvUI/Headers/CCharacter_h";
-include "Script/ConvUI/Headers/CConversation_h";
+include "Script/ConvUI/Characters/header";
+include "Script/ConvUI/Conversations/header";
 
 const string CONVUI_BRIEFINGPANEPATH = "UIContainer/FullscreenUpperContainer/BriefingFrame";
 struct ConvUI_BriefingPaneStruct {
@@ -12,4 +12,6 @@ struct ConvUI_BriefingPaneStruct {
 ConvUI_BriefingPaneStruct ConvUI_BriefingPane;
 
 void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex);
+void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+void ConvUI_BriefingCallbackSet(ConversationCallbackRef Callbacks);
 void ConvUI_BriefingUIInit();
