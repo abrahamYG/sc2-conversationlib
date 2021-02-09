@@ -69,7 +69,7 @@ bool libConv_gt_Test2_Func (bool testConds, bool runActions) {
 //--------------------------------------------------------------------------------------------------
 void libConv_gt_Test2_Init () {
     libConv_gt_Test2 = TriggerCreate("libConv_gt_Test2_Func");
-    ConvUI_TriggerAddEventLineCallbackWrapper(libConv_gt_Test2, "TestConversation", "TestConversation|Line00001", false);
+    ConvUI_TriggerAddEventLineCallbackWrapper(libConv_gt_Test2, "Tutorial", "Tutorial|Line00060", false);
 }
 
 void libConv_InitTriggers () {

@@ -1,4 +1,4 @@
-include "Script/ConvUI/Headers/Callback_h";
+include "Script/ConvUI/Callbacks/header";
 include "Script/ConvUI/Headers/CConversationGetById_h";
 
 
@@ -16,15 +16,14 @@ void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId, 
 }
 
 void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
-   // string event = ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id);
-   // TriggerDebugOutput(1,StringToText("Firing event: "+event),true);
-   // TriggerSendEvent(event);
+  
 }
 void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
 
 }
 void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
-
+    fixed Duration = IntToFixed(WaitRef.Duration)/1000;
+    Wait(Duration,c_timeReal);
 }
 void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
 
@@ -39,3 +38,18 @@ void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGro
 
 }
 
+
+
+void ConvUI_DefaultCallbackSet(ConversationCallbackRef Callbacks){
+    Callbacks.LineCallback = ConvUI_DefaultLineCallback;
+	Callbacks.ChoiceCallback = ConvUI_DefaultChoiceCallback;
+	Callbacks.WaitCallback = ConvUI_DefaultWaitCallback;
+	Callbacks.RunActionsCallback = ConvUI_DefaultRunActionsCallback;
+	Callbacks.CommentCallback = ConvUI_DefaultCommentCallback;
+	Callbacks.JumpCallback = ConvUI_DefaultJumpCallback;
+	Callbacks.GroupCallback = ConvUI_DefaultGroupCallback;
+}
+
+void ConvUI_InitDefaultCallbacks(){
+    ConvUI_DefaultCallbackSet(ConvUI_DefaultCallbacks);
+}

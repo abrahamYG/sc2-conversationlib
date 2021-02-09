@@ -1,19 +1,12 @@
-include "Script/ConvUI/CCharacter";
-include "Script/ConvUI/CConversation";
-include "Script/ConvUI/Callback";
+include "Script/ConvUI/Conversations/main";
+include "Script/ConvUI/Characters/main";
+include "Script/ConvUI/Callbacks/main";
+
 include "Script/ConvUI/CConversationGetById";
-include "Script/ConvUI_UI";
-include "Script/ConvUI_BriefingUI";
 include "Script/ConvUI_Debug";
 
 ConversationCallback ConvUI_Callbacks;
 int ConvUI_ManagedConversationCount = 0;
-
-void test(){
-	trigger t;
-	TriggerAddEventGeneric(t,"");
-	TriggerSendEvent("");
-}
 
 int ConvUI_NewManagedConversation(string convid){
 	string key = "ConvUI_ManagedConversation[{id}]";
@@ -35,20 +28,6 @@ int ConvUI_NewManagedConversation(string convid){
 	return index;
 }
 
-bool DummyTrigger(bool a, bool b){
-	CConversationRef Conversation = ConvUI_CConversations[0];
-	string convId = "TestConversation";
-	arrayref<CCharacterArray> Characters = ConvUI_CCharacters;
-	ConversationCallbackRef Callbacks = ConvUI_Callbacks;
-	
-	//ConvUI_CCharacterCreateFromCatalog(Characters);
-	//ConvUI_CConversationCreateFromData(Conversation,convId);
-	//ConvUI_ConversationRun(Conversation,Characters,Callbacks);
-
-
-
-	return true;
-}
 
 void ConvUI_Init(){
 	//trigger t = TriggerCreate("DummyTrigger");

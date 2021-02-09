@@ -1,5 +1,7 @@
+include "Script/ConvUI/Callbacks/header";
 include "Script/ConvUI/Modules/Transmission/main";
 include "Script/ConvUI/Modules/Briefing/main";
+include "Script/ConvUI/Modules/LineDialogs/main";
 
 static const string CONVUI_CONVERSATIONID = "TestConversation";
 static const string CONVUI_DEBUGBUTTONPATH = "UIContainer/FullscreenUpperContainer/ConvoButton0";
@@ -14,57 +16,18 @@ ConversationCallback ConvUI_DebugCallbacks;
 int[3] ConvUI_DebugButton;
 
 
-void ConvUI_DebugCreateDialogIntLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
-	int dlg;
-	string template;
-	playergroup pg = PlayerGroupActive();
-	int player = PlayerGroupPlayer(pg,1);
-
-	if(index%2 != 0){
-		template = CONVUI_LINEDLG_TEMPLATELEFT;
-	}
-	else{
-		template = CONVUI_LINEDLG_TEMPLATERIGHT;
-	}
-    dlg = ConvUI_LineDialogCreate(Line,Character,template);
-    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
-	//TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
-}
-void ConvUI_TransmissionCreateDialogIntLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
-	int dlg;
-	string template;
-	playergroup pg = PlayerGroupActive();
-	int player = PlayerGroupPlayer(pg,1);
-
-	if(index%2 != 0){
-		template = CONVUI_LINEDLG_TEMPLATELEFT;
-	}
-	else{
-		template = CONVUI_LINEDLG_TEMPLATERIGHT;
-	}
-    dlg = ConvUI_LineDialogCreate(Line,Character,template);
-    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
-	//TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
-}
 
 void ConvUI_DebugLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
-	//ConvUI_DebugCreateDialogIntLineCallback(Conversation,Line,Character,index);
-    ConvUI_CreateTransmissionLineCallback(Conversation,Line,Character,index);
-    //ConvUI_DebugSendBriefingTransmissionLineCallback(Conversation,Line,Character,index);
+	TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
 }
 
 void ConvUI_DebugWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
-    fixed Duration = IntToFixed(WaitRef.Duration)/1000;
-    //TriggerDebugOutput(1,StringToText("Waiting: "+FixedToString(Duration,2)),true);
-    //TriggerDebugOutput(1,StringToText("wait: "+WaitRef.Id),true);
-    Wait(Duration,c_timeReal);
+    TriggerDebugOutput(1,StringToText("WaitRef: "+WaitRef.Id),true);
+    ConvUI_DefaultWaitCallback(Conversation,WaitRef,index);
 }
 
 void ConvUI_DebugChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
     TriggerDebugOutput(1,StringToText("Choice: "+Choice.Id),true);
-    //TriggerDebugOutput(1,Choice.Text,true);
 }
 
 void ConvUI_DebugRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
@@ -109,20 +72,6 @@ void ConvUI_InitDebugCallbacks(){
 }
 
 
-void ConvUI_InitDebugButtons(){
-    int i = 0;
-    trigger t;
-    int player = 1;
-    playergroup pg = PlayerGroupSingle(player);
-    if(ConvUI_DebugButtonsInitialized){return;}
-    t = TriggerCreate("ConvUI_DebugButtonFunc");
-    for(i = 0;i<3;i+=1){
-        ConvUI_DebugButton[i] = DialogControlHookupStandard(c_triggerControlTypeButton,CONVUI_DEBUGBUTTONPATH+IntToString(i+1));
-        TriggerAddEventDialogControl(t,player,ConvUI_DebugButton[i],c_triggerControlEventTypeClick);
-    }
-    ConvUI_DebugButtonsInitialized = true;
-}
-
 
 
 void ConvUI_RunDataConversation(CConversationRef Conversation){
@@ -155,11 +104,11 @@ bool ConvUI_DebugButtonFunc(bool a, bool b){
     }
     else if(button==ConvUI_DebugButton[1]){
         DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,true);
-        Callbacks.LineCallback = ConvUI_TransmissionSendBriefingTransmissionLineCallback;
+        ConvUI_BriefingCallbackSet(Callbacks);
     }
     else if(button==ConvUI_DebugButton[2]){
         DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,false);
-        Callbacks.LineCallback = ConvUI_DebugCreateDialogIntLineCallback;
+        ConvUI_LineDialogCallbackSet(Callbacks);
     }
     else{
         return false;
@@ -169,6 +118,21 @@ bool ConvUI_DebugButtonFunc(bool a, bool b){
     return true;
 }
 
+
+void ConvUI_InitDebugButtons(){
+    int i = 0;
+    trigger t;
+    int player = 1;
+    playergroup pg = PlayerGroupSingle(player);
+    const int BUTTON_COUNT = 3;
+    if(ConvUI_DebugButtonsInitialized){return;}
+    t = TriggerCreate("ConvUI_DebugButtonFunc");
+    for(i=0; i<BUTTON_COUNT; i+=1){
+        ConvUI_DebugButton[i] = DialogControlHookupStandard(c_triggerControlTypeButton,CONVUI_DEBUGBUTTONPATH+IntToString(i+1));
+        TriggerAddEventDialogControl(t,player,ConvUI_DebugButton[i],c_triggerControlEventTypeClick);
+    }
+    ConvUI_DebugButtonsInitialized = true;
+}
 
 
 bool ConvUI_DebugRunConversationFunc(bool a, bool b){

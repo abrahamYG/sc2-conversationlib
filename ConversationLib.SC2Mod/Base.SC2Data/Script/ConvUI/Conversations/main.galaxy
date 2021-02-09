@@ -1,5 +1,6 @@
-include "Script/ConvUI/Headers/CConversation_h";
-include "Script/ConvUI/Headers/CConversationGetById_h";
+include "Script/ConvUI/Characters/header";
+include "Script/ConvUI/Conversations/header";
+
 
 bool ConvUI_SConversationGroupHasOnlyChoices(CConversationRef Conversation, SConversationGroupRef Group){
 	bool onlyChoices = true;
@@ -20,6 +21,11 @@ int ConvUI_SConversationGroupGetChildrenCount(CConversationRef Conversation, SCo
 	}
 	return count;
 }
+
+int ConvUI_ConversationRootItemsCount(CConversationRef Conversation){
+	return MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "RootItems", c_playerAny),TConversationItemIdArraySize);
+}
+
 
 
 
@@ -219,10 +225,30 @@ string ConvUI_CConversationCreateFromData(CConversationRef Conversation,string c
 	return Conversation.Id;
 }
 
-void ConvUI_SConversationGroupWaitForChoice(){
-	bool choicePicked = false;
-	while(!choicePicked){
+void ConvUI_SConversationGroupSetChoiceValue(CConversationRef Conversation, SConversationGroupRef Group, int val){
+	string key = "ConvUI_ManagedConversation[{id}].ChoiceGroup[{group}]";
+	key = StringReplaceWord(key,"{id}",Conversation.Id,1,false);
+	key = StringReplaceWord(key,"{group}",Group.Id,1,false);
+	DataTableSetInt(true,key,val);
+	
+}
+int ConvUI_SConversationGroupWaitForChoiceDebugFunc(){
+	int debugval = RandomInt(0,100);
+	TriggerDebugOutput(1,StringToText("ConvUI_SConversationGroupWaitForChoiceDebugFunc Debugval:"+IntToString(debugval)),true);
+	return debugval;	
+}
+
+void ConvUI_SConversationGroupWaitForChoice(CConversationRef Conversation, SConversationGroupRef Group){
+	string key = "ConvUI_ManagedConversation[{id}].ChoiceGroup[{group}]";
+	int debugval = 0;
+	key = StringReplaceWord(key,"{id}",Conversation.Id,1,false);
+	key = StringReplaceWord(key,"{group}",Group.Id,1,false);
+	DataTableSetInt(true,key,-1);
+	while(DataTableGetInt(true,key)<0){
 		Wait(0.05,c_timeReal);
+		if(ConvUI_SConversationGroupWaitForChoiceDebugFunc()>90){
+			ConvUI_SConversationGroupSetChoiceValue(Conversation,Group,1);
+		}
 	}
 }
 
@@ -266,7 +292,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			}
 			Line = Conversation.Lines[ChildIndex];
 			LineCount += 1;
-			CharIndex = ConvUI_CCharacterGetbyID(Characters,Line.SpeakerCharacter);
+			CharIndex = ConvUI_CCharacterGetbyID(Characters, Line.SpeakerCharacter);
 			if(CharIndex<0){
 				Character = ConvUI_EmptyCharacter;
 			}
@@ -351,7 +377,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			GroupCallback(Conversation,Group,GroupCount);
 			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Groups["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
 			if(ConvUI_SConversationGroupHasOnlyChoices(Conversation,Group)){
-				//run function loop here
+				ConvUI_SConversationGroupWaitForChoice(Conversation,Group);
 			}
 			else{
 				ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Group.Children,SubChildrenCount);

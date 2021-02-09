@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Preload>
 <Actor id="SYSTEM_ActorConfig"/>
-<Conversation id="TestConversation"/>
-<Sound id="Banshee_Attack"/>
+<Conversation id="Tutorial"/>
+<Sound id="TutorialAdjutant00060"/>
 </Preload>

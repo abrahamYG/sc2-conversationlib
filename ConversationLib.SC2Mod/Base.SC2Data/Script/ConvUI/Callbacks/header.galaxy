@@ -33,7 +33,7 @@ static void ConversationCallbackSetFunc(ConversationCallbackRef Callback);
 typedef funcref<ConversationCallbackSetFunc> ConversationCallbackSetFuncRef;
 
 
-
+ConversationCallback ConvUI_DefaultCallbacks;
 void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
 void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index);
 void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index);
@@ -45,3 +45,5 @@ void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGro
 
 string ConvUI_GetLineCallbackEventString(string convId,string lineId,bool before);
 void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId,bool before);
+void ConvUI_DefaultCallbackSet(ConversationCallbackRef Callbacks);
+void ConvUI_InitDefaultCallbacks();

@@ -1,4 +1,4 @@
-include "Script/ConvUI/Headers/CCharacter_h";
+include "Script/ConvUI/Characters/header";
 
 int ConvUI_CCharacterGetbyID(arrayref<CCharacterArray> Characters, string id){
 	int i = 0;

@@ -1,8 +1,0 @@
-include "Script/Catalog/Character_h";
-include "Script/Catalog/Conversation_h";
-
-const string CONVUI_LINEDLG_TEMPLATE = "ConvUI_LineTemplate/ConversationLineTemplate";
-const string CONVUI_LINEDLG_TEMPLATELEFT = "ConvUI_LineTemplate/ConversationLineTemplateLeft";
-const string CONVUI_LINEDLG_TEMPLATERIGHT = "ConvUI_LineTemplate/ConversationLineTemplateRight";
-
-int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,string template);

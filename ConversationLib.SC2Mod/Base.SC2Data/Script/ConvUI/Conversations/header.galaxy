@@ -1,6 +1,8 @@
 include "Script/Catalog/Character_h";
 include "Script/Catalog/Conversation_h";
-include "Script/ConvUI/Headers/Callback_h";
+include "Script/ConvUI/Headers/CConversationGetById_h";
+include "Script/ConvUI/Callbacks/header";
+
 
 CConversationArray ConvUI_CConversations;
 

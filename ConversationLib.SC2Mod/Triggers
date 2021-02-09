@@ -2,14 +2,46 @@
 <TriggerData>
     <Library Id="Conv">
         <Root>
-            <Item Type="Preset" Library="Conv" Id="68CA3DEB"/>
-            <Item Type="CustomScript" Library="Conv" Id="0FCB9EF3"/>
-            <Item Type="Trigger" Library="Conv" Id="116E5694"/>
-            <Item Type="Trigger" Library="Conv" Id="A539B5AB"/>
-            <Item Type="FunctionDef" Library="Conv" Id="23D6182F"/>
-            <Item Type="FunctionDef" Library="Conv" Id="764A5F5B"/>
-            <Item Type="FunctionDef" Library="Conv" Id="72E0591E"/>
+            <Item Type="Category" Library="Conv" Id="25B9023A"/>
+            <Item Type="Category" Library="Conv" Id="577FA880"/>
+            <Item Type="Category" Library="Conv" Id="D36071B6"/>
+            <Item Type="Category" Library="Conv" Id="6AA7BF4D"/>
+            <Item Type="Category" Library="Conv" Id="17BA2516"/>
+            <Item Type="Category" Library="Conv" Id="F78D007B"/>
         </Root>
+        <Element Type="Category" Id="25B9023A">
+            <Item Type="CustomScript" Library="Conv" Id="0FCB9EF3"/>
+        </Element>
+        <Element Type="CustomScript" Id="0FCB9EF3">
+            <ScriptCode>
+                include &quot;Script/ConvUI_Init&quot;;
+                void ConvUI_main(){
+                 ConvUI_Init();
+                }
+            </ScriptCode>
+            <InitFunc>ConvUI_main</InitFunc>
+        </Element>
+        <Element Type="Category" Id="577FA880">
+        </Element>
+        <Element Type="Category" Id="D36071B6">
+            <Item Type="FunctionDef" Library="Conv" Id="23D6182F"/>
+        </Element>
+        <Element Type="FunctionDef" Id="23D6182F">
+            <Identifier>ConvUI_NewManagedConversation</Identifier>
+            <FlagAction/>
+            <FlagNative/>
+            <Parameter Type="ParamDef" Library="Conv" Id="952AFB4D"/>
+        </Element>
+        <Element Type="ParamDef" Id="952AFB4D">
+            <ParameterType>
+                <Type Value="gamelink"/>
+                <GameType Value="Conversation"/>
+            </ParameterType>
+            <ParamFlagPreload/>
+        </Element>
+        <Element Type="Category" Id="6AA7BF4D">
+            <Item Type="Preset" Library="Conv" Id="68CA3DEB"/>
+        </Element>
         <Element Type="Preset" Id="68CA3DEB">
             <Identifier>CheckedOption</Identifier>
             <Label Type="Label" Library="Ntve" Id="00000038"/>
@@ -27,113 +59,9 @@
             <Identifier>After</Identifier>
             <Value>false</Value>
         </Element>
-        <Element Type="CustomScript" Id="0FCB9EF3">
-            <ScriptCode>
-                include &quot;Script/ConvUI_Init&quot;;
-                void ConvUI_main(){
-                 ConvUI_Init();
-                }
-            </ScriptCode>
-            <InitFunc>ConvUI_main</InitFunc>
-        </Element>
-        <Element Type="Trigger" Id="116E5694">
-            <Event Type="FunctionCall" Library="Conv" Id="B7BEA3F2"/>
-            <Action Type="FunctionCall" Library="Conv" Id="6D1A6C06"/>
-        </Element>
-        <Element Type="FunctionCall" Id="B7BEA3F2">
-            <FunctionDef Type="FunctionDef" Library="Conv" Id="764A5F5B"/>
-            <Parameter Type="Param" Library="Conv" Id="5B95E775"/>
-            <Parameter Type="Param" Library="Conv" Id="58846FA9"/>
-            <Parameter Type="Param" Library="Conv" Id="BD45E4AA"/>
-        </Element>
-        <Element Type="Param" Id="5B95E775">
-            <ParameterDef Type="ParamDef" Library="Conv" Id="EDCAF1A6"/>
-            <Value>TestConversation</Value>
-            <ValueType Type="gamelink"/>
-            <ValueGameType Type="Conversation"/>
-        </Element>
-        <Element Type="Param" Id="58846FA9">
-            <ParameterDef Type="ParamDef" Library="Conv" Id="8278F7AE"/>
-            <Value>TestConversation|Line00001</Value>
-            <ValueType Type="convline"/>
-        </Element>
-        <Element Type="Param" Id="BD45E4AA">
-            <ParameterDef Type="ParamDef" Library="Conv" Id="83693BE0"/>
-            <Preset Type="PresetValue" Library="Conv" Id="BEEA80E1"/>
-        </Element>
-        <Element Type="FunctionCall" Id="6D1A6C06">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
-            <Parameter Type="Param" Library="Conv" Id="A573B342"/>
-            <Parameter Type="Param" Library="Conv" Id="AB7D99D7"/>
-            <Parameter Type="Param" Library="Conv" Id="A6C66E19"/>
-        </Element>
-        <Element Type="Param" Id="A573B342">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="8C11B22D"/>
-        </Element>
-        <Element Type="Param" Id="AB7D99D7">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
-        </Element>
-        <Element Type="Param" Id="A6C66E19">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
-            <ValueType Type="text"/>
-        </Element>
-        <Element Type="Trigger" Id="A539B5AB">
-            <Event Type="FunctionCall" Library="Conv" Id="DA27A06E"/>
-            <Action Type="FunctionCall" Library="Conv" Id="F255216F"/>
-        </Element>
-        <Element Type="FunctionCall" Id="DA27A06E">
-            <FunctionDef Type="FunctionDef" Library="Conv" Id="764A5F5B"/>
-            <Parameter Type="Param" Library="Conv" Id="E6B9DF44"/>
-            <Parameter Type="Param" Library="Conv" Id="C948D044"/>
-            <Parameter Type="Param" Library="Conv" Id="84B18AE0"/>
-        </Element>
-        <Element Type="Param" Id="E6B9DF44">
-            <ParameterDef Type="ParamDef" Library="Conv" Id="EDCAF1A6"/>
-            <Value>TestConversation</Value>
-            <ValueType Type="gamelink"/>
-            <ValueGameType Type="Conversation"/>
-        </Element>
-        <Element Type="Param" Id="C948D044">
-            <ParameterDef Type="ParamDef" Library="Conv" Id="8278F7AE"/>
-            <Value>TestConversation|Line00001</Value>
-            <ValueType Type="convline"/>
-        </Element>
-        <Element Type="Param" Id="84B18AE0">
-            <ParameterDef Type="ParamDef" Library="Conv" Id="83693BE0"/>
-            <Preset Type="PresetValue" Library="Conv" Id="C2DFAE69"/>
-        </Element>
-        <Element Type="FunctionCall" Id="F255216F">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
-            <Parameter Type="Param" Library="Conv" Id="30E81CCA"/>
-            <Parameter Type="Param" Library="Conv" Id="5958A97E"/>
-            <Parameter Type="Param" Library="Conv" Id="FE037D92"/>
-        </Element>
-        <Element Type="Param" Id="30E81CCA">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="8C11B22D"/>
-        </Element>
-        <Element Type="Param" Id="5958A97E">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
-        </Element>
-        <Element Type="Param" Id="FE037D92">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
-            <ValueType Type="text"/>
-        </Element>
-        <Element Type="FunctionDef" Id="23D6182F">
-            <Identifier>ConvUI_NewManagedConversation</Identifier>
-            <FlagAction/>
-            <FlagNative/>
-            <Parameter Type="ParamDef" Library="Conv" Id="952AFB4D"/>
-        </Element>
-        <Element Type="ParamDef" Id="952AFB4D">
-            <ParameterType>
-                <Type Value="gamelink"/>
-                <GameType Value="Conversation"/>
-            </ParameterType>
-            <ParamFlagPreload/>
+        <Element Type="Category" Id="17BA2516">
+            <Item Type="FunctionDef" Library="Conv" Id="764A5F5B"/>
+            <Item Type="FunctionDef" Library="Conv" Id="72E0591E"/>
         </Element>
         <Element Type="FunctionDef" Id="764A5F5B">
             <Identifier>ConvUI_TriggerAddEventLineCallbackWrapper</Identifier>
@@ -227,6 +155,96 @@
         </Element>
         <Element Type="Param" Id="D585F22C">
             <Preset Type="PresetValue" Library="Conv" Id="BEEA80E1"/>
+        </Element>
+        <Element Type="Category" Id="F78D007B">
+            <Item Type="Trigger" Library="Conv" Id="116E5694"/>
+            <Item Type="Trigger" Library="Conv" Id="A539B5AB"/>
+        </Element>
+        <Element Type="Trigger" Id="116E5694">
+            <Event Type="FunctionCall" Library="Conv" Id="B7BEA3F2"/>
+            <Action Type="FunctionCall" Library="Conv" Id="6D1A6C06"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B7BEA3F2">
+            <FunctionDef Type="FunctionDef" Library="Conv" Id="764A5F5B"/>
+            <Parameter Type="Param" Library="Conv" Id="5B95E775"/>
+            <Parameter Type="Param" Library="Conv" Id="58846FA9"/>
+            <Parameter Type="Param" Library="Conv" Id="BD45E4AA"/>
+        </Element>
+        <Element Type="Param" Id="5B95E775">
+            <ParameterDef Type="ParamDef" Library="Conv" Id="EDCAF1A6"/>
+            <Value>TestConversation</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Conversation"/>
+        </Element>
+        <Element Type="Param" Id="58846FA9">
+            <ParameterDef Type="ParamDef" Library="Conv" Id="8278F7AE"/>
+            <Value>TestConversation|Line00001</Value>
+            <ValueType Type="convline"/>
+        </Element>
+        <Element Type="Param" Id="BD45E4AA">
+            <ParameterDef Type="ParamDef" Library="Conv" Id="83693BE0"/>
+            <Preset Type="PresetValue" Library="Conv" Id="BEEA80E1"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6D1A6C06">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
+            <Parameter Type="Param" Library="Conv" Id="A573B342"/>
+            <Parameter Type="Param" Library="Conv" Id="AB7D99D7"/>
+            <Parameter Type="Param" Library="Conv" Id="A6C66E19"/>
+        </Element>
+        <Element Type="Param" Id="A573B342">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="8C11B22D"/>
+        </Element>
+        <Element Type="Param" Id="AB7D99D7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
+        </Element>
+        <Element Type="Param" Id="A6C66E19">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
+            <ValueType Type="text"/>
+        </Element>
+        <Element Type="Trigger" Id="A539B5AB">
+            <Event Type="FunctionCall" Library="Conv" Id="DA27A06E"/>
+            <Action Type="FunctionCall" Library="Conv" Id="F255216F"/>
+        </Element>
+        <Element Type="FunctionCall" Id="DA27A06E">
+            <FunctionDef Type="FunctionDef" Library="Conv" Id="764A5F5B"/>
+            <Parameter Type="Param" Library="Conv" Id="E6B9DF44"/>
+            <Parameter Type="Param" Library="Conv" Id="C948D044"/>
+            <Parameter Type="Param" Library="Conv" Id="84B18AE0"/>
+        </Element>
+        <Element Type="Param" Id="E6B9DF44">
+            <ParameterDef Type="ParamDef" Library="Conv" Id="EDCAF1A6"/>
+            <Value>Tutorial</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Conversation"/>
+        </Element>
+        <Element Type="Param" Id="C948D044">
+            <ParameterDef Type="ParamDef" Library="Conv" Id="8278F7AE"/>
+            <Value>Tutorial|Line00060</Value>
+            <ValueType Type="convline"/>
+        </Element>
+        <Element Type="Param" Id="84B18AE0">
+            <ParameterDef Type="ParamDef" Library="Conv" Id="83693BE0"/>
+            <Preset Type="PresetValue" Library="Conv" Id="C2DFAE69"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F255216F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
+            <Parameter Type="Param" Library="Conv" Id="30E81CCA"/>
+            <Parameter Type="Param" Library="Conv" Id="5958A97E"/>
+            <Parameter Type="Param" Library="Conv" Id="FE037D92"/>
+        </Element>
+        <Element Type="Param" Id="30E81CCA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="8C11B22D"/>
+        </Element>
+        <Element Type="Param" Id="5958A97E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
+        </Element>
+        <Element Type="Param" Id="FE037D92">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
+            <ValueType Type="text"/>
         </Element>
     </Library>
 </TriggerData>
