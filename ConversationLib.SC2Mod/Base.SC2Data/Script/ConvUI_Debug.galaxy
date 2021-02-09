@@ -1,7 +1,8 @@
 include "Script/ConvUI/Callbacks/header";
-include "Script/ConvUI/Modules/Transmission/main";
-include "Script/ConvUI/Modules/Briefing/main";
-include "Script/ConvUI/Modules/LineDialogs/main";
+include "Script/ConvUI/Modules/init";
+//include "Script/ConvUI/Modules/Transmission/main";
+//include "Script/ConvUI/Modules/Briefing/main";
+//include "Script/ConvUI/Modules/LineDialogs/main";
 
 static const string CONVUI_CONVERSATIONID = "TestConversation";
 static const string CONVUI_DEBUGBUTTONPATH = "UIContainer/FullscreenUpperContainer/ConvoButton0";
@@ -17,30 +18,30 @@ int[3] ConvUI_DebugButton;
 
 
 
-void ConvUI_DebugLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_DebugLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
 	TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
 }
 
-void ConvUI_DebugWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
+void ConvUI_DebugWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player){
     TriggerDebugOutput(1,StringToText("WaitRef: "+WaitRef.Id),true);
-    ConvUI_DefaultWaitCallback(Conversation,WaitRef,index);
+    ConvUI_DefaultWaitCallback(Conversation,WaitRef,index,player);
 }
 
-void ConvUI_DebugChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
+void ConvUI_DebugChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player){
     TriggerDebugOutput(1,StringToText("Choice: "+Choice.Id),true);
 }
 
-void ConvUI_DebugRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
+void ConvUI_DebugRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index, int player){
     TriggerDebugOutput(1,StringToText("RunActions: "+RunActions.Id),true);
 }
-void ConvUI_DebugCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index){
+void ConvUI_DebugCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index, int player){
     TriggerDebugOutput(1,StringToText("Comment: "+Comment.Id),true);
 }
-void ConvUI_DebugJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index){
+void ConvUI_DebugJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index, int player){
     TriggerDebugOutput(1,StringToText("Jump: "+Jump.Id),true);
 }
 
-void ConvUI_DebugGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index){
+void ConvUI_DebugGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index, int player){
     TriggerDebugOutput(1,StringToText("Group: "+Group.Id),true);
 }
 
@@ -58,9 +59,7 @@ void ConvUI_InitDebugCharacters(){
 }
 
 
-void ConvUI_InitDebugCallbacks(){
-    ConversationCallbackRef Callbacks = ConvUI_DebugCallbacks;
-    if(ConvUI_DebugCallbacksInitialized){return;}
+void ConvUI_SetDebugCallbacks(ConversationCallbackRef Callbacks){
     Callbacks.LineCallback = ConvUI_DebugLineCallback;
     Callbacks.WaitCallback = ConvUI_DebugWaitCallback;
     Callbacks.ChoiceCallback = ConvUI_DebugChoiceCallback;
@@ -68,6 +67,11 @@ void ConvUI_InitDebugCallbacks(){
     Callbacks.CommentCallback = ConvUI_DebugCommentCallback;
     Callbacks.JumpCallback = ConvUI_DebugJumpCallback;
     Callbacks.GroupCallback = ConvUI_DebugGroupCallback;
+}
+
+void ConvUI_InitDebugCallbacks(){
+    if(ConvUI_DebugCallbacksInitialized){return;}
+    ConvUI_SetDebugCallbacks(ConvUI_DebugCallbacks);
     ConvUI_DebugCallbacksInitialized = true;
 }
 
@@ -100,15 +104,15 @@ bool ConvUI_DebugButtonFunc(bool a, bool b){
     int button = EventDialogControl();
     if(button==ConvUI_DebugButton[0]){
         DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,false);
-        ConvUI_TransmissionCallbackSet(Callbacks);
+        ConvUI_SetManagedCallbackModule(Conversation, Callbacks, "Transmission");
     }
     else if(button==ConvUI_DebugButton[1]){
         DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,true);
-        ConvUI_BriefingCallbackSet(Callbacks);
+        ConvUI_SetManagedCallbackModule(Conversation, Callbacks, "Briefing");
     }
     else if(button==ConvUI_DebugButton[2]){
         DialogControlSetVisible(ConvUI_BriefingPane.Frame,pg,false);
-        ConvUI_LineDialogCallbackSet(Callbacks);
+        ConvUI_SetManagedCallbackModule(Conversation, Callbacks, "LineDialogs");
     }
     else{
         return false;

@@ -7,6 +7,6 @@ const string CONVUI_LINEDLG_TEMPLATERIGHT = "ConvUI_LineTemplate/ConversationLin
 int ConvUI_DialogMainHookup = -1;
 
 int ConvUI_DialogMainHookupGet();
-void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,string template);
 void ConvUI_LineDialogCallbackSet(ConversationCallbackRef Callbacks);

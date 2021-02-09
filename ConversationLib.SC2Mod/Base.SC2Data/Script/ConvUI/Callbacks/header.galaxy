@@ -1,18 +1,18 @@
 include "Script/Catalog/Conversation_h";
 
-static void SConversationLineCallbackFunc(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+static void SConversationLineCallbackFunc(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 typedef funcref<SConversationLineCallbackFunc> SConversationLineCallback;
-static void SConversationChoiceCallbackFunc(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index);
+static void SConversationChoiceCallbackFunc(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player);
 typedef funcref<SConversationChoiceCallbackFunc> SConversationChoiceCallback;
-static void SConversationWaitCallbackFunc(CConversationRef Conversation, SConversationWaitRef WaitRef, int index);
+static void SConversationWaitCallbackFunc(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player);
 typedef funcref<SConversationWaitCallbackFunc> SConversationWaitCallback;
-static void SConversationRunActionsCallbackFunc(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index);
+static void SConversationRunActionsCallbackFunc(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index, int player);
 typedef funcref<SConversationRunActionsCallbackFunc> SConversationRunActionsCallback;
-static void SConversationCommentCallbackFunc(CConversationRef Conversation, SConversationCommentRef Comment, int index);
+static void SConversationCommentCallbackFunc(CConversationRef Conversation, SConversationCommentRef Comment, int index, int player);
 typedef funcref<SConversationCommentCallbackFunc> SConversationCommentCallback;
-static void SConversationJumpCallbackFunc(CConversationRef Conversation, SConversationJumpRef Jump, int index);
+static void SConversationJumpCallbackFunc(CConversationRef Conversation, SConversationJumpRef Jump, int index, int player);
 typedef funcref<SConversationJumpCallbackFunc> SConversationJumpCallback;
-static void SConversationGroupCallbackFunc(CConversationRef Conversation, SConversationGroupRef Group, int index);
+static void SConversationGroupCallbackFunc(CConversationRef Conversation, SConversationGroupRef Group, int index, int player);
 typedef funcref<SConversationGroupCallbackFunc> SConversationGroupCallback;
 
 
@@ -34,13 +34,13 @@ typedef funcref<ConversationCallbackSetFunc> ConversationCallbackSetFuncRef;
 
 
 ConversationCallback ConvUI_DefaultCallbacks;
-void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
-void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index);
-void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index);
-void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index);
-void ConvUI_DefaultCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index);
-void ConvUI_DefaultJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index);
-void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index);
+void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
+void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player);
+void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player);
+void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index, int player);
+void ConvUI_DefaultCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index, int player);
+void ConvUI_DefaultJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index, int player);
+void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index, int player);
 
 
 string ConvUI_GetLineCallbackEventString(string convId,string lineId,bool before);

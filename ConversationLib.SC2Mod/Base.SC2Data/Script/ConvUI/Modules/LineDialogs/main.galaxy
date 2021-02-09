@@ -8,11 +8,10 @@ int ConvUI_DialogMainHookupGet(){
     return ConvUI_DialogMainHookup;
 }
 
-void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
 	int dlg;
 	string template;
-	playergroup pg = PlayerGroupActive();
-	int player = PlayerGroupPlayer(pg,1);
+	playergroup pg = PlayerGroupSingle(player);	
     fixed Duration = 5.0;
     soundlink Sound;
     if(Line.Sound != ""){
@@ -36,24 +35,6 @@ void ConvUI_LineDialogCallback(CConversationRef Conversation, SConversationLineR
 	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
     Wait(Duration,c_timeReal);
 }
-
-//void ConvUI_TransmissionCreateDialogIntLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
-//	int dlg;
-//	string template;
-//	playergroup pg = PlayerGroupActive();
-//	int player = PlayerGroupPlayer(pg,1);
-//
-//	if(index%2 != 0){
-//		template = CONVUI_LINEDLG_TEMPLATELEFT;
-//	}
-//	else{
-//		template = CONVUI_LINEDLG_TEMPLATERIGHT;
-//	}
-//    dlg = ConvUI_LineDialogCreate(Line,Character,template);
-//    TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-//	DialogControlSetPositionRelative(dlg,pg,c_anchorTop,ConvUI_DialogMainHookupGet(),c_anchorTop,0,(250*(index-1)));
-//	//TriggerDebugOutput(1,IntToText(index)+Line.Text,true);
-//}
 
 int ConvUI_LineDialogCreate(SConversationLineRef Line, CCharacterRef Character,string template){
     string PortraitImage = Character.Image;

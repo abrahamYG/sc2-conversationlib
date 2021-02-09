@@ -15,26 +15,26 @@ void ConvUI_TriggerAddEventLineCallback(trigger t, string convId,string lineId, 
     TriggerAddEventGeneric(t,event);
 }
 
-void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_DefaultLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
   
 }
-void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
+void ConvUI_DefaultChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player){
 
 }
-void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
+void ConvUI_DefaultWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player){
     fixed Duration = IntToFixed(WaitRef.Duration)/1000;
     Wait(Duration,c_timeReal);
 }
-void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
+void ConvUI_DefaultRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index, int player){
 
 }
-void ConvUI_DefaultCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index){
+void ConvUI_DefaultCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index, int player){
 
 }
-void ConvUI_DefaultJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index){
+void ConvUI_DefaultJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index, int player){
 
 }
-void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index){
+void ConvUI_DefaultGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index, int player){
 
 }
 

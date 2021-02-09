@@ -11,7 +11,7 @@ struct ConvUI_BriefingPaneStruct {
 
 ConvUI_BriefingPaneStruct ConvUI_BriefingPane;
 
-void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex);
-void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index);
+void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex, int player);
+void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player);
 void ConvUI_BriefingCallbackSet(ConversationCallbackRef Callbacks);
 void ConvUI_BriefingUIInit();

@@ -4,7 +4,8 @@ include "Script/ConvUI/Modules/Transmission/main";
 include "Script/ConvUI/Modules/Briefing/main";
 include "Script/ConvUI/Modules/LineDialogs/main";
 
-void ConvUI_SetManagedConversationCallbackModule(CConversationRef Conversation, ConversationCallbackRef Callback, string module){
+
+void ConvUI_SetManagedCallbackModule(CConversationRef Conversation, ConversationCallbackRef Callback, string module){
         if(module=="Transmission"){
             ConvUI_TransmissionCallbackSet(Callback);
         }

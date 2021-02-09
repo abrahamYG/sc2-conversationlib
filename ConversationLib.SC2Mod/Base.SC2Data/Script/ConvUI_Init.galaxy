@@ -5,7 +5,7 @@ include "Script/ConvUI/Callbacks/main";
 include "Script/ConvUI/CConversationGetById";
 include "Script/ConvUI_Debug";
 
-ConversationCallback ConvUI_Callbacks;
+ConversationCallback ConvUI_ManagedCallbacks;
 int ConvUI_ManagedConversationCount = 0;
 
 int ConvUI_NewManagedConversation(string convid){

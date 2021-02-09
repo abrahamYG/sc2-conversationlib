@@ -252,7 +252,7 @@ void ConvUI_SConversationGroupWaitForChoice(CConversationRef Conversation, SConv
 	}
 }
 
-void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters, ConversationCallbackRef CallbackSet, arrayref<TConversationItemIdArray> Children, int Count){
+void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<CCharacterArray> Characters, ConversationCallbackRef CallbackSet, arrayref<TConversationItemIdArray> Children, int Count, int player){
 	int i =0;
 	int ChildIndex = -1;
 	int LineCount = 0;
@@ -300,7 +300,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 				Character = Characters[CharIndex];
 			}
 			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id,true));
-			LineCallback(Conversation,Line,Character,LineCount);
+			LineCallback(Conversation,Line,Character,LineCount, player);
 			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Line.Id,false));
 			
 		}
@@ -311,7 +311,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			}
 			WaitRef = Conversation.Waits[ChildIndex];
 			WaitCount += 1;
-			WaitCallback(Conversation,WaitRef,WaitCount);
+			WaitCallback(Conversation,WaitRef,WaitCount, player);
 		}
 		else if(StringContains(Child,"RunActions",0,true)){
 			ChildIndex = ConvUI_CConversationRunActionsGetById(Conversation,Child);
@@ -320,7 +320,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			}
 			RunActions = Conversation.RunActions[ChildIndex];
 			RunActionsCount += 1;
-			RunActionsCallback(Conversation,RunActions,RunActionsCount);
+			RunActionsCallback(Conversation,RunActions,RunActionsCount, player);
 		}
 		
 		else if(StringContains(Child,"Jump",0,true)){
@@ -330,7 +330,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			}
 			Jump = Conversation.Jumps[ChildIndex];
 			JumpCount += 1;
-			JumpCallback(Conversation,Jump,JumpCount);
+			JumpCallback(Conversation,Jump,JumpCount, player);
 			if(Jump.Location==""){DataTableSetBool(false,"Conversation."+Conversation.Id+".Exit",true);}
 			else{
 				Child = Jump.Location;
@@ -352,10 +352,10 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 				Character = Characters[CharIndex];
 			}
 			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Choice.Id,true));
-			ChoiceCallback(Conversation,Choice,Character,ChoiceCount);
+			ChoiceCallback(Conversation,Choice,Character,ChoiceCount, player);
 			TriggerSendEvent(ConvUI_GetLineCallbackEventString(Conversation.Id,Choice.Id,false));
 			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Choices["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
-			ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Choice.Children,SubChildrenCount);
+			ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Choice.Children,SubChildrenCount, player);
 		}
 		
 		else if(StringContains(Child,"Comment",0,true)){
@@ -365,7 +365,7 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			}
 			Comment = Conversation.Comments[ChildIndex];
 			CommentCount += 1;
-			CommentCallback(Conversation,Comment,CommentCount);
+			CommentCallback(Conversation,Comment,CommentCount, player);
 		}
 		if(StringContains(Child,"Group",0,true)){
 			ChildIndex = ConvUI_CConversationGroupGetById(Conversation,Child);
@@ -374,13 +374,13 @@ void ConvUI_SConversationChildrenSetRun(CConversationRef Conversation,arrayref<C
 			}
 			Group = Conversation.Groups[ChildIndex];
 			GroupCount += 1;
-			GroupCallback(Conversation,Group,GroupCount);
+			GroupCallback(Conversation,Group,GroupCount, player);
 			SubChildrenCount = MinI(CatalogFieldValueCount(c_gameCatalogConversation, Conversation.Id, "Groups["+IntToString(ChildIndex)+"].Children", c_playerAny),TConversationItemIdArraySize);;
 			if(ConvUI_SConversationGroupHasOnlyChoices(Conversation,Group)){
 				ConvUI_SConversationGroupWaitForChoice(Conversation,Group);
 			}
 			else{
-				ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Group.Children,SubChildrenCount);
+				ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,Group.Children,SubChildrenCount, player);
 			}
 		}
 		if (DataTableGetBool(false,"Conversation."+Conversation.Id+".Exit")){break;};
@@ -399,5 +399,5 @@ void ConvUI_ConversationRun(CConversationRef Conversation,arrayref<CCharacterArr
 	
 	
 	SConversationGroupRef Group;
-	ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,RootItems,RootItemsCount);
+	ConvUI_SConversationChildrenSetRun(Conversation,Characters,CallbackSet,RootItems,RootItemsCount, player);
 };

@@ -1,13 +1,13 @@
 include "Script/ConvUI/Modules/Briefing/header";
 
 
-void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex){
+void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Character, int portraitIndex, int player){
     text Speaker = Character.Name;
     text Subtitle = Line.Text;
     string PortraitModel = Character.Variations[0].Model;
     string PortraitActor = Character.Variations[0].Actor;
-    playergroup pg = PlayerGroupActive();
-	int player = PlayerGroupPlayer(pg,1);
+    playergroup pg = PlayerGroupSingle(player);
+	//int player = PlayerGroupPlayer(pg,1);
     int Portrait = PortraitGetTriggerControl(ConvUI_BriefingPane.Portraits[portraitIndex]);
     soundlink Sound;
     fixed Duration = 5.0;
@@ -30,7 +30,7 @@ void ConvUI_BriefingSendTransmission(SConversationLineRef Line, CCharacterRef Ch
 }
 
 
-void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
     int portraitIndex = 0;
     if(Character.Id == "HappyJoe"){
         portraitIndex = 1;
@@ -39,7 +39,7 @@ void ConvUI_BriefingLineCallback(CConversationRef Conversation, SConversationLin
         portraitIndex = 2;
     }
     TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-    ConvUI_BriefingSendTransmission(Line, Character, portraitIndex);
+    ConvUI_BriefingSendTransmission(Line, Character, portraitIndex,player);
 }
 
 

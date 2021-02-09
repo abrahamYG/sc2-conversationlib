@@ -1,8 +1,8 @@
 include "Script/ConvUI/Modules/Transmission/header";
 
-void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
-	playergroup pg = PlayerGroupActive();
-	int player = PlayerGroupPlayer(pg,1);
+void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
+	playergroup pg = PlayerGroupSingle(player);
+	//int player = PlayerGroupPlayer(pg,1);
 	string Model = Character.Variations[0].Model;
 	transmissionsource TS = TransmissionSourceFromModel(Model);
 	int Portrait = libNtve_gf_CinematicPortrait(libNtve_ge_CinematicPortraitPosition_CenterLeft);
@@ -34,35 +34,35 @@ void ConvUI_CreateTransmissionLine(CConversationRef Conversation, SConversationL
 	TransmissionSendForPlayerSelect(pg,TS,Portrait,Actor,"Talk",Sound,Speaker,Subtitle,Duration, DurType,true,player,false);
 }
 
-void ConvUI_TransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index){
+void ConvUI_TransmissionLineCallback(CConversationRef Conversation, SConversationLineRef Line, CCharacterRef Character, int index, int player){
     TriggerDebugOutput(1,StringToText("Line: "+Line.Id),true);
-    ConvUI_CreateTransmissionLine(Conversation,Line,Character,index);
+    ConvUI_CreateTransmissionLine(Conversation,Line,Character,index,player);
     //ConvUI_DefaultLineCallback(Conversation,Line,Character,index);
 }
 
-void ConvUI_TransmissionWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index){
+void ConvUI_TransmissionWaitCallback(CConversationRef Conversation, SConversationWaitRef WaitRef, int index, int player){
     fixed Duration = IntToFixed(WaitRef.Duration)/1000;
     //TriggerDebugOutput(1,StringToText("Waiting: "+FixedToString(Duration,2)),true);
     //TriggerDebugOutput(1,StringToText("wait: "+WaitRef.Id),true);
     Wait(Duration,c_timeReal);
 }
 
-void ConvUI_TransmissionChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index){
+void ConvUI_TransmissionChoiceCallback(CConversationRef Conversation, SConversationChoiceRef Choice, CCharacterRef Character, int index, int player){
     TriggerDebugOutput(1,StringToText("Choice: "+Choice.Id),true);
     //TriggerDebugOutput(1,Choice.Text,true);
 }
 
-void ConvUI_TransmissionRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index){
+void ConvUI_TransmissionRunActionsCallback(CConversationRef Conversation, SConversationRunActionsRef RunActions, int index, int player){
     TriggerDebugOutput(1,StringToText("RunActions: "+RunActions.Id),true);
 }
-void ConvUI_TransmissionCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index){
+void ConvUI_TransmissionCommentCallback(CConversationRef Conversation, SConversationCommentRef Comment, int index, int player){
     TriggerDebugOutput(1,StringToText("Comment: "+Comment.Id),true);
 }
-void ConvUI_TransmissionJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index){
+void ConvUI_TransmissionJumpCallback(CConversationRef Conversation, SConversationJumpRef Jump, int index, int player){
     TriggerDebugOutput(1,StringToText("Jump: "+Jump.Id),true);
 }
 
-void ConvUI_TransmissionGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index){
+void ConvUI_TransmissionGroupCallback(CConversationRef Conversation, SConversationGroupRef Group, int index, int player){
     TriggerDebugOutput(1,StringToText("Group: "+Group.Id),true);
 }
 
